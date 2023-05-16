@@ -46,10 +46,10 @@ export const variants = {
 
 export const sizes = {
 	default: {
-		fontSize: '14px !important',
-		lineHeight: '38px !important',
-		height: '38px !important',
-		paddingLeft: '50px !important',
-		paddingRight: '50px !important',
+		fontSize: '14px',
+		lineHeight: '38px',
+		height: '38px',
+		paddingLeft: '50px',
+		paddingRight: '50px',
 	}
 };
