@@ -1,0 +1,59 @@
+export const variants = {
+	primary: {
+		bg: '#1F5AF6',
+		color: '#FFFFFF',
+		outline: 'none',
+		':hover:not(:disabled)': {
+			opacity: '.8',
+		},
+		':focus:not(:disabled)': {
+			bg: '#0031B2',
+		},
+		':active': {
+			bg: '#0031B2',
+		},
+		':disabled': {
+			bg: '#092C62',
+			color: '#B0BAC7',
+		},
+	},
+	transparent: {
+		bg: 'transparent',
+		color: 'text',
+		border: '1px solid',
+		borderColor: '#1F5AF6',
+		outline: 'none',
+		':hover:not(:disabled)': {
+			border: '1px solid',
+			borderColor: '#1F5AF6',
+			color: 'text',
+			opacity: '.8',
+		},
+		':focus:not(:disabled)': {
+			border: '1px solid',
+			borderColor: '#0031B2',
+		},
+		':active': {
+			border: '1px solid',
+			borderColor: '#0031B2',
+		},
+	},
+	success: {
+		bg: '#03A500',
+		color: '#FFFFFF',
+		outline: 'none',
+		':hover:not(:disabled)': {
+			opacity: '.8',
+		},
+	},
+};
+
+export const sizes = {
+	default: {
+		fontSize: '14px !important',
+		lineHeight: '38px !important',
+		height: '38px !important',
+		paddingLeft: '50px !important',
+		paddingRight: '50px !important',
+	}
+};
