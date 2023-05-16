@@ -1,0 +1,53 @@
+{
+  "hash": "83189fa2",
+  "browserHash": "2be5348d",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "819251a3",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "8f71ea26",
+      "needsInterop": true
+    },
+    "emotion-theming": {
+      "src": "../../node_modules/emotion-theming/dist/emotion-theming.browser.esm.js",
+      "file": "emotion-theming.js",
+      "fileHash": "4f36c4b5",
+      "needsInterop": false
+    },
+    "@waves.exchange/wx-react-uikit": {
+      "src": "../../node_modules/@waves.exchange/wx-react-uikit/dist/esm/index.js",
+      "file": "@waves__exchange_wx-react-uikit.js",
+      "fileHash": "7ff20d81",
+      "needsInterop": false
+    },
+    "react-modal": {
+      "src": "../../node_modules/react-modal/lib/index.js",
+      "file": "react-modal.js",
+      "fileHash": "1bb80b6f",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-L2EVNJ64": {
+      "file": "chunk-L2EVNJ64.js"
+    },
+    "chunk-JVFU7BZX": {
+      "file": "chunk-JVFU7BZX.js"
+    },
+    "chunk-LRZLQFQB": {
+      "file": "chunk-LRZLQFQB.js"
+    },
+    "chunk-LWNOQC5T": {
+      "file": "chunk-LWNOQC5T.js"
+    },
+    "chunk-HS7GO4I2": {
+      "file": "chunk-HS7GO4I2.js"
+    }
+  }
+}
