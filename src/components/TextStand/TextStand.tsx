@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Box, Flex } from '@waves.exchange/wx-react-uikit';
+import { Flex } from '@waves.exchange/wx-react-uikit';
 import { Text } from '../../uikit/Text/Text';
 
 export const TextStand: FC = () => {
