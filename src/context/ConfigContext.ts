@@ -1,19 +1,31 @@
 import { createContext } from 'react';
 
+export type TAssetConfig = { label: string; id: string };
+
 export type ConfigContextType = {
-	nodeUrl: string;
-	signerClientUrl: string;
-	explorerUrl: string;
-	dataServicesUrl: string;
-	iconServiceUrl: string;
+	apiUrl: {
+		balance: string,
+		wavesBalance: string,
+		assets: string,
+		assetsIcons: string,
+		rates: string,
+		nodeHeight: string,
+	},
+	contracts: {},
+	assets: Array<TAssetConfig>
 };
 
 export const ConfigContext = createContext<ConfigContextType>({
-    nodeUrl: '',
-    signerClientUrl: '',
-    explorerUrl: '',
-    dataServicesUrl: '',
-    iconServiceUrl: ''
+	apiUrl: {
+		balance: '',
+		wavesBalance: '',
+		assets: '',
+		assetsIcons: '',
+		rates: '',
+		nodeHeight: '',
+	},
+	contracts: {},
+	assets: []
 });
 
 ConfigContext.displayName = 'ConfigContext';

@@ -1,7 +1,18 @@
 export default {
-    nodeUrl: "https://nodes-testnet.wavesnodes.com",
-    signerClientUrl: "https://testnet.waves.exchange/signer",
-    explorerUrl: "https://testnet.wavesexplorer.com",
-    dataServicesUrl: "https://testnet.waves.exchange/api/v1",
-    iconServiceUrl: "https://testnet.waves.exchange/static/icons/assets"
+    apiUrl: {
+        balance: 'https://nodes-testnet.wavesnodes.com/addresses/balance',
+        wavesBalance: 'https://nodes-testnet.wavesnodes.com/addresses/balance/details',
+        assets: 'https://testnet.wx.network/api/v1/assets',
+        assetsIcons: 'https://testnet.wx.network/static/icons/assets',
+        rates: 'https://testnet.wx.network/api/v1/rates',
+        nodeHeight: 'https://nodes-testnet.wavesnodes.com/blocks/height',
+    },
+    contracts: {
+
+    },
+    assets: [
+        { label: 'WAVES', id: 'WAVES' },
+        { label: 'WAVESDLP', id: '' },
+        { label: 'XTN', id: '25FEqEjRkqK6yCkiT7Lz6SAYz7gUFCtxfCChnrVFD5AT' },
+    ]
 }

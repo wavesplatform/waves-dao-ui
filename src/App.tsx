@@ -6,6 +6,7 @@ import { TextStand } from './components/TextStand/TextStand';
 import configs from './configs';
 import theme from './theme';
 import { ThemeProvider } from 'emotion-theming';
+import { ButtonsStand } from './components/ButtonsStand/ButtonsStand';
 
 function App() {
     const config = import.meta.env.VITE_NETWORK === 'testnet' ? configs.testnet : configs.mainnet;
@@ -15,6 +16,7 @@ function App() {
             <ThemeProvider theme={theme}>
                 <Box>
                     Waves Dao
+                    <ButtonsStand />
                     <CheckboxStand />
                     <TextStand />
                 </Box>
