@@ -6,9 +6,6 @@ export const variants = {
 		':hover:not(:disabled)': {
 			opacity: '.8',
 		},
-		':focus:not(:disabled)': {
-			bg: '#0031B2',
-		},
 		':active': {
 			bg: '#0031B2',
 		},
@@ -29,11 +26,7 @@ export const variants = {
 			color: 'text',
 			opacity: '.8',
 		},
-		':focus:not(:disabled)': {
-			border: '1px solid',
-			borderColor: '#0031B2',
-		},
-		':active': {
+		':active:not(:disabled)': {
 			border: '1px solid',
 			borderColor: '#0031B2',
 		},
@@ -44,6 +37,9 @@ export const variants = {
 		outline: 'none',
 		':hover:not(:disabled)': {
 			opacity: '.8',
+		},
+		':active:not(:disabled)': {
+			bg: '#049001',
 		},
 	},
 };
