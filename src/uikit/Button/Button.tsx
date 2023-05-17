@@ -21,7 +21,7 @@ export type TButtonProps = BoxProps<
 	> &
 	ButtonSpecificProps;
 
-export const Button = styled(Box as BoxAsElement<'button', TButtonProps>)(
+export const Button = styled(Box as unknown as BoxAsElement<'button', TButtonProps>)(
     {
         "cursor": 'pointer',
         ':disabled': {
