@@ -29,7 +29,7 @@ const variants = {
     },
 };
 
-type TextProps = Omit<TextPropsKit, 'variant'> & { variant: keyof typeof variants };
+type TextProps = TextPropsKit & { variant: keyof typeof variants };
 
 export const Text: FC<TextProps> = ({ children, variant, ...props }) => {
     return (
