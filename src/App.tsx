@@ -14,6 +14,8 @@ import {
     AUTH_KEEPER_STATES,
     AuthModalProps,
 } from './components/modals/AuthModal/AuthModal';
+import { AuthProvider } from './context/AuthContext';
+import { AuthService } from './services/authService';
 
 function App() {
     const config =
@@ -21,28 +23,36 @@ function App() {
             ? configs.testnet
             : configs.mainnet;
 
+    const authService = new AuthService({
+        nodeUrl: config.apiUrl.node,
+        signerWebUrl: config.apiUrl.signerWeb,
+        signerCloudUrl: config.apiUrl.signerCloud
+    });
+
     return (
         <ConfigContextProvider value={config}>
             <ThemeProvider theme={theme}>
-                <Box>
-                    <Box
-                        onClick={() => {
-                            modalManager.openModal<AuthModalProps>(
-                                MODAL_NAMES.authModal,
-                                {
-                                    modalState: AUTH_KEEPER_STATES.signCustom,
-                                }
-                            );
-                        }}
-                    >
+                <AuthProvider value={authService}>
+                    <Box>
+                        <Box
+                            onClick={() => {
+                                modalManager.openModal<AuthModalProps>(
+                                    MODAL_NAMES.authModal,
+                                    {
+                                        modalState: AUTH_KEEPER_STATES.signCustom,
+                                    }
+                                );
+                            }}
+                        >
                         Waves Dao
+                        </Box>
+                        <ButtonsStand />
+                        <CheckboxStand />
+                        <TextStand />
+                        <DiagramStand />
                     </Box>
-                    <ButtonsStand />
-                    <CheckboxStand />
-                    <TextStand />
-                    <DiagramStand />
-                </Box>
-                <ModalContainer />
+                    <ModalContainer />
+                </AuthProvider>
             </ThemeProvider>
         </ConfigContextProvider>
     );
