@@ -25,7 +25,7 @@ const variants = {
     text2: {
         fontSize: '12px',
         lineHeight: '17px',
-        fontWeight: '400s',
+        fontWeight: '400',
     },
 };
 

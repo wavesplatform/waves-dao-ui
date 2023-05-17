@@ -7,9 +7,9 @@ export const CheckboxStand: FC = () => {
     return (
         <Flex flexDirection="column" bg="#404040">
             <Flex mb={20} p="20px">
-                <Box mr="20px">
+                <Box sx={{ mr: '20px' }}>
                     <Checkbox
-                        controlBoxStyles={{ marginRight: '8px' }}
+                        controlBoxStyles={{ baseStyles: { marginRight: '8px' } }}
                         isChecked={checked}
                         isInvalid={false}
                         onChange={(e) => setChecked(e.target.checked)}
@@ -17,9 +17,9 @@ export const CheckboxStand: FC = () => {
                         Checkbox default
                     </Checkbox>
                 </Box>
-                <Box mr="20px">
+                <Box sx={{ mr: '20px' }}>
                     <Checkbox
-                        controlBoxStyles={{ marginRight: '8px' }}
+                        controlBoxStyles={{ baseStyles: { marginRight: '8px' } }}
                         isChecked={checked}
                         isInvalid={true}
                         onChange={(e) => setChecked(e.target.checked)}
@@ -27,9 +27,9 @@ export const CheckboxStand: FC = () => {
                         Checkbox error
                     </Checkbox>
                 </Box>
-                <Box mr="20px">
+                <Box sx={{ mr: '20px' }}>
                     <Checkbox
-                        controlBoxStyles={{ marginRight: '8px' }}
+                        controlBoxStyles={{ baseStyles: { marginRight: '8px' } }}
                         isChecked={checked}
                         isInvalid={false}
                         isDisabled={true}
