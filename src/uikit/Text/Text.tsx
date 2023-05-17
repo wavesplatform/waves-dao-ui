@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { Text as TextKit, TextProps as TextPropsKit } from '@waves.exchange/wx-react-uikit';
+import { FC } from 'react';
+import { Text as TextKit, TTextProps as TextPropsKit } from '@waves.exchange/wx-react-uikit';
 
 const variants = {
     heading1: {
