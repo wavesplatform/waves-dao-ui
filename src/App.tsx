@@ -12,8 +12,7 @@ import { MODAL_NAMES } from './components/ModalContainer/MODAL_NAMES';
 import { DiagramStand } from './components/DiagramStand/DiagramStand';
 import {
     AUTH_KEEPER_STATES,
-    AuthModalProps,
-} from './components/modals/AuthModal/AuthModal';
+} from './components/modals/KeeperAuthModal/KeeperAuthModal';
 
 function App() {
     const config =
@@ -27,12 +26,7 @@ function App() {
                 <Box>
                     <Box
                         onClick={() => {
-                            modalManager.openModal<AuthModalProps>(
-                                MODAL_NAMES.authModal,
-                                {
-                                    modalState: AUTH_KEEPER_STATES.signCustom,
-                                }
-                            );
+                            modalManager.openModal(MODAL_NAMES.authModal);
                         }}
                     >
                         Waves Dao

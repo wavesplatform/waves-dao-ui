@@ -2,7 +2,6 @@ import * as React from "react";
 import { Modal, ModalProps } from "./Modal";
 import { Box, Icon, iconClose } from "@waves.exchange/wx-react-uikit";
 import { modalManager } from "../../services/modalManager";
-import { MODAL_NAMES } from "../ModalContainer/MODAL_NAMES";
 
 export const ModalStyled: React.FC<ModalProps> = ({ children, ...props }) => {
     return (
@@ -14,10 +13,11 @@ export const ModalStyled: React.FC<ModalProps> = ({ children, ...props }) => {
                 }
             >
                 <Icon
+                    cursor='pointer'
                     icon={iconClose}
                     sx={{ float: "right" }}
                     onClick={() =>
-                        modalManager.closeModal(MODAL_NAMES.authModal, 'close')
+                        modalManager.closeModal(props.modalName, 'close')
                     }
                 />
                 <Box>{children}</Box>

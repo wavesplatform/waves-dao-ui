@@ -55,14 +55,20 @@ class ModalManager {
         });
     };
 
-    closeModal = (modalName: TModalName, closeType: TCloseEventType, fadeDuration = 200): void => {
-        this.closeSignal.dispatch({ modalName, fadeDuration, closeType });
-        this.openedModals = uniq(this.openedModals.filter(_modalName => modalName !== _modalName));
+    closeModal = (modalName: TModalName, closeType: TCloseEventType, fadeDuration = 200): Promise<void> => {
+        return new Promise((res) => {
+            this.closeSignal.dispatch({ modalName, fadeDuration, closeType });
+            this.openedModals = uniq(this.openedModals.filter(_modalName => modalName !== _modalName));
+            setTimeout(() => {
+                res();
+            }, fadeDuration);
+        });
+
     };
 
     abortAll = (): void => {
         this.closeAllSignal.dispatch('');
-    }
+    };
 
 }
 
