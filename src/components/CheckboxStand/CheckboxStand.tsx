@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Checkbox } from '../../uikit/Checkbox/Checkbox';
 

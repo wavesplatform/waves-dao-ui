@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
-import { Checkbox as CheckboxKit, CheckboxProps } from '@waves.exchange/wx-react-uikit';
+import { FC } from 'react';
+import { Checkbox as CheckboxKit, ICheckboxProps } from '@waves.exchange/wx-react-uikit';
 
-export const Checkbox: FC<CheckboxProps> = ({ children, controlBoxStyles, ...props}) => {
+export const Checkbox: FC<ICheckboxProps> = ({ children, controlBoxStyles, ...props}) => {
 
     return (
         <CheckboxKit

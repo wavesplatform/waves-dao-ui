@@ -29,6 +29,7 @@
     "plugin:react-hooks/recommended"
   ],
   "rules": {
+    "react/react-in-jsx-scope": "off",
     "quote-props": [
       "error",
       "consistent-as-needed"
