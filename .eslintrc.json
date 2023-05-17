@@ -52,7 +52,19 @@
     "react/jsx-uses-react": "warn",
     "react/jsx-uses-vars": "warn",
     "react/no-danger-with-children": "warn",
-    "indent": ["error", 4],
+    "indent": [
+      "error",
+      4,
+      {
+        "SwitchCase": 1,
+        "FunctionDeclaration": {
+          "parameters": "first"
+        },
+        "FunctionExpression": {
+          "parameters": "first"
+        }
+      }
+    ],
     "max-len": [
       "error",
       {
