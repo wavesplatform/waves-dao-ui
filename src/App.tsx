@@ -1,5 +1,7 @@
 import { ConfigContextProvider } from './context/ConfigContext';
 import { Box } from '@waves.exchange/wx-react-uikit';
+import { CheckboxStand } from './components/CheckboxStand/CheckboxStand';
+import { TextStand } from './components/TextStand/TextStand';
 import configs from './configs';
 import theme from './theme';
 import { ThemeProvider } from 'emotion-theming';
@@ -19,6 +21,8 @@ function App() {
                         modalManager.openModal(MODAL_NAMES.authModal, undefined, 500);
                     }}>Waves Dao</Box>
                     <ButtonsStand />
+                    <CheckboxStand />
+                    <TextStand />
                 </Box>
                 <ModalContainer />
             </ThemeProvider>
