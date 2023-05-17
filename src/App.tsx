@@ -9,6 +9,7 @@ import { ButtonsStand } from './components/ButtonsStand/ButtonsStand';
 import { ModalContainer } from './components/ModalContainer/ModalContainer';
 import { modalManager } from './services/modalManager';
 import { MODAL_NAMES } from './components/ModalContainer/MODAL_NAMES';
+import { DiagramStand } from './components/DiagramStand/DiagramStand';
 
 function App() {
     const config = import.meta.env.VITE_NETWORK === 'testnet' ? configs.testnet : configs.mainnet;
@@ -23,6 +24,7 @@ function App() {
                     <ButtonsStand />
                     <CheckboxStand />
                     <TextStand />
+                    <DiagramStand />
                 </Box>
                 <ModalContainer />
             </ThemeProvider>
