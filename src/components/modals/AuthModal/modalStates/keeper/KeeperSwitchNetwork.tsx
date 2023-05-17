@@ -3,25 +3,25 @@ import * as React from "react";
 import { AuthTemplate, AuthTemplateProps } from "../../components/AuthTemplate";
 import { keeperCalm } from './icons';
 
-interface KeeperSignCustomProps {
+interface KeeperSwitchNetworkProps {
     onRetry: AuthTemplateProps["onRetry"];
 }
 
-export const KeeperSignCustom: React.FC<KeeperSignCustomProps> = ({
+export const KeeperSwitchNetwork: React.FC<KeeperSwitchNetworkProps> = ({
     onRetry,
 }) => {
     return (
         <AuthTemplate
             icon={keeperCalm}
             title={{
-                i18key: "keeperSignCustomTitle",
+                i18key: "keeperSwitchNetworkTitle",
             }}
             text={{
-                i18key: "keeperSignCustomText",
+                i18key: "keeperSwitchNetworkText",
             }}
             onRetry={onRetry}
         />
     );
 };
 
-KeeperSignCustom.displayName = "KeeperSignCustom";
+KeeperSwitchNetwork.displayName = "KeeperSwitchNetwork";

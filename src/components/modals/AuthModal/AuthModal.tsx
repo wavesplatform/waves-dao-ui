@@ -4,9 +4,17 @@ import {  ModalProps } from '../../Modal/Modal';
 import { Box } from '@waves.exchange/wx-react-uikit';
 import { ModalStyled } from '../../Modal/ModalStyled';
 import { KeeperSignCustom } from './modalStates/keeper/KeeperSignCustom';
+import { KeeperSwitchNetwork } from './modalStates/keeper/KeeperSwitchNetwork';
+import { KeeperConnectionRejected } from './modalStates/keeper/KeeperConnectionRejected';
+import { KeeperNoAccounts } from './modalStates/keeper/KeeperNoAccounts';
+import { KeeperNoLogin } from './modalStates/keeper/KeeperNoLogin';
 
 export enum AUTH_KEEPER_STATES {
-    signCustom = 'signCustom'
+    signCustom = 'signCustom',
+    switchNetwork = 'switchNetwork',
+    connectionRejected = 'connectionRejected',
+    noAccounts = 'noAccounts',
+    noLogin = 'noLogin'
 }
 
 export interface AuthModalProps {
@@ -25,6 +33,14 @@ export const AuthModal: React.FC<AuthModalProps & ModalProps> = ({ modalState, w
                 switch (modalState) {
                     case AUTH_KEEPER_STATES.signCustom:
                         return <KeeperSignCustom onRetry={() => { console.log('retry'); }} />;
+                    case AUTH_KEEPER_STATES.switchNetwork:
+                        return <KeeperSwitchNetwork onRetry={() => { console.log('retry'); }} />;
+                    case AUTH_KEEPER_STATES.connectionRejected:
+                        return <KeeperConnectionRejected onRetry={() => { console.log('retry'); }} />;
+                    case AUTH_KEEPER_STATES.noAccounts:
+                        return <KeeperNoAccounts onRetry={() => { console.log('retry'); }} />;
+                    case AUTH_KEEPER_STATES.noLogin:
+                        return <KeeperNoLogin onRetry={() => { console.log('retry'); }} />;
                     default:
                         return <Box>something went wrong</Box>;
                 }

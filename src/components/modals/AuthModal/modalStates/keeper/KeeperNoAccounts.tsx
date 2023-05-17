@@ -1,27 +1,27 @@
 
 import * as React from "react";
 import { AuthTemplate, AuthTemplateProps } from "../../components/AuthTemplate";
-import { keeperCalm } from './icons';
+import { keeperRed } from './icons';
 
-interface KeeperSignCustomProps {
+interface KeeperNoAccountsProps {
     onRetry: AuthTemplateProps["onRetry"];
 }
 
-export const KeeperSignCustom: React.FC<KeeperSignCustomProps> = ({
+export const KeeperNoAccounts: React.FC<KeeperNoAccountsProps> = ({
     onRetry,
 }) => {
     return (
         <AuthTemplate
-            icon={keeperCalm}
+            icon={keeperRed}
             title={{
-                i18key: "keeperSignCustomTitle",
+                i18key: "keeperNoAccountsTitle",
             }}
             text={{
-                i18key: "keeperSignCustomText",
+                i18key: "keeperNoAccountsText",
             }}
             onRetry={onRetry}
         />
     );
 };
 
-KeeperSignCustom.displayName = "KeeperSignCustom";
+KeeperNoAccounts.displayName = "KeeperNoAccounts";
