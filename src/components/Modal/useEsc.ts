@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { modalManager } from '../../services/modalManager';
+import { modalManager, TModalName } from '../../services/modalManager';
 
-export const useEscape = (hasESCOut: boolean, modalName: modalManager.TModalName): void => {
+export const useEscape = (hasESCOut: boolean, modalName: TModalName): void => {
 
     React.useEffect(() => {
         function onkeydown(evt): void {

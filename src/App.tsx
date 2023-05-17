@@ -1,4 +1,3 @@
-import React from 'react';
 import { ConfigContextProvider } from './context/ConfigContext';
 import { Box } from '@waves.exchange/wx-react-uikit';
 import configs from './configs';

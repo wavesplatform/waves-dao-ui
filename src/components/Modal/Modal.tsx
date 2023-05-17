@@ -14,7 +14,7 @@ export interface ModalProps {
     willOpen: boolean;
     willClose: boolean;
     children: React.ReactNode;
-    variant: TVariant;
+    variant?: TVariant;
     hasClickOut?: boolean;
     hasESCOut?: boolean;
     hideBg?: boolean;
@@ -107,6 +107,9 @@ export const Modal: React.FC<ModalProps> = ({
 
     return (
         <Box
+            /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+            /*
+            // @ts-ignore */
             target="_back_"
             onMouseUp={onMouseUp}
             onMouseDown={onMouseDown}
@@ -116,7 +119,7 @@ export const Modal: React.FC<ModalProps> = ({
                 userSelect: isVisible ? 'auto' : 'none',
                 transition: `${fadeLength}ms`,
                 backdropFilter: 'blur(10px)'
-            }}
+            } as any}
             opacity={isVisible ? 1 : 0}
         >
             <Box

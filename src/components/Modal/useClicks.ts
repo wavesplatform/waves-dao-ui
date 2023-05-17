@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { modalManager } from '../../services/modalManager';
+import { modalManager, TModalName } from '../../services/modalManager';
 
 
-export const useClicks = (hasClickOut: boolean, modalName: modalManager.TModalName): {
+export const useClicks = (hasClickOut: boolean, modalName: TModalName): {
     onMouseDown: (e) => void;
     onMouseUp: (e) => void;
 } => {
