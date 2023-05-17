@@ -10,17 +10,27 @@ import { ModalContainer } from './components/ModalContainer/ModalContainer';
 import { modalManager } from './services/modalManager';
 import { MODAL_NAMES } from './components/ModalContainer/MODAL_NAMES';
 import { DiagramStand } from './components/DiagramStand/DiagramStand';
+import {
+    AUTH_KEEPER_STATES,
+} from './components/modals/KeeperAuthModal/KeeperAuthModal';
 
 function App() {
-    const config = import.meta.env.VITE_NETWORK === 'testnet' ? configs.testnet : configs.mainnet;
+    const config =
+        import.meta.env.VITE_NETWORK === "testnet"
+            ? configs.testnet
+            : configs.mainnet;
 
     return (
         <ConfigContextProvider value={config}>
             <ThemeProvider theme={theme}>
                 <Box>
-                    <Box onClick={() => {
-                        modalManager.openModal(MODAL_NAMES.authModal, undefined, 500);
-                    }}>Waves Dao</Box>
+                    <Box
+                        onClick={() => {
+                            modalManager.openModal(MODAL_NAMES.authModal);
+                        }}
+                    >
+                        Waves Dao
+                    </Box>
                     <ButtonsStand />
                     <CheckboxStand />
                     <TextStand />
@@ -29,7 +39,7 @@ function App() {
                 <ModalContainer />
             </ThemeProvider>
         </ConfigContextProvider>
-    )
+    );
 }
 
-export default App
+export default App;
