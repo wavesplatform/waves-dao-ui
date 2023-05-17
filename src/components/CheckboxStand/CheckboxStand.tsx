@@ -13,6 +13,7 @@ export const CheckboxStand: FC = () => {
                         isChecked={checked}
                         isInvalid={false}
                         onChange={(e) => setChecked(e.target.checked)}
+                        color="text"
                     >
                         Checkbox default
                     </Checkbox>
@@ -23,6 +24,7 @@ export const CheckboxStand: FC = () => {
                         isChecked={checked}
                         isInvalid={true}
                         onChange={(e) => setChecked(e.target.checked)}
+                        color="text"
                     >
                         Checkbox error
                     </Checkbox>
@@ -34,6 +36,7 @@ export const CheckboxStand: FC = () => {
                         isInvalid={false}
                         isDisabled={true}
                         onChange={(e) => setChecked(e.target.checked)}
+                        color="text"
                     >
                         Checkbox disabled
                     </Checkbox>
