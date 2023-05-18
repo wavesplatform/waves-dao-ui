@@ -1,11 +1,11 @@
-import { Signer, Provider, UserData } from '@waves/signer';
-import { ProviderKeeper } from '@waves/provider-keeper';
-import { ProviderCloud } from '@waves.exchange/provider-cloud';
-import { ProviderLedger } from '@waves/provider-ledger';
-import { ProviderWeb } from '@waves.exchange/provider-web';
+import { Signer, Provider, UserData } from "@waves/signer";
+import MobileDetect from "mobile-detect";
+import { isKeeperInstalled, ProviderKeeper } from "@waves/provider-keeper";
+import { ProviderCloud } from "@waves.exchange/provider-cloud";
+import { ProviderLedger } from "@waves/provider-ledger";
+import { ProviderWeb } from "@waves.exchange/provider-web";
 
-
-export type TProvider = 'web' | 'cloud' | 'ledger' | 'keeper'
+export type TProvider = "web" | "cloud" | "ledger" | "keeper" | "metamask";
 
 interface AuthServiceParams {
     nodeUrl: string;
@@ -13,8 +13,13 @@ interface AuthServiceParams {
     signerCloudUrl: string;
 }
 
-export class AuthService {
+const canIUseLedger = () => {
+    const isChrome = !!(window as any).chrome;
+    const mb = new MobileDetect(window.navigator.userAgent);
+    return isChrome && mb.phone() == null && mb.tablet() == null;
+};
 
+export class AuthService {
     public signer: Signer;
     public user?: UserData;
 
@@ -22,11 +27,7 @@ export class AuthService {
     private readonly signerWebUrl: string;
     private readonly signerCloudUrl: string;
 
-    constructor({
-        nodeUrl,
-        signerWebUrl,
-        signerCloudUrl
-    }: AuthServiceParams) {
+    constructor({ nodeUrl, signerWebUrl, signerCloudUrl }: AuthServiceParams) {
         this.signer = new Signer({
             NODE_URL: nodeUrl,
         });
@@ -36,8 +37,10 @@ export class AuthService {
 
     public login(providerId?: TProvider): Promise<void> {
         return this.setProvider(providerId)
-            .then(() => this.provider?.login())
-            .then(userData => {
+            .then(() => {
+                return this.provider?.login();
+            })
+            .then((userData) => {
                 this.user = userData;
             });
     }
@@ -46,21 +49,22 @@ export class AuthService {
         return !!this.user;
     }
 
-    private setProvider(providerId?: TProvider): Promise<void> {
+    private async setProvider(providerId?: TProvider): Promise<void> {
+        await this.checkDevice(providerId);
         switch (providerId) {
-            case 'web':
+            case "web":
                 this.provider = new ProviderWeb(this.signerWebUrl, true);
                 break;
 
-            case 'cloud':
+            case "cloud":
                 this.provider = new ProviderCloud(this.signerCloudUrl, true);
                 break;
 
-            case 'ledger':
+            case "ledger":
                 this.provider = new ProviderLedger();
                 break;
 
-            case 'keeper':
+            case "keeper":
                 this.provider = new ProviderKeeper();
                 break;
 
@@ -69,5 +73,23 @@ export class AuthService {
         }
 
         return this.signer.setProvider(this.provider);
+    }
+
+    private checkDevice(providerId: TProvider): Promise<void> {
+        if (providerId === "metamask") {
+            return (window as any).Metamask // todo check
+                ? Promise.resolve()
+                : Promise.reject(new Error(`${providerId} is not installed`));
+        } else if (providerId === "keeper") {
+            return window.WavesKeeper
+                ? Promise.resolve()
+                : Promise.reject(new Error(`${providerId} is not installed`));
+        } else if (providerId === "ledger") {
+            canIUseLedger()
+                ? Promise.resolve()
+                : Promise.reject(new Error(`${providerId} is not installed`));
+        } else {
+            Promise.resolve();
+        }
     }
 }
