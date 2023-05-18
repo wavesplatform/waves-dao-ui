@@ -22,10 +22,6 @@ export const AuthModal: React.FC<ModalProps> = (props) => {
         login();
     };
 
-    const selectKeeper = () => {
-        setSelectedProvider("keeper");
-    };
-
     return (
         <ModalStyled {...props}>
             <Box>
@@ -35,7 +31,7 @@ export const AuthModal: React.FC<ModalProps> = (props) => {
                 <AuthItem
                     icon={keeper}
                     text={{ i18key: "keeper" }}
-                    onSelect={selectKeeper}
+                    onSelect={() => setSelectedProvider('keeper')}
                 />
             </Box>
             <Checkbox
