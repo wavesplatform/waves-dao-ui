@@ -10,12 +10,11 @@ import { ModalContainer } from './components/ModalContainer/ModalContainer';
 import { modalManager } from './services/modalManager';
 import { MODAL_NAMES } from './components/ModalContainer/MODAL_NAMES';
 import { DiagramStand } from './components/DiagramStand/DiagramStand';
-import {
-    AUTH_KEEPER_STATES,
-    AuthModalProps,
-} from './components/modals/AuthModal/AuthModal';
 import { AuthProvider } from './context/AuthContext';
 import { AuthService } from './services/authService';
+import { FeeStand } from './components/FeeStand/FeeStand';
+import { HelpStand } from './components/HelpStand/HelpStand';
+import { TooltipStand } from './components/TooltipStand/TooltipStand';
 
 function App() {
     const config =
@@ -36,12 +35,7 @@ function App() {
                     <Box>
                         <Box
                             onClick={() => {
-                                modalManager.openModal<AuthModalProps>(
-                                    MODAL_NAMES.authModal,
-                                    {
-                                        modalState: AUTH_KEEPER_STATES.signCustom,
-                                    }
-                                );
+                                modalManager.openModal(MODAL_NAMES.authModal);
                             }}
                         >
                         Waves Dao
@@ -50,6 +44,9 @@ function App() {
                         <CheckboxStand />
                         <TextStand />
                         <DiagramStand />
+                        <FeeStand />
+                        <HelpStand />
+                        <TooltipStand />
                     </Box>
                     <ModalContainer />
                 </AuthProvider>

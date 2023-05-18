@@ -1,6 +1,6 @@
 
 import * as React from "react";
-import { AuthTemplate, AuthTemplateProps } from "../../components/AuthTemplate";
+import { AuthTemplate, AuthTemplateProps } from "../components/AuthTemplate";
 import { keeperRed } from './icons';
 
 interface KeeperConnectionRejectedProps {
