@@ -26,9 +26,11 @@
     "plugin:react/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "prettier"
   ],
   "rules": {
+    "semi": [2, "always"],
     "react/react-in-jsx-scope": "off",
     "quote-props": [
       "error",

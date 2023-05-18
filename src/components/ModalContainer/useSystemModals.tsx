@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { TState } from './ModalContainer';
 import { MODAL_NAMES } from './MODAL_NAMES';
+import { KeeperAuthModal } from '../modals/KeeperAuthModal/KeeperAuthModal';
 import { AuthModal } from '../modals/AuthModal/AuthModal';
 
 const modals = {
-    [MODAL_NAMES.authModal]: AuthModal
+    [MODAL_NAMES.authModal]: AuthModal,
+    [MODAL_NAMES.keeperAuth]: KeeperAuthModal,
 };
 
 export const useSystemModals = (modalsState: TState): { Component: React.FC; props: any }[] => {
