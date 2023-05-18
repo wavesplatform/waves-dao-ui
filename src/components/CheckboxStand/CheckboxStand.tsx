@@ -7,12 +7,13 @@ export const CheckboxStand: FC = () => {
     return (
         <Flex flexDirection="column" bg="#404040">
             <Flex mb={20} p="20px">
-                <Box sx={{ mr: '20px' }}>
+                <Box mr={20}>
                     <Checkbox
                         controlBoxStyles={{ baseStyles: { marginRight: '8px' } }}
                         isChecked={checked}
                         isInvalid={false}
                         onChange={(e) => setChecked(e.target.checked)}
+                        color="text"
                     >
                         Checkbox default
                     </Checkbox>
@@ -23,6 +24,7 @@ export const CheckboxStand: FC = () => {
                         isChecked={checked}
                         isInvalid={true}
                         onChange={(e) => setChecked(e.target.checked)}
+                        color="text"
                     >
                         Checkbox error
                     </Checkbox>
@@ -34,6 +36,7 @@ export const CheckboxStand: FC = () => {
                         isInvalid={false}
                         isDisabled={true}
                         onChange={(e) => setChecked(e.target.checked)}
+                        color="text"
                     >
                         Checkbox disabled
                     </Checkbox>

@@ -32,7 +32,7 @@ class ModalManager {
     public modalWasClosed = new Signal<TCloseMessage>();
     public openedModals: TModalName[] = [];
 
-    openModal = (modalName: TModalName, props?: any, fadeDuration = 200): Promise<TCloseEventType> => {
+    openModal = <T>(modalName: TModalName, props?: T, fadeDuration = 200): Promise<TCloseEventType> => {
         this.openSignal.dispatch({ modalName, props, fadeDuration });
         if (this.openedModals.includes(modalName)) {
             return Promise.reject(`${modalName} is already open`);
@@ -55,14 +55,20 @@ class ModalManager {
         });
     };
 
-    closeModal = (modalName: TModalName, closeType: TCloseEventType, fadeDuration = 200): void => {
-        this.closeSignal.dispatch({ modalName, fadeDuration, closeType });
-        this.openedModals = uniq(this.openedModals.filter(_modalName => modalName !== _modalName));
+    closeModal = (modalName: TModalName, closeType: TCloseEventType, fadeDuration = 200): Promise<void> => {
+        return new Promise((res) => {
+            this.closeSignal.dispatch({ modalName, fadeDuration, closeType });
+            this.openedModals = uniq(this.openedModals.filter(_modalName => modalName !== _modalName));
+            setTimeout(() => {
+                res();
+            }, fadeDuration);
+        });
+
     };
 
     abortAll = (): void => {
         this.closeAllSignal.dispatch('');
-    }
+    };
 
 }
 
