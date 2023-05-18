@@ -13,6 +13,9 @@ import { DiagramStand } from './components/DiagramStand/DiagramStand';
 import {
     AUTH_KEEPER_STATES,
 } from './components/modals/KeeperAuthModal/KeeperAuthModal';
+import { FeeStand } from './components/FeeStand/FeeStand';
+import { HelpStand } from './components/HelpStand/HelpStand';
+import { TooltipStand } from './components/TooltipStand/TooltipStand';
 
 function App() {
     const config =
@@ -35,6 +38,9 @@ function App() {
                     <CheckboxStand />
                     <TextStand />
                     <DiagramStand />
+                    <FeeStand />
+                    <HelpStand />
+                    <TooltipStand />
                 </Box>
                 <ModalContainer />
             </ThemeProvider>
