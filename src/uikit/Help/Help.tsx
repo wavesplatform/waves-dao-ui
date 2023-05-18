@@ -1,12 +1,18 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as React from "react";
 import { Box, BoxProps, Help as HelpKit } from "@waves.exchange/wx-react-uikit";
 
 type TWrapperHelp = BoxProps & {
-  tooltipAlign?: "left" | "center" | "right" | "auto";
-  direction?: "top" | "bottom" | "left" | "right" | "auto";
+    tooltipAlign?: "left" | "center" | "right" | "auto";
+    direction?: "top" | "bottom" | "left" | "right" | "auto";
 };
 
-export const Help: React.FC<TWrapperHelp> = ({ children, tooltipAlign = "left", direction = "bottom", ...rest }) => {
+export const Help: React.FC<TWrapperHelp> = ({
+    children,
+    tooltipAlign = "left",
+    direction = "bottom",
+    ...rest
+}) => {
     const { sx, ...restProps } = rest;
     return (
         <Box
@@ -16,9 +22,14 @@ export const Help: React.FC<TWrapperHelp> = ({ children, tooltipAlign = "left", 
                 },
                 ...(sx as Record<string, any>),
             }}
-            {...restProps}
+            {...(restProps as Record<string, any>)}
         >
-            <HelpKit colors={{ active: "#B0BAC7" }} direction={direction} align={tooltipAlign}>
+            {/* @ts-ignore */}
+            <HelpKit
+                colors={{ active: "#B0BAC7" }}
+                direction={direction}
+                align={tooltipAlign}
+            >
                 {children}
             </HelpKit>
         </Box>

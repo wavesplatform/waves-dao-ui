@@ -11,7 +11,7 @@ export const WrapperTooltip: React.FC<BoxProps> = ({ children, ...rest }) => {
                 },
                 ...(sx as Record<string, any>),
             }}
-            {...restProps}
+            {...(restProps as Record<string, any>)}
         >
             {children}
         </Box>
