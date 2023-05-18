@@ -1,6 +1,7 @@
 import { FC, memo, ReactNode } from "react";
 import { Box, ExternalLink, Flex } from "@waves.exchange/wx-react-uikit";
 import { Text } from '../../../uikit/Text/Text';
+import externalLinkUrl from '/src/img/external-link.png';
 
 export const ExternalLinkRow: FC<{ href: string; children: ReactNode }> = memo(({ href, children }) => {
     return (
@@ -29,7 +30,7 @@ export const ExternalLinkRow: FC<{ href: string; children: ReactNode }> = memo((
                     <Box
                         width="18px"
                         height="18px"
-                        backgroundImage="url(./src/img/external-link.png)"
+                        backgroundImage={`url(${externalLinkUrl})`}
                         sx={{
                             ml: '12px'
                         }}

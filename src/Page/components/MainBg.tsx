@@ -1,10 +1,13 @@
 import { Box } from '@waves.exchange/wx-react-uikit';
 import { FC, memo } from 'react';
+import mainBgUrl from '/src/img/mainbg.png';
+import shadowTopUrl from '/src/img/shadow-top.png';
+import shadowBottomUrl from '/src/img/shadow-bottom.png';
 
 export const MainBg: FC = memo(() => {
     return (
         <Box
-            backgroundImage="url(./src/img/main-bg.png)"
+            backgroundImage={`url(${mainBgUrl})`}
             backgroundSize="100% 100%"
             width="100%"
             height="100%"
@@ -13,7 +16,7 @@ export const MainBg: FC = memo(() => {
             position="absolute"
         >
             <Box
-                backgroundImage="url(./src/img/shadow-top.png)"
+                backgroundImage={`url(${shadowTopUrl})`}
                 backgroundSize="100% 100%"
                 position="absolute"
                 top="0"
@@ -22,7 +25,7 @@ export const MainBg: FC = memo(() => {
                 height={['30%', '80%']}
             />
             <Box
-                backgroundImage="url(./src/img/shadow-bottom.png)"
+                backgroundImage={`url(${shadowBottomUrl})`}
                 backgroundSize="100% 100%"
                 position="absolute"
                 bottom="0"

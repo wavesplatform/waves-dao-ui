@@ -4,6 +4,7 @@ import { Trans } from "@waves/ui-translator";
 import { Text } from '../../../uikit/Text/Text';
 import { Button } from "../../../uikit/Button/Button";
 import { ExternalLinksBlock } from "./ExternalLinksBlock";
+import logoUrl from '/src/img/logo.png';
 
 export const LeftSide: FC = memo(() => {
     return (
@@ -22,7 +23,7 @@ export const LeftSide: FC = memo(() => {
                 <Box
                     width={['180px', '300px']}
                     height={['20px', '30px']}
-                    backgroundImage="url(./src/img/logo.png)"
+                    backgroundImage={`url(${logoUrl})`}
                     backgroundSize="100% 100%"
                     sx={{
                         mb: '24px'
