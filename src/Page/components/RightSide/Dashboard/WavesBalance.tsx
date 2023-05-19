@@ -30,7 +30,7 @@ export const WavesBalance: FC = memo(() => {
                 />
                 <Box>
                     <Text as="div" variant="text2" color="text">
-                        <Trans i18key="wavesBalance" />
+                        <Trans i18key="assetBalance" i18Params={{ assetName: 'WAVES' }} />
                     </Text>
                     <Flex>
                         <Text as="div" variant="text1" color="wdtextsec" mr="4px">
@@ -44,7 +44,7 @@ export const WavesBalance: FC = memo(() => {
             </Flex>
             <Flex>
                 <Button variant="transparent" mr="8px" sx={{ whiteSpace: 'nowrap', px: ['32px !important', '50px !important' ] }}>
-                    <Trans i18key="getWaves" />
+                    <Trans i18key="getToken" i18Params={{ assetName: 'WAVES' }} />
                 </Button>
                 <Button variant="primary" px={['32px !important', '50px !important']}>
                     <Trans i18key="deposit" />

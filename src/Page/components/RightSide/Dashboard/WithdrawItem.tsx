@@ -30,7 +30,7 @@ export const WithdrawItem: FC<{ unlocked: boolean }> = memo(({ unlocked }) => {
                 {unlocked ?
                     null :
                     <Text as="div" variant="text2" color="text" textAlign={['center', 'initial']}>
-                        <Trans i18key="willBeUnlocked" />
+                        <Trans i18key="willBeUnlocked" i18Params={{ assetName: 'WAVES' }} />
                     </Text>
                 }
                 <Flex alignItems="center" justifyContent={['center', 'initial']}>

@@ -9,7 +9,7 @@ export const InfoBlock: FC = memo(() => {
             <Flex alignItems={[null, 'center']} mb="16px" flexDirection={['column', 'row']}>
                 <Flex mb="4px">
                     <Text as="div" color="wdtextsec" variant="text1" mr="4px">
-                        <Trans i18key="wavesPrice" />
+                        <Trans i18key="tokenPrice" i18Params={{ assetName: 'WAVES' }} />
                     </Text>
                     <Text as="div" color="text" variant="text1">
                         {`$2.16`}
@@ -27,7 +27,7 @@ export const InfoBlock: FC = memo(() => {
                 />
                 <Flex mb="4px">
                     <Text as="div" color="wdtextsec" variant="text1" mr="4px">
-                        <Trans i18key="lpPrice" />
+                        <Trans i18key="lpPrice" i18Params={{ assetName: 'WAVESDLP' }} />
                     </Text>
                     <Text as="div" color="text" variant="text1" mr="4px">
                         {`0.99 WAVES`}

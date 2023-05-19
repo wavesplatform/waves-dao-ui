@@ -29,7 +29,7 @@ export const LpBalance: FC = memo(() => {
                     />
                     <Box>
                         <Text as="div" variant="text2" color="wdtextsec">
-                            <Trans i18key="wavesBalance" />
+                            <Trans i18key="assetBalance" i18Params={{ assetName: 'WAVES' }} />
                         </Text>
                         <Flex alignItems="center" justifyContent={['center', 'initial']}>
                             <Text as="div" variant="text1" color="text" mr="4px">

@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { ITransProps, Trans } from '@waves/ui-translator';
-import { IIcon } from '@waves.exchange/wx-react-uikit/dist/esm/components/Icon/Icon';
-import { Flex, Icon } from '@waves.exchange/wx-react-uikit';
-import { Text } from '../../../../uikit/Text/Text';
-import { Button } from '../../../../uikit/Button/Button';
+import * as React from "react";
+import { ITransProps, Trans } from "@waves/ui-translator";
+import { IIcon } from "@waves.exchange/wx-react-uikit/dist/esm/components/Icon/Icon";
+import { Flex, Icon } from "@waves.exchange/wx-react-uikit";
+import { Text } from "../../../../uikit/Text/Text";
+import { Button } from "../../../../uikit/Button/Button";
 
 export interface AuthTemplateProps {
     icon: IIcon;
@@ -12,25 +12,26 @@ export interface AuthTemplateProps {
     onRetry?: () => void;
 }
 
-export const AuthTemplate: React.FC<AuthTemplateProps> = ({ icon, title, text, onRetry }) => {
-
+export const AuthTemplate: React.FC<AuthTemplateProps> = ({
+    icon,
+    title,
+    text,
+    onRetry,
+}) => {
     return (
-        <Flex flexDirection='column' alignItems="center">
-            <Icon icon={icon} size={82}/>
-            <Text variant='heading2'>
-                {/*<Trans {...title} />*/}
-                TITLE
+        <Flex flexDirection="column" alignItems="center">
+            <Icon icon={icon} size={82} />
+            <Text variant="heading2">
+                <Trans {...title} />
             </Text>
-            <Text variant='text2'>
-                TEXT
-                {/*<Trans {...text} />*/}
+            <Text variant="text2">
+                <Trans {...text} />
             </Text>
-            <Button variant='primary' onClick={onRetry}>
-                retry
-                {/*<Trans i18key='retry />*/}
+            <Button variant="primary" onClick={onRetry}>
+                <Trans i18key="retry" />
             </Button>
         </Flex>
     );
 };
 
-AuthTemplate.displayName = 'AuthTemplate';
+AuthTemplate.displayName = "AuthTemplate";

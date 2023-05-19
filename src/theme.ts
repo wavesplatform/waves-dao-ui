@@ -13,7 +13,9 @@ export default {
         wdsurfbg: 'rgba(0, 6, 22, 0.5)',
         wdbgsec: '#141D4B',
         alertbg: 'rgba(116, 37, 20, 0.5)',
-        alerttext: '#FFA756'
+        alerttext: '#FFA756',
+        wddanger: '#F61F1F',
+        wdred: '#FF5353',
     },
     breakpoints: ['1280px'],
 };
