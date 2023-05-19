@@ -1,4 +1,4 @@
-import { FC, memo } from "react";
+import { FC, memo, useContext } from 'react';
 import { Box, Flex } from "@waves.exchange/wx-react-uikit";
 import { Treasury } from "./common/Treasury";
 import { DiagramBlock } from "./common/DiagramBlock";
@@ -6,13 +6,17 @@ import { InfoBlock } from './common/InfoBlock';
 import { ConnectBlock } from './ConnectBlock/ConnectBlock';
 import { Dashboard } from './Dashboard/Dashboard';
 import { UserInfo } from './UserInfo';
+import { AuthContext } from '../../../context/AuthContext';
 
 export const RightSide: FC = memo(() => {
-    const logined = true;
+    const { isAuthorized } = useContext(AuthContext);
 
     return (
         <Box width={['100%', '60%']}>
-            {logined && <UserInfo />}
+            {
+                isAuthorized &&
+                <UserInfo />
+            }
             <Flex
                 flexDirection="column"
                 sx={{
@@ -29,7 +33,7 @@ export const RightSide: FC = memo(() => {
                     <DiagramBlock />
                 </Flex>
                 <InfoBlock />
-                {logined ?
+                {isAuthorized ?
                     <Dashboard /> :
                     <ConnectBlock />
                 }

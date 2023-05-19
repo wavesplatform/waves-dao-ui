@@ -1,7 +1,11 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import dns from 'dns';
+import react from '@vitejs/plugin-react';
 import htmlPlugin from 'vite-plugin-html-config';
 import openGraphConfig from './openGraphConfig.js';
+
+
+dns.setDefaultResultOrder('verbatim');
 
 // https://vitejs.dev/config/
 
@@ -10,14 +14,17 @@ const htmlPluginOpt = {
         return ({
             name: key,
             content: openGraphConfig[key]
-        })
+        });
     })
-}
+};
 
 
 export default defineConfig({
-  plugins: [
-      react(),
-      htmlPlugin(htmlPluginOpt)
-  ],
-})
+    plugins: [
+        react(),
+        htmlPlugin(htmlPluginOpt)
+    ],
+    server: {
+        port: 3002,
+    },
+});
