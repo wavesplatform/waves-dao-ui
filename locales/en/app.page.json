@@ -1,1 +1,23 @@
-{"daoDesc":"DAO is making profit by financing the development of the projects and initiatives based on Waves blockchain.", "bannerText":"Get PWR to gain a full-scale access to governance and affect on community's decisions. Give a POWER to your voice!","bannerBtn":"Get PWR","linkAbout":"About WAVES DAO","linkSource":"Go to Source Code Repository","linkGo":"Go to PWR DAO","linkLast":"Forum","treasuty":"Treasury","wavesPrice":"WAVES Price", "lpPrice":"WAVESDLP Price","rate":"Rate","kpiPeriod":"KPI period ends in","connectDesc":"Connect Wallet to Deposit WAVES","connectButton":"Connect Wallet"}
+{
+    "daoDesc": "DAO is making profit by financing the development of the projects and initiatives based on Waves blockchain.",
+    "bannerText": "Get PWR to gain a full-scale access to governance and affect on community's decisions. Give a POWER to your voice!",
+    "bannerBtn": "Get PWR",
+    "linkAbout": "About WAVES DAO",
+    "linkSource": "Go to Source Code Repository",
+    "linkGo": "Go to PWR DAO",
+    "linkLast": "Forum",
+    "treasuty": "Treasury",
+    "wavesPrice": "WAVES Price",
+    "lpPrice": "WAVESDLP Price",
+    "rate": "Rate",
+    "kpiPeriod": "KPI period ends in",
+    "connectDesc": "Connect Wallet to Deposit WAVES",
+    "connectButton": "Connect Wallet",
+    "error": {
+        "min": "Min amount is {{amount}} {{assetName}}.",
+        "unsufficient": "Insufficient funds.",
+        "required": "This field is required."
+    },
+    "transactionFee": "Transaction Fee",
+    "transactionFeeTooltip": "A transaction fee is a fee that an account owner pays to send a transaction in the Waves blockchain."
+}
