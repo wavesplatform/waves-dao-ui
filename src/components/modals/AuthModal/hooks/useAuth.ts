@@ -20,7 +20,7 @@ interface IUseAuth {
 }
 
 type TKeeperError = {
-    code: string; // 14
+    code: string; // 10, 13, 14
     data: any;
     message: string;
 };
@@ -46,8 +46,14 @@ export const useAuth = (selectedProvider: TProvider): IUseAuth => {
             if (e instanceof Error &&  e.message.includes('Invalid connect options.')) {
                 _deviceState = AUTH_DEVICE_STATES.switchNetwork;
             }
+            if (e && (e as TKeeperError).code === '13') {
+                _deviceState = AUTH_DEVICE_STATES.noLogin;
+            }
             if (e && (e as TKeeperError).code === '14') {
                 _deviceState = AUTH_DEVICE_STATES.noAccounts;
+            }
+            if (e && (e as TKeeperError).code === '10') {
+                _deviceState = AUTH_DEVICE_STATES.connectionRejected;
             }
             onChangeDeviceState(_deviceState);
         }

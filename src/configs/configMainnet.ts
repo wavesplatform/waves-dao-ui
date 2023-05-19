@@ -9,8 +9,8 @@ export default<ConfigContextType> {
         assetsIcons: 'https://wx.network/static/icons/assets',
         rates: 'https://wx.network/api/v1/rates',
         nodeHeight: 'https://nodes.wavesplatform.com/blocks/height',
-        signerWeb: "https://wx.network/signer/",
-        signerCloud: "https://wx.network/signer-cloud/"
+        signerWeb: "https://waves.exchange/signer/",
+        signerCloud: "https://waves.exchange/signer-cloud/"
     },
     contracts: {
 

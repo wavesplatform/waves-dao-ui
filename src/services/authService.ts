@@ -1,6 +1,6 @@
 import { Signer, Provider, UserData } from "@waves/signer";
 import MobileDetect from "mobile-detect";
-import { isKeeperInstalled, ProviderKeeper } from "@waves/provider-keeper";
+import { ProviderKeeper } from "@waves/provider-keeper";
 import { ProviderCloud } from "@waves.exchange/provider-cloud";
 import { ProviderLedger } from "@waves/provider-ledger";
 import { ProviderWeb } from "@waves.exchange/provider-web";

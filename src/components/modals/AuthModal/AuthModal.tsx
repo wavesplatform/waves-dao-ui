@@ -1,9 +1,10 @@
 import * as React from "react";
 import { ModalProps } from "../../Modal/Modal";
 import { ModalStyled } from "../../Modal/ModalStyled";
-import { Box, Text } from "@waves.exchange/wx-react-uikit";
+import { Box } from "@waves.exchange/wx-react-uikit";
+import { Text } from './../../../uikit/Text/Text';
 import { AuthItem } from "./components/AuthItem";
-import { keeper } from "./icons";
+import { keeper, wxIcon } from './icons';
 import { Checkbox } from "../../../uikit/Checkbox/Checkbox";
 import { useState } from "react";
 import { Button } from "../../../uikit/Button/Button";
@@ -32,6 +33,20 @@ export const AuthModal: React.FC<ModalProps> = (props) => {
                     icon={keeper}
                     text={{ i18key: "keeper" }}
                     onSelect={() => setSelectedProvider('keeper')}
+                />
+            </Box>
+            <Box>
+                <AuthItem
+                    icon={wxIcon}
+                    text={{ i18key: "seed" }}
+                    onSelect={() => setSelectedProvider('web')}
+                />
+            </Box>
+            <Box>
+                <AuthItem
+                    icon={wxIcon}
+                    text={{ i18key: "cloud" }}
+                    onSelect={() => setSelectedProvider('cloud')}
                 />
             </Box>
             <Checkbox
