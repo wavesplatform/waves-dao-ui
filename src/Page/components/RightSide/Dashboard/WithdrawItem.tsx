@@ -3,8 +3,12 @@ import { Box, Flex } from "@waves.exchange/wx-react-uikit";
 import { Text } from '../../../../uikit/Text/Text';
 import { Trans } from "@waves/ui-translator";
 import { Button } from "../../../../uikit/Button/Button";
+import { Money } from "@waves/data-entities";
+import BigNumber from "@waves/bignumber";
+import { InUsdText } from "../../../../components/InUsdText";
 
-export const WithdrawItem: FC<{ unlocked: boolean }> = memo(({ unlocked }) => {
+export const WithdrawItem: FC<{ lpAmount: Money; equil?: BigNumber; baseTokenAmount: Money; }> = memo(({ baseTokenAmount, lpAmount, equil }) => {
+    const unlocked = !!baseTokenAmount;
     return (
         <Flex
             px="20px"
@@ -35,26 +39,35 @@ export const WithdrawItem: FC<{ unlocked: boolean }> = memo(({ unlocked }) => {
                 }
                 <Flex alignItems="center" justifyContent={['center', 'initial']}>
                     <Text as="div" variant="text1" color="text" mr="4px">
-                        {unlocked ? `179.4567` : `68.200351`}
+                        {unlocked ? baseTokenAmount.getTokens().toFormat() : lpAmount.getTokens().toFormat()}
                     </Text>
                     <Text variant="text2" color="wdtextsec">
-                        {`WAVES ($250,990)`}
+                        {unlocked ? baseTokenAmount.asset.displayName : lpAmount.asset.displayName}
+                        {equil ? <InUsdText usd={equil} decimals={2} variant="text2" color="wdtextsec" ml="4px" /> : null}
                     </Text>
                 </Flex>
                 {unlocked ?
                     <Flex alignItems="center" justifyContent={['center', 'initial']}>
                         <Text as="div" variant="text2" color="text" mr="4px">
-                            {`=68.200351`}
+                            {`=${lpAmount.getTokens().toFormat()}`}
                         </Text>
                         <Text variant="text2" color="wdtextsec">
-                            {`WAVESDLP`}
+                            {lpAmount.asset.displayName}
                         </Text>
                     </Flex> :
                     null
                 }
             </Box>
-            <Button variant={unlocked ? 'success' : 'transparent'} sx={{ whiteSpace: 'nowrap', px: '18px !important', display: 'flex', alignItems: 'center' }}>
-                <Trans i18key={unlocked ? 'claimButton' : 'cancelWithdrawal'} />
+            <Button
+                variant={unlocked ? 'success' : 'transparent'}
+                sx={{
+                    whiteSpace: 'nowrap',
+                    px: unlocked ? null : '18px !important',
+                    display: 'flex',
+                    alignItems: 'center'
+                }}
+            >
+                <Trans i18key={unlocked ? 'get' : 'cancelWithdrawal'} />
             </Button>
         </Flex>
     );

@@ -5,8 +5,14 @@ import { Trans } from "@waves/ui-translator";
 import { Button } from "../../../../uikit/Button/Button";
 import wavesLpUrl from "/src/img/waveslp.svg";
 import { WithdrawItem } from "./WithdrawItem";
+import { InUsdText } from "../../../../components/InUsdText";
+import BigNumber from "@waves/bignumber";
+import { wavesAsset } from '../../../../services/assets';
+import { Asset, Money } from "@waves/data-entities";
 
 export const LpBalance: FC = memo(() => {
+    const wavesdlpAsset = { ...wavesAsset, displayName: 'WAVESDLP' };
+
     return (
         <Box sx={{ borderRadius: '12px', overflow: 'hidden' }}>
             <Flex
@@ -29,7 +35,7 @@ export const LpBalance: FC = memo(() => {
                     />
                     <Box>
                         <Text as="div" variant="text2" color="wdtextsec">
-                            <Trans i18key="assetBalance" i18Params={{ assetName: 'WAVES' }} />
+                            <Trans i18key="assetBalance" i18Params={{ assetName: 'WAVESDLP' }} />
                         </Text>
                         <Flex alignItems="center" justifyContent={['center', 'initial']}>
                             <Text as="div" variant="text1" color="text" mr="4px">
@@ -44,8 +50,9 @@ export const LpBalance: FC = memo(() => {
                                 {`~179.4567`}
                             </Text>
                             <Text variant="text2" color="wdtextsec">
-                                {`WAVES ($250,990)`}
+                                {`WAVES`}
                             </Text>
+                            <InUsdText usd={new BigNumber(250)} decimals={2} variant="text2" color="wdtextsec" ml="4px" />
                         </Flex>
                     </Box>
                 </Flex>
@@ -53,8 +60,8 @@ export const LpBalance: FC = memo(() => {
                     <Trans i18key="withdraw" />
                 </Button>
             </Flex>
-            <WithdrawItem unlocked={true} />
-            <WithdrawItem unlocked={false} />
+            <WithdrawItem baseTokenAmount={new Money(0, wavesAsset).cloneWithTokens(250)} lpAmount={new Money(0, wavesdlpAsset as Asset).cloneWithTokens(69)} equil={new BigNumber(250)} />
+            <WithdrawItem baseTokenAmount={undefined} lpAmount={new Money(0, wavesdlpAsset as Asset).cloneWithTokens(69)} />
         </Box>
     );
 });

@@ -5,7 +5,7 @@ import { Trans } from "@waves/ui-translator";
 import { Button } from "../../../../uikit/Button/Button";
 import wavesUrl from "/src/img/waves.svg";
 
-export const WavesBalance: FC = memo(() => {
+export const Balance: FC = memo(() => {
     return (
         <Flex
             px="20px"
@@ -60,4 +60,4 @@ export const WavesBalance: FC = memo(() => {
     );
 });
 
-WavesBalance.displayName = 'WavesBalance';
+Balance.displayName = 'Balance';

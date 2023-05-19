@@ -26,6 +26,7 @@
     "assetBalance":"{{assetName}} Balance",
     "deposit":"Deposit",
     "getToken":"Get {{assetName}}",
+    "get":"Get",
     "withdraw":"Withdraw",
     "availableClaim":"Available for Claiming",
     "claimButton":"Claim",
