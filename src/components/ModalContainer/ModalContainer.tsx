@@ -27,7 +27,7 @@ const reducer: TReducer = (state, action) => {
         ...state,
         [action.modalName]: {
             isOpen: action.isOpen,
-            props: state[action.modalName]?.props || action.props,
+            props: action.props || state[action.modalName]?.props,
             willOpen: action.willOpen,
             willClose: action.willClose,
         }
