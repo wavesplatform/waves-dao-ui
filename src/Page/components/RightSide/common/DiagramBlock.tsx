@@ -1,9 +1,12 @@
-import { FC, memo } from "react";
+import { FC, memo, useContext } from 'react';
 import { Box, Flex } from "@waves.exchange/wx-react-uikit";
 import { Text } from '../../../../uikit/Text/Text';
 import { Diagram } from "../../../../uikit/Diagram/Diagram";
+import { AppStoreContext } from '../../../../App';
+import { observer } from 'mobx-react-lite';
 
-export const DiagramBlock: FC = memo(() => {
+export const DiagramBlock: FC = observer(() => {
+    const { assetsStore } = useContext(AppStoreContext);
     const mock = [{ color: '#3C69FF', value: 8 }, { color: '#2AC684', value: 4 }];
 
     return (
@@ -25,7 +28,7 @@ export const DiagramBlock: FC = memo(() => {
                             {`1,000,000.51`}
                         </Text>
                         <Text as="div" mx="4px" color="#3C69FF">
-                            {`WAVES`}
+                            {assetsStore.assetsMap.WAVES?.displayName}
                         </Text>
                         <Text color="wdtextsec">
                             {`$1,855,180.45`}

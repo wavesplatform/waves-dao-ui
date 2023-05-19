@@ -17,7 +17,7 @@ export default<ConfigContextType> {
     },
     assets: [
         { label: 'WAVES', id: 'WAVES' },
-        { label: 'WAVESDLP', id: '' },
+        // { label: 'WAVESDLP', id: '' },
         { label: 'XTN', id: 'DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p' },
     ]
 };

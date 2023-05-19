@@ -12,6 +12,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "useDefineForClassFields": true,
 
     /* Linting */
     "strict": false,
