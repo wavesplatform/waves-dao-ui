@@ -7,8 +7,8 @@
     "linkGo": "Go to PWR DAO",
     "linkLast": "Forum",
     "treasuty": "Treasury",
-    "wavesPrice": "WAVES Price",
-    "lpPrice": "WAVESDLP Price",
+    "tokenPrice": "{{assetName}} Price",
+    "lpPrice": "{{assetName}} Price",
     "rate": "Rate",
     "kpiPeriod": "KPI period ends in",
     "connectDesc": "Connect Wallet to Deposit WAVES",
@@ -19,5 +19,19 @@
         "required": "This field is required."
     },
     "transactionFee": "Transaction Fee",
-    "transactionFeeTooltip": "A transaction fee is a fee that an account owner pays to send a transaction in the Waves blockchain."
+    "transactionFeeTooltip": "A transaction fee is a fee that an account owner pays to send a transaction in the Waves blockchain.",
+    "finalizePeriod":"Finalize KPI period",
+    "finalisePeriodDesc":"Create a transaction for PWR holders to vote with WAVES DAO results.",
+    "topUp":"Top-Up",
+    "assetBalance":"{{assetName}} Balance",
+    "deposit":"Deposit",
+    "getToken":"Get {{assetName}}",
+    "withdraw":"Withdraw",
+    "availableClaim":"Available for Claiming",
+    "claimButton":"Claim",
+    "wavesUnlocked":"Your Waves are unlocked.",
+    "cancelWithdrawal":"Cancel Withdrawal"
+    ,"willBeUnlocked":"Your {{assetName}} will be unlocked after the start of new KPI period. The exact amount of {{assetName}} will be known immediately after this time.",
+    "logout":"Log Out",
+    "MS-0110":"There are unlocked tokens on the smart contract. To get them on your balance click the 'Get' button"
 }

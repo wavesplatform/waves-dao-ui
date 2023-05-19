@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
 import { Box, Flex } from "@waves.exchange/wx-react-uikit";
-import { Text } from '../../../uikit/Text/Text';
-import { Diagram } from "../../../uikit/Diagram/Diagram";
+import { Text } from '../../../../uikit/Text/Text';
+import { Diagram } from "../../../../uikit/Diagram/Diagram";
 
 export const DiagramBlock: FC = memo(() => {
     const mock = [{ color: '#3C69FF', value: 8 }, { color: '#2AC684', value: 4 }];

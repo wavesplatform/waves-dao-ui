@@ -8,7 +8,7 @@ import { ExternalLinksBlock } from './components/LeftSide/ExternalLinksBlock';
 
 const PageFC: FC = () => {
     return (
-        <Box minHeight="100vh" position="relative" sx={{ px: ['6px', '40px'], py: '24px' }}>
+        <Box minHeight="100vh" position="relative" sx={{ px: ['6px', '40px'], pb: '24px' }}>
             <MainBg />
             <Flex position="relative" width="100%" flexDirection={['column', 'row']}>
                 <LeftSide />

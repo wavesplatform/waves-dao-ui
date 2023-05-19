@@ -1,8 +1,8 @@
 import { FC, memo } from "react";
 import { Box, Flex } from "@waves.exchange/wx-react-uikit";
 import { Trans } from "@waves/ui-translator";
-import { Text } from '../../../uikit/Text/Text';
-import { Button } from "../../../uikit/Button/Button";
+import { Text } from '../../../../uikit/Text/Text';
+import { Button } from "../../../../uikit/Button/Button";
 import { ConnectTypes } from './ConnectTypes';
 
 export const ConnectBlock: FC = memo(() => {
@@ -15,7 +15,7 @@ export const ConnectBlock: FC = memo(() => {
                 py: ['32px', '24px'],
                 px: ['16px', '24px'],
                 borderRadius: '12px',
-                backgroundColor: 'rgba(0, 6, 22, 0.5)'
+                backgroundColor: 'wdsurfbg'
             }}
         >
             <Flex flexDirection="column" alignItems="center">

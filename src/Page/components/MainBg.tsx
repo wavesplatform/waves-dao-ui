@@ -38,4 +38,3 @@ export const MainBg: FC = memo(() => {
 });
 
 MainBg.displayName = 'MainBg';
-

@@ -14,7 +14,7 @@ export const LeftSide: FC = memo(() => {
             flexDirection="column"
             justifyContent="space-between"
             sx={{
-                py: ['0', '16px'],
+                pt: ['16px', '40px'],
                 pr: ['0', '40px'],
                 pb: ['16px', '0']
             }}

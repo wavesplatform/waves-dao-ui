@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
 import { Box } from "@waves.exchange/wx-react-uikit";
 import { Trans } from "@waves/ui-translator";
-import { Text } from '../../../uikit/Text/Text';
+import { Text } from '../../../../uikit/Text/Text';
 
 export const Treasury: FC = memo(() => {
     return (
