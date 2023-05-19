@@ -1,11 +1,18 @@
-import { FC, memo } from "react";
+import { FC, memo, useContext } from 'react';
 import { Box, Flex } from "@waves.exchange/wx-react-uikit";
 import { Trans } from "@waves/ui-translator";
 import { Text } from '../../../../uikit/Text/Text';
 import { Button } from "../../../../uikit/Button/Button";
 import { ConnectTypes } from './ConnectTypes';
+import { AuthContext } from '../../../../context/AuthContext';
+import { modalManager } from '../../../../services/modalManager';
+import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES';
 
 export const ConnectBlock: FC = memo(() => {
+    const onConnectClick = () => {
+        modalManager.openModal(MODAL_NAMES.authModal);
+    };
+
     return (
         <Flex
             justifyContent="center"
@@ -23,7 +30,7 @@ export const ConnectBlock: FC = memo(() => {
                 <Text as="div" variant="text1" color="wdtextsec" mb="16px" textAlign="center">
                     <Trans i18key="connectDesc" />
                 </Text>
-                <Button variant="primary">
+                <Button variant="primary" onClick={onConnectClick}>
                     <Trans i18key="connectButton"  />
                 </Button>
             </Flex>

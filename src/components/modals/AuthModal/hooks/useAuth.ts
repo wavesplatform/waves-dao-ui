@@ -30,13 +30,14 @@ const getModalNameBySelectedProvider = (selectedProvider: TProvider): MODAL_NAME
 };
 
 export const useAuth = (selectedProvider: TProvider): IUseAuth => {
-    const authService = useContext(AuthContext);
+    const { authService, setIsAuthorized } = useContext(AuthContext);
     const [deviceState, setDeviceState] = useState<AUTH_DEVICE_STATES | undefined>();
 
     const login = async (): Promise<void> => {
         try {
             await authService.login(selectedProvider);
             await modalManager.closeModal(getModalNameBySelectedProvider(selectedProvider), 'close');
+            setIsAuthorized(true);
         } catch (e: Error | TKeeperError | unknown) {
             console.log(e);
             let _deviceState: AUTH_DEVICE_STATES | undefined;

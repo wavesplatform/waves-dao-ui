@@ -32,7 +32,7 @@ export const AuthTemplate: React.FC<AuthTemplateProps> = ({ icon, title, text, o
                 {
                     isPending ?
                         <DotLoader /> :
-                        <Trans i18key='retry />
+                        <Trans i18key='retry' />
                 }
             </Button>
         </Flex>
