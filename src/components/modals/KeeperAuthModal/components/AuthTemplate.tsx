@@ -23,20 +23,17 @@ export const AuthTemplate: React.FC<AuthTemplateProps> = ({ icon, title, text, o
         <Flex flexDirection='column' alignItems="center">
             <Icon icon={icon} size={82}/>
             <Text variant='heading2'>
-                {/*<Trans {...title} />*/}
-                {title.i18key}
+                <Trans {...title} />
             </Text>
             <Text variant='text2'>
-                {text.i18key}
-                {/*<Trans {...text} />*/}
+                <Trans {...text} />
             </Text>
             <Button variant='primary' onClick={handleRetry}>
                 {
                     isPending ?
                         <DotLoader /> :
-                        'retry'
+                        <Trans i18key='retry />
                 }
-                {/*<Trans i18key='retry />*/}
             </Button>
         </Flex>
     );

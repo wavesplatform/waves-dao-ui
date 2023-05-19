@@ -17,8 +17,8 @@ type TFeeComponentProps = TFlexProps & {
 
 export const FeeComponent: React.FC<TFeeComponentProps> = ({
     fee,
-    feeText = { i18key: 'transactionFee', ns: 'app.ui' },
-    tooltipText = { i18key: 'transactionFeeTooltip', ns: 'app.ui' },
+    feeText = { i18key: 'transactionFee' },
+    tooltipText = { i18key: 'transactionFeeTooltip' },
     isPercent = false,
     tooltipAtEnd = false,
     tooltipAlign = 'left',
@@ -42,9 +42,7 @@ export const FeeComponent: React.FC<TFeeComponentProps> = ({
                     color="#B0BAC7"
                     mr={tooltipAtEnd ? '0' : '8px'}
                 >
-                    Transaction Fee
-                    {/* // TODO */}
-                    {/* <Trans {...feeText} /> */}
+                    <Trans {...feeText} />
                 </Text>
                 {!tooltipAtEnd && (
                     <Help tooltipAlign={tooltipAlign}>
@@ -52,9 +50,7 @@ export const FeeComponent: React.FC<TFeeComponentProps> = ({
                             id={`${id}-text`}
                             minWidth="250px"
                         >
-                            A transaction fee is a fee that an account owner pays to send a transaction in the Waves blockchain.
-                            {/* // TODO */}
-                            {/* <Trans {...tooltipText} /> */}
+                            <Trans {...tooltipText} />
                         </Box>
                     </Help>
                 )}
@@ -84,9 +80,7 @@ export const FeeComponent: React.FC<TFeeComponentProps> = ({
                         id={`${id}-text`}
                         minWidth="250px"
                     >
-                        A transaction fee is a fee that an account owner pays to send a transaction in the Waves blockchain.
-                        {/* // TODO */}
-                        {/* <Trans {...tooltipText} /> */}
+                        <Trans {...tooltipText} />
                     </Box>
                 </Help>
             )}
