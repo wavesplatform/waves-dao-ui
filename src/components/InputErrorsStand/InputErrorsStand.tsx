@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Flex } from "@waves.exchange/wx-react-uikit";
 import { InputErrors } from "../../uikit/InputErrors/InputErrors";
+import BigNumber from "@waves/bignumber";
 
 export const InputErrorsStand: FC = () => {
     return (
@@ -16,7 +17,11 @@ export const InputErrorsStand: FC = () => {
         >
             <InputErrors error="notEnoughFunds" />
             <InputErrors error="required" />
-            <InputErrors error="notEnoughFunds" />
+            <InputErrors
+                error="minAmount"
+                minAmount={new BigNumber(10)}
+                assetName="WAVES"
+            />
         </Flex>
     );
 };

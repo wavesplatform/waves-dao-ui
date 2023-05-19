@@ -14,13 +14,8 @@ export const InputErrors: React.FC<InputErrorsProps> = React.memo(
     ({ error, minAmount, assetName }) => {
         return (
             <>
-                {error === "minAmount" && minAmount ? (
-                    <Text
-                        variant="caption"
-                        color="wdred"
-                        display="block"
-                        mt="8px"
-                    >
+                <Text variant="caption" color="wdred" display="block" mt="8px">
+                    {error === "minAmount" && minAmount ? (
                         <Trans
                             i18key="error.min"
                             i18Params={{
@@ -28,28 +23,15 @@ export const InputErrors: React.FC<InputErrorsProps> = React.memo(
                                 assetName,
                             }}
                         />
-                    </Text>
-                ) : null}
-                {error === "notEnoughFunds" ? (
-                    <Text
-                        variant="caption"
-                        color="wdred"
-                        display="block"
-                        mt="8px"
-                    >
+                    ) : null}
+
+                    {error === "notEnoughFunds" ? (
                         <Trans i18key="error.unsufficient" />
-                    </Text>
-                ) : null}
-                {error === "required" ? (
-                    <Text
-                        variant="caption"
-                        color="wdred"
-                        display="block"
-                        mt="8px"
-                    >
+                    ) : null}
+                    {error === "required" ? (
                         <Trans i18key="error.required" />
-                    </Text>
-                ) : null}
+                    ) : null}
+                </Text>
             </>
         );
     }
