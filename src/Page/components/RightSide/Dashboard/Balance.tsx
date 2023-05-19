@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import { Box, Flex } from "@waves.exchange/wx-react-uikit";
+import { Box, ExternalLink, Flex } from "@waves.exchange/wx-react-uikit";
 import { Text } from '../../../../uikit/Text/Text';
 import { Trans } from "@waves/ui-translator";
 import { Button } from "../../../../uikit/Button/Button";
@@ -43,10 +43,16 @@ export const WavesBalance: FC = memo(() => {
                 </Box>
             </Flex>
             <Flex>
-                <Button variant="transparent" mr="8px" sx={{ whiteSpace: 'nowrap', px: ['32px !important', '50px !important' ] }}>
-                    <Trans i18key="getToken" i18Params={{ assetName: 'WAVES' }} />
-                </Button>
-                <Button variant="primary" px={['32px !important', '50px !important']}>
+                <ExternalLink
+                    href="https://waves.exchange/trading/spot/WAVES_USDT"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                >
+                    <Button variant="transparent" sx={{ whiteSpace: 'nowrap', px: ['32px !important', '50px !important' ] }}>
+                        <Trans i18key="getToken" i18Params={{ assetName: 'WAVES' }} />
+                    </Button>
+                </ExternalLink>
+                <Button variant="primary" px={['32px !important', '50px !important']} ml="8px">
                     <Trans i18key="deposit" />
                 </Button>
             </Flex>

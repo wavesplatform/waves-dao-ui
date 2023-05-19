@@ -53,7 +53,7 @@ export const WithdrawItem: FC<{ unlocked: boolean }> = memo(({ unlocked }) => {
                     null
                 }
             </Box>
-            <Button variant={unlocked ? 'success' : 'primary'} sx={{ whiteSpace: 'nowrap', px: '18px !important' }}>
+            <Button variant={unlocked ? 'success' : 'transparent'} sx={{ whiteSpace: 'nowrap', px: '18px !important', display: 'flex', alignItems: 'center' }}>
                 <Trans i18key={unlocked ? 'claimButton' : 'cancelWithdrawal'} />
             </Button>
         </Flex>
