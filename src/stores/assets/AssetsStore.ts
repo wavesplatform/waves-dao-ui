@@ -1,5 +1,5 @@
 import { Asset } from '@waves/data-entities';
-import { FetchTracker } from '../utils';
+import { FetchTracker } from '../utils/FetchTracker';
 import { AssetWithMeta, IAssetsResponse, IExpandedAssetJson } from './interface';
 import { AppStore } from '../AppStore';
 import { ChildStore } from '../ChildStore';
@@ -15,13 +15,9 @@ export class AssetsStore extends ChildStore {
         const assetsIds = config.assets.map(a => a.id);
         this.assetsData = new FetchTracker<Record<string, AssetWithMeta>>({
             fetchUrl: `${config.apiUrl.assets}?ids=${assetsIds.join('&ids=')}`,
-            parser: this.assetsParser
+            parser: this.assetsParser,
+            autoFetch: true
         });
-        this.fetchAssets();
-    }
-
-    private fetchAssets() {
-        this.assetsData.load();
     }
 
     private assetsParser = ({ data }: IAssetsResponse): Record<string, AssetWithMeta> => {

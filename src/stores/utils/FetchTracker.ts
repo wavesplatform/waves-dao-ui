@@ -4,6 +4,7 @@ interface FetchTrackerProps<T> {
     fetchUrl: string;
     options?: RequestInit;
     parser?: (data: unknown) => T;
+    autoFetch?: boolean;
 }
 
 export class FetchTracker<T> {
@@ -19,7 +20,8 @@ export class FetchTracker<T> {
     constructor({
         fetchUrl,
         options,
-        parser
+        parser,
+        autoFetch = false
     }: FetchTrackerProps<T>) {
         makeObservable(this, {
             data: observable,
