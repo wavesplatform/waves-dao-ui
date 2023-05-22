@@ -2,16 +2,16 @@ import * as React from "react";
 import { ModalProps } from "../../Modal/Modal";
 import { ModalStyled } from "../../Modal/ModalStyled";
 import { Box } from "@waves.exchange/wx-react-uikit";
-import { Text } from './../../../uikit/Text/Text';
+import { Text }  from 'uikit';
 import { AuthItem } from "./components/AuthItem";
 import { keeper, wxIcon } from './icons';
-import { Checkbox } from "../../../uikit/Checkbox/Checkbox";
+import { Checkbox } from 'uikit';
 import { useState } from "react";
-import { Button } from "../../../uikit/Button/Button";
-import { TProvider } from "../../../services/authService";
+import { Button } from 'uikit';
 import { useAuth } from "./hooks/useAuth";
 import { modalManager } from '../../../services/modalManager';
 import { MODAL_NAMES } from '../../ModalContainer/MODAL_NAMES';
+import { TProvider } from '../../../stores/AuthStore';
 
 export const AuthModal: React.FC<ModalProps> = (props) => {
     const [checked, setChecked] = useState(false);

@@ -6,15 +6,16 @@ import { InfoBlock } from './common/InfoBlock';
 import { ConnectBlock } from './ConnectBlock/ConnectBlock';
 import { Dashboard } from './Dashboard/Dashboard';
 import { UserInfo } from './UserInfo';
-import { AuthContext } from '../../../context/AuthContext';
+import { AppStoreContext } from '../../../App';
+import { observer } from 'mobx-react-lite';
 
-export const RightSide: FC = memo(() => {
-    const { isAuthorized } = useContext(AuthContext);
+export const RightSide: FC = observer(() => {
+    const { authStore } = useContext(AppStoreContext);
 
     return (
         <Box width={['100%', '60%']}>
             {
-                isAuthorized &&
+                authStore.isAuthorized &&
                 <UserInfo />
             }
             <Flex
@@ -33,7 +34,7 @@ export const RightSide: FC = memo(() => {
                     <DiagramBlock />
                 </Flex>
                 <InfoBlock />
-                {isAuthorized ?
+                {authStore.isAuthorized ?
                     <Dashboard /> :
                     <ConnectBlock />
                 }

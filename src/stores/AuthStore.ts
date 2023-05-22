@@ -4,10 +4,13 @@ import { ProviderKeeper } from "@waves/provider-keeper";
 import { ProviderCloud } from "@waves.exchange/provider-cloud";
 import { ProviderLedger } from "@waves/provider-ledger";
 import { ProviderWeb } from "@waves.exchange/provider-web";
+import { AppStore } from './AppStore';
+import { ChildStore } from './ChildStore';
+import { computed, makeObservable, observable, runInAction } from 'mobx';
 
 export type TProvider = "web" | "cloud" | "ledger" | "keeper" | "metamask";
 
-interface AuthServiceParams {
+interface AuthStoreParams {
     nodeUrl: string;
     signerWebUrl: string;
     signerCloudUrl: string;
@@ -19,7 +22,8 @@ const canIUseLedger = () => {
     return isChrome && mb.phone() == null && mb.tablet() == null;
 };
 
-export class AuthService {
+export class AuthStore extends ChildStore  {
+
     public signer: Signer;
     public user?: UserData;
 
@@ -27,12 +31,19 @@ export class AuthService {
     private readonly signerWebUrl: string;
     private readonly signerCloudUrl: string;
 
-    constructor({ nodeUrl, signerWebUrl, signerCloudUrl }: AuthServiceParams) {
-        this.signer = new Signer({
-            NODE_URL: nodeUrl,
+    constructor(rs: AppStore) {
+        super(rs);
+
+        makeObservable(this, {
+            user: observable,
+            isAuthorized: computed
         });
-        this.signerWebUrl = signerWebUrl;
-        this.signerCloudUrl = signerCloudUrl;
+
+        this.signer = new Signer({
+            NODE_URL: rs.configStore.config.apiUrl.node,
+        });
+        this.signerWebUrl = rs.configStore.config.apiUrl.signerWeb;
+        this.signerCloudUrl = rs.configStore.config.apiUrl.signerCloud;
     }
 
     public login(providerId?: TProvider): Promise<void> {
@@ -41,7 +52,9 @@ export class AuthService {
                 return this.provider?.login();
             })
             .then((userData) => {
-                this.user = userData;
+                runInAction(() => {
+                    this.user = userData;
+                });
             });
     }
 

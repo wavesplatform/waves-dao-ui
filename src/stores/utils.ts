@@ -10,6 +10,7 @@ export class FetchTracker<T> {
 
     public data: T;
     public isLoading: boolean;
+    public error: any;
 
     private fetchUrl: string;
     private options: RequestInit;
@@ -22,21 +23,27 @@ export class FetchTracker<T> {
     }: FetchTrackerProps<T>) {
         makeObservable(this, {
             data: observable,
-            isLoading: observable
+            isLoading: observable,
+            error: observable
         });
         this.fetchUrl = fetchUrl;
         this.options = options;
         this.parser = parser;
     }
 
-    public load() {
+    public load(): Promise<void> {
         this.isLoading = true;
-        fetch(this.fetchUrl)
+        return fetch(this.fetchUrl)
             .then(res => res.json())
             .then(data => {
                 runInAction(() => {
                     this.data = this.parser(data);
                     this.isLoading = false;
+                });
+            })
+            .catch(e => {
+                runInAction(() => {
+                    this.error = e;
                 });
             });
     }

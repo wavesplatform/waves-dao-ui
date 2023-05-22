@@ -1,4 +1,4 @@
-import { FC, memo, useContext } from 'react';
+import { FC, useContext } from 'react';
 import { Box, Flex } from "@waves.exchange/wx-react-uikit";
 import { Text } from '../../../../uikit/Text/Text';
 import { Diagram } from "../../../../uikit/Diagram/Diagram";
@@ -28,7 +28,7 @@ export const DiagramBlock: FC = observer(() => {
                             {`1,000,000.51`}
                         </Text>
                         <Text as="div" mx="4px" color="#3C69FF">
-                            {assetsStore.assetsMap.WAVES?.displayName}
+                            {assetsStore.assetsData.data?.WAVES?.displayName}
                         </Text>
                         <Text color="wdtextsec">
                             {`$1,855,180.45`}

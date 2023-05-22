@@ -21,6 +21,11 @@ const htmlPluginOpt = {
 
 
 export default defineConfig({
+    resolve: {
+        alias: {
+            uikit: '/src/uikit/',
+        }
+    },
     plugins: [
         react(),
         htmlPlugin(htmlPluginOpt),

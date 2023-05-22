@@ -1,10 +1,9 @@
-import { FC, memo, useContext } from 'react';
-import { Box, Flex } from "@waves.exchange/wx-react-uikit";
+import { FC, memo } from 'react';
+import { Flex } from "@waves.exchange/wx-react-uikit";
 import { Trans } from "@waves/ui-translator";
 import { Text } from '../../../../uikit/Text/Text';
 import { Button } from "../../../../uikit/Button/Button";
 import { ConnectTypes } from './ConnectTypes';
-import { AuthContext } from '../../../../context/AuthContext';
 import { modalManager } from '../../../../services/modalManager';
 import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES';
 

@@ -1,6 +1,6 @@
-import { ConfigContextType } from '../context/ConfigContext';
+import { TConfig } from '../stores/ConfigStore';
 
-export default<ConfigContextType> {
+export default<TConfig> {
     apiUrl: {
         node: 'https://nodes-testnet.waves.exchange',
         balance: 'https://nodes-testnet.wavesnodes.com/addresses/balance',
