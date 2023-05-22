@@ -11,6 +11,7 @@ import { KeeperNoLogin } from "./modalStates/KeeperNoLogin";
 import { KeeperNotInstalled } from "./modalStates/KeeperNotInstalled";
 import { AuthTemplateProps } from "./components/AuthTemplate";
 import { AUTH_DEVICE_STATES } from '../AuthModal/hooks/useAuth';
+import { translate } from '@waves/ui-translator';
 
 
 
@@ -19,7 +20,7 @@ export interface KeeperAuthModalProps {
     onRetry?: AuthTemplateProps['onRetry'];
 }
 
-export const KeeperAuthModal: React.FC<KeeperAuthModalProps & ModalProps> = ({
+const KeeperAuthModalFC: React.FC<KeeperAuthModalProps & ModalProps> = ({
     onRetry,
     modalState,
     willClose,
@@ -77,4 +78,6 @@ export const KeeperAuthModal: React.FC<KeeperAuthModalProps & ModalProps> = ({
     );
 };
 
-KeeperAuthModal.displayName = "AuthModal";
+KeeperAuthModalFC.displayName = "KeeperAuthModalFC";
+
+export const KeeperAuthModal = translate('app.page')(KeeperAuthModalFC);

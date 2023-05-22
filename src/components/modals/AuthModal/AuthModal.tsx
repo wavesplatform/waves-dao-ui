@@ -11,9 +11,10 @@ import { Button } from 'uikit';
 import { useAuth } from "./hooks/useAuth";
 import { modalManager } from '../../../services/modalManager';
 import { MODAL_NAMES } from '../../ModalContainer/MODAL_NAMES';
+import { translate } from '@waves/ui-translator';
 import { TProvider } from '../../../stores/AuthStore';
 
-export const AuthModal: React.FC<ModalProps> = (props) => {
+const AuthModalFC: React.FC<ModalProps> = (props) => {
     const [checked, setChecked] = useState(false);
     const [selectedProvider, setSelectedProvider] = useState<TProvider>();
     const { login } = useAuth(selectedProvider);
@@ -73,4 +74,6 @@ export const AuthModal: React.FC<ModalProps> = (props) => {
     );
 };
 
-AuthModal.displayName = "AuthModal";
+AuthModalFC.displayName = "AuthModal";
+
+export const AuthModal = translate('app.page')(AuthModalFC);

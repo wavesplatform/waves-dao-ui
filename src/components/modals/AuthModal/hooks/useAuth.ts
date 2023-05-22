@@ -1,6 +1,6 @@
 import { modalManager } from '../../../../services/modalManager';
 import { MODAL_NAMES } from '../../../ModalContainer/MODAL_NAMES';
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { KeeperAuthModalProps } from '../../KeeperAuthModal/KeeperAuthModal';
 import { AppStoreContext } from '../../../../App';
 import { TProvider } from '../../../../stores/AuthStore';
@@ -32,6 +32,7 @@ const getModalNameBySelectedProvider = (selectedProvider: TProvider): MODAL_NAME
 export const useAuth = (selectedProvider: TProvider): IUseAuth => {
     const { authStore } = useContext(AppStoreContext);
     const [deviceState, setDeviceState] = useState<AUTH_DEVICE_STATES | undefined>();
+    const prevState = useRef<AUTH_DEVICE_STATES | undefined>();
 
     const login = async (): Promise<void> => {
         try {
@@ -59,17 +60,23 @@ export const useAuth = (selectedProvider: TProvider): IUseAuth => {
         }
     };
 
-    const onChangeDeviceState = (deviceState: AUTH_DEVICE_STATES) => {
-        setDeviceState(deviceState);
-        if (deviceState) {
+    const onChangeDeviceState = async (_deviceState: AUTH_DEVICE_STATES) => {
+        setDeviceState(_deviceState);
+        if (_deviceState) {
+            console.log('%c _deviceState', 'color: #e5b6ed', _deviceState);
+            console.log('%c prevState.current', 'color: #e5b6ed', prevState.current);
             const modalName = getModalNameBySelectedProvider(selectedProvider);
-            if (modalManager.openedModals.includes(modalName)) {
+            if (modalManager.openedModals.includes(modalName) && prevState.current === _deviceState) {
                 return;
             }
-            modalManager.openModal<KeeperAuthModalProps>(modalName, {
-                modalState: deviceState,
-                onRetry: () => login()
-            });
+            prevState.current = _deviceState;
+            await modalManager.abortAll();
+            setTimeout(() => {
+                modalManager.openModal<KeeperAuthModalProps>(modalName, {
+                    modalState: _deviceState,
+                    onRetry: () => login()
+                });
+            }, 200);
         }
     };
 

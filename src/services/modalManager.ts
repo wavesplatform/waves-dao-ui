@@ -66,7 +66,8 @@ class ModalManager {
 
     };
 
-    abortAll = (): void => {
+    abortAll = async (): Promise<void> => {
+        await Promise.all(this.openedModals.map(modalName => this.closeModal(modalName, 'abort', 200)));
         this.closeAllSignal.dispatch('');
     };
 
