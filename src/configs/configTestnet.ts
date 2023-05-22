@@ -1,6 +1,6 @@
-import { ConfigContextType } from '../context/ConfigContext';
+import { TConfig } from '../stores/ConfigStore';
 
-export default<ConfigContextType> {
+export default<TConfig> {
     apiUrl: {
         node: 'https://nodes-testnet.waves.exchange',
         balance: 'https://nodes-testnet.wavesnodes.com/addresses/balance',
@@ -17,7 +17,7 @@ export default<ConfigContextType> {
     },
     assets: [
         { label: 'WAVES', id: 'WAVES' },
-        { label: 'WAVESDLP', id: '' },
+        // { label: 'WAVESDLP', id: '' },
         { label: 'XTN', id: '25FEqEjRkqK6yCkiT7Lz6SAYz7gUFCtxfCChnrVFD5AT' },
     ]
 };

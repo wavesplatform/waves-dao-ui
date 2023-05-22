@@ -81,13 +81,6 @@
     "sort-imports": "off",
     "no-duplicate-imports": "off",
     "comma-dangle": ["error", "only-multiline"],
-    "no-nested-ternary": "off",
-    "no-restricted-imports": [
-      "error",
-      {
-        "paths": ["*/data-service/*", "*/data-service"],
-        "patterns": ["**/data-service/*", "!data-service/*"]
-      }
-    ]
+    "no-nested-ternary": "off"
   }
 }

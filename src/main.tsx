@@ -4,8 +4,6 @@ import App from './App'
 
 document.addEventListener('DOMContentLoaded', function () {
     ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-        <React.StrictMode>
-            <App />
-        </React.StrictMode>,
+        <App />
     )
 });

@@ -1,9 +1,9 @@
 import { modalManager } from '../../../../services/modalManager';
 import { MODAL_NAMES } from '../../../ModalContainer/MODAL_NAMES';
 import { useContext, useRef, useState } from 'react';
-import { AuthContext } from '../../../../context/AuthContext';
-import { TProvider } from '../../../../services/authService';
 import { KeeperAuthModalProps } from '../../KeeperAuthModal/KeeperAuthModal';
+import { AppStoreContext } from '../../../../App';
+import { TProvider } from '../../../../stores/AuthStore';
 
 export enum AUTH_DEVICE_STATES {
     notInstalled = "notInstalled",
@@ -30,15 +30,14 @@ const getModalNameBySelectedProvider = (selectedProvider: TProvider): MODAL_NAME
 };
 
 export const useAuth = (selectedProvider: TProvider): IUseAuth => {
-    const { authService, setIsAuthorized } = useContext(AuthContext);
+    const { authStore } = useContext(AppStoreContext);
     const [deviceState, setDeviceState] = useState<AUTH_DEVICE_STATES | undefined>();
     const prevState = useRef<AUTH_DEVICE_STATES | undefined>();
 
     const login = async (): Promise<void> => {
         try {
-            await authService.login(selectedProvider);
+            await authStore.login(selectedProvider);
             await modalManager.closeModal(getModalNameBySelectedProvider(selectedProvider), 'close');
-            setIsAuthorized(true);
         } catch (e: Error | TKeeperError | unknown) {
             console.log(e);
             let _deviceState: AUTH_DEVICE_STATES | undefined;
