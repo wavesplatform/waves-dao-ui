@@ -43,7 +43,12 @@ export class FetchTracker<T> {
             .then(res => res.json())
             .then(data => {
                 runInAction(() => {
-                    this.data = this.parser(data);
+                    if (typeof this.parser === 'function') {
+                        this.data = this.parser(data);
+                    } else {
+                        this.data = data as T;
+                    }
+                    this.error = null;
                     this.isLoading = false;
                 });
             })
