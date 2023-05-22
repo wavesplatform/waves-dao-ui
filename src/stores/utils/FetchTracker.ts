@@ -31,6 +31,10 @@ export class FetchTracker<T> {
         this.fetchUrl = fetchUrl;
         this.options = options;
         this.parser = parser;
+
+        if (autoFetch) {
+            this.load();
+        }
     }
 
     public load(): Promise<void> {
