@@ -10,8 +10,9 @@ interface FetchTrackerProps<T> {
 export class FetchTracker<T> {
 
     public data: T;
-    public isLoading: boolean;
+    public isLoading = false;
     public error: any;
+    public isFirstLoad = true;
 
     private fetchUrl: string;
     private options: RequestInit;
@@ -50,11 +51,13 @@ export class FetchTracker<T> {
                     }
                     this.error = null;
                     this.isLoading = false;
+                    this.isFirstLoad = false;
                 });
             })
             .catch(e => {
                 runInAction(() => {
                     this.error = e;
+                    this.isFirstLoad = false;
                 });
             });
     }
