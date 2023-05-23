@@ -5,9 +5,9 @@ import {
     ExternalLink,
     Flex,
 } from '@waves.exchange/wx-react-uikit';
-import { Text } from '../../../../uikit/Text/Text';
+import { Text } from 'uikit';
 import { Trans } from '@waves/ui-translator';
-import { Button } from '../../../../uikit/Button/Button';
+import { Button } from 'uikit';
 import { observer } from 'mobx-react-lite';
 import { AppStoreContext } from '../../../../App';
 
@@ -44,7 +44,9 @@ export const Balance: FC = observer(() => {
                         <Trans
                             i18key="assetBalance"
                             i18Params={{
-                                assetName: balanceStore.balances.WAVES?.asset.displayName,
+                                assetName:
+                                    balanceStore.balances.WAVES?.asset
+                                        .displayName,
                             }}
                         />
                     </Text>

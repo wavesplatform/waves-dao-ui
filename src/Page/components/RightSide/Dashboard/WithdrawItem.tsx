@@ -1,11 +1,11 @@
 import { FC, memo } from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
-import { Text } from '../../../../uikit/Text/Text';
+import { Text } from 'uikit';
 import { Trans } from '@waves/ui-translator';
-import { Button } from '../../../../uikit/Button/Button';
+import { Button } from 'uikit';
 import { Money } from '@waves/data-entities';
 import BigNumber from '@waves/bignumber';
-import { InUsdText } from '../../../../components/InUsdText';
+import { InUsdText } from '../../../../components/utilComponents/inUsdText';
 
 export const WithdrawItem: FC<{
     lpAmount: Money;
