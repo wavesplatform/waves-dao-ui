@@ -49,6 +49,9 @@ export class BalanceStore extends ChildStore {
     public off() {
         this.wavesBalance?.off();
         this.otherBalance?.off();
+
+        this.wavesBalance = undefined;
+        this.otherBalance = undefined;
     }
 
     private loadBalances() {
