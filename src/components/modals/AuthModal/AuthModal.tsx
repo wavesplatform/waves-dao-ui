@@ -1,14 +1,14 @@
-import * as React from "react";
-import { ModalProps } from "../../Modal/Modal";
-import { ModalStyled } from "../../Modal/ModalStyled";
-import { Box } from "@waves.exchange/wx-react-uikit";
+import * as React from 'react';
+import { ModalProps } from '../../Modal/Modal';
+import { ModalStyled } from '../../Modal/ModalStyled';
+import { Box } from '@waves.exchange/wx-react-uikit';
 import { Text }  from 'uikit';
-import { AuthItem } from "./components/AuthItem";
+import { AuthItem } from './components/AuthItem';
 import { keeper, wxIcon } from './icons';
 import { Checkbox } from 'uikit';
-import { useState } from "react";
+import { useState } from 'react';
 import { Button } from 'uikit';
-import { useAuth } from "./hooks/useAuth";
+import { useAuth } from './hooks/useAuth';
 import { modalManager } from '../../../services/modalManager';
 import { MODAL_NAMES } from '../../ModalContainer/MODAL_NAMES';
 import { translate } from '@waves/ui-translator';
@@ -32,26 +32,26 @@ const AuthModalFC: React.FC<ModalProps> = (props) => {
             <Box>
                 <AuthItem
                     icon={keeper}
-                    text={{ i18key: "keeper" }}
+                    text={{ i18key: 'keeper' }}
                     onSelect={() => setSelectedProvider('keeper')}
                 />
             </Box>
             <Box>
                 <AuthItem
                     icon={wxIcon}
-                    text={{ i18key: "seed" }}
+                    text={{ i18key: 'seed' }}
                     onSelect={() => setSelectedProvider('web')}
                 />
             </Box>
             <Box>
                 <AuthItem
                     icon={wxIcon}
-                    text={{ i18key: "cloud" }}
+                    text={{ i18key: 'cloud' }}
                     onSelect={() => setSelectedProvider('cloud')}
                 />
             </Box>
             <Checkbox
-                controlBoxStyles={{ baseStyles: { mr: "10px" } }}
+                controlBoxStyles={{ baseStyles: { mr: '10px' } }}
                 isChecked={checked}
                 isInvalid={false}
                 onChange={(e) => setChecked(e.target.checked)}
@@ -74,6 +74,6 @@ const AuthModalFC: React.FC<ModalProps> = (props) => {
     );
 };
 
-AuthModalFC.displayName = "AuthModal";
+AuthModalFC.displayName = 'AuthModal';
 
 export const AuthModal = translate('app.page')(AuthModalFC);

@@ -1,9 +1,9 @@
-import { FC, memo } from "react";
-import { Box, Flex } from "@waves.exchange/wx-react-uikit";
-import { Trans } from "@waves/ui-translator";
+import { FC, memo } from 'react';
+import { Box, Flex } from '@waves.exchange/wx-react-uikit';
+import { Trans } from '@waves/ui-translator';
 import { Text } from '../../../uikit/Text/Text';
-import { Button } from "../../../uikit/Button/Button";
-import { ExternalLinksBlock } from "./ExternalLinksBlock";
+import { Button } from '../../../uikit/Button/Button';
+import { ExternalLinksBlock } from './ExternalLinksBlock';
 import logoUrl from '/src/img/logo.png';
 
 export const LeftSide: FC = memo(() => {

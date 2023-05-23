@@ -1,5 +1,5 @@
-import { FC, memo } from "react";
-import { Box, Flex } from "@waves.exchange/wx-react-uikit";
+import { FC, memo } from 'react';
+import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import metamaskUrl from '/src/img/metamask.svg';
 import keeperUrl from '/src/img/keeper.svg';
 import wxUrl from '/src/img/wx.svg';

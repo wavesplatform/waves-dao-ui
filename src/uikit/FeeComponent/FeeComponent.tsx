@@ -60,19 +60,21 @@ export const FeeComponent: React.FC<TFeeComponentProps> = ({
                 mr={tooltipAtEnd ? '8px' : '0'}
                 color="text"
             >
-                {feeValue ? (
-                    <>
-                        <Text variant="body2">{isPercent ? fee : feeValue?.getTokens()?.toFormat()}</Text>
-                        <Text
-                            variant="body2"
-                            ml={!isPercent ? '5px' : null}
-                        >
-                            {isPercent ? '%' : feeValue?.asset?.ticker || feeValue?.asset?.displayName || null}
-                        </Text>
-                    </>
-                ) : (
-                    <Text color="text">...</Text>
-                )}
+                {feeValue
+                    ? (
+                        <>
+                            <Text variant="body2">{isPercent ? fee : feeValue?.getTokens()?.toFormat()}</Text>
+                            <Text
+                                variant="body2"
+                                ml={!isPercent ? '5px' : null}
+                            >
+                                {isPercent ? '%' : feeValue?.asset?.ticker || feeValue?.asset?.displayName || null}
+                            </Text>
+                        </>
+                    )
+                    : (
+                        <Text color="text">...</Text>
+                    )}
             </Box>
             {tooltipAtEnd && (
                 <Help tooltipAlign="right">

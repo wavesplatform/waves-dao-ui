@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Box, BoxProps } from "@waves.exchange/wx-react-uikit";
+import * as React from 'react';
+import { Box, BoxProps } from '@waves.exchange/wx-react-uikit';
 
 export const WrapperFormattedInput: React.FC<BoxProps> = ({
     children,
@@ -9,21 +9,21 @@ export const WrapperFormattedInput: React.FC<BoxProps> = ({
     return (
         <Box
             sx={{
-                "input": {
+                'input': {
                     '&[aria-invalid="true"]': {
-                        "&, &:hover, &:focus": {
-                            borderColor: "wddanger",
+                        '&, &:hover, &:focus': {
+                            borderColor: 'wddanger',
                         },
                     },
-                    "&:focus:not(:disabled)": {
-                        borderColor: "#1F5AF6",
+                    '&:focus:not(:disabled)': {
+                        borderColor: '#1F5AF6',
                     }
                 },
-                "& *": {
-                    fontSize: "14px !important",
-                    lineHeight: "20px !important",
+                '& *': {
+                    fontSize: '14px !important',
+                    lineHeight: '20px !important',
                 },
-                "span": {
+                'span': {
                     color: 'wdtextsec'
                 },
                 ...(sx as Record<string, any>),
@@ -35,4 +35,4 @@ export const WrapperFormattedInput: React.FC<BoxProps> = ({
     );
 };
 
-WrapperFormattedInput.displayName = "WrapperFormattedInput";
+WrapperFormattedInput.displayName = 'WrapperFormattedInput';

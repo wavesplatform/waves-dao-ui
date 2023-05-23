@@ -19,7 +19,7 @@ export const keeperCalm = {
             />
         </>
     ),
-    viewBox: "0 0 82 82",
+    viewBox: '0 0 82 82',
 };
 
 export const keeperRed = {

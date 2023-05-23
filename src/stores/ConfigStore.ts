@@ -1,4 +1,4 @@
-import configs from "../configs";
+import configs from '../configs';
 
 export type TAssetConfig = { label: string; id: string };
 
@@ -14,7 +14,7 @@ export type TConfig = {
         signerWeb: string,
         signerCloud: string
     },
-    contracts: {},
+    contracts: any,
     assets: Array<TAssetConfig>
 };
 
@@ -24,7 +24,7 @@ export class ConfigStore {
 
     constructor() {
         this.config =
-            import.meta.env.VITE_NETWORK === "testnet"
+            import.meta.env.VITE_NETWORK === 'testnet'
                 ? configs.testnet
                 : configs.mainnet;
     }

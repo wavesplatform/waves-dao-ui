@@ -1,10 +1,10 @@
 
-import * as React from "react";
-import { AuthTemplate, AuthTemplateProps } from "../components/AuthTemplate";
+import * as React from 'react';
+import { AuthTemplate, AuthTemplateProps } from '../components/AuthTemplate';
 import { keeperCalm } from './icons';
 
 interface KeeperNoLoginProps {
-    onRetry: AuthTemplateProps["onRetry"];
+    onRetry: AuthTemplateProps['onRetry'];
 }
 
 export const KeeperNoLogin: React.FC<KeeperNoLoginProps> = ({
@@ -14,14 +14,14 @@ export const KeeperNoLogin: React.FC<KeeperNoLoginProps> = ({
         <AuthTemplate
             icon={keeperCalm}
             title={{
-                i18key: "keeperNoLoginPropsTitle",
+                i18key: 'keeperNoLoginPropsTitle',
             }}
             text={{
-                i18key: "keeperNoLoginPropsText",
+                i18key: 'keeperNoLoginPropsText',
             }}
             onRetry={onRetry}
         />
     );
 };
 
-KeeperNoLogin.displayName = "KeeperNoLogin";
+KeeperNoLogin.displayName = 'KeeperNoLogin';

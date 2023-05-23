@@ -1,6 +1,6 @@
-import { FC, memo } from "react";
-import { PlateNote } from "@waves.exchange/wx-react-uikit";
-import { Trans } from "@waves/ui-translator";
+import { FC, memo } from 'react';
+import { PlateNote } from '@waves.exchange/wx-react-uikit';
+import { Trans } from '@waves/ui-translator';
 import { Text } from '../../../../uikit/Text/Text';
 
 export const UnlockedTokensMS: FC = memo(() => {
