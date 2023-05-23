@@ -1,5 +1,5 @@
-import { FC, memo, ReactNode } from "react";
-import { Box, ExternalLink, Flex } from "@waves.exchange/wx-react-uikit";
+import { FC, memo, ReactNode } from 'react';
+import { Box, ExternalLink, Flex } from '@waves.exchange/wx-react-uikit';
 import { Text } from '../../../uikit/Text/Text';
 import externalLinkUrl from '/src/img/external-link.png';
 

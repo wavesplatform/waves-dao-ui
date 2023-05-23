@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Box, BoxProps } from "@waves.exchange/wx-react-uikit";
+import * as React from 'react';
+import { Box, BoxProps } from '@waves.exchange/wx-react-uikit';
 
 export const WrapperTooltip: React.FC<BoxProps> = ({ children, ...rest }) => {
     const { sx, ...restProps } = rest;
@@ -7,7 +7,7 @@ export const WrapperTooltip: React.FC<BoxProps> = ({ children, ...rest }) => {
         <Box
             sx={{
                 '[data-popper-placement^="bottom"]': {
-                    backgroundColor: "#141D4B",
+                    backgroundColor: '#141D4B',
                 },
                 ...(sx as Record<string, any>),
             }}
@@ -18,4 +18,4 @@ export const WrapperTooltip: React.FC<BoxProps> = ({ children, ...rest }) => {
     );
 };
 
-WrapperTooltip.displayName = "WrapperTooltip";
+WrapperTooltip.displayName = 'WrapperTooltip';

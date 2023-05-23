@@ -42,5 +42,5 @@ export const useClicks = (hasClickOut: boolean, modalName: TModalName): {
     return {
         onMouseDown,
         onMouseUp
-    }
-}
+    };
+};

@@ -2,12 +2,12 @@ import {
     IBalance,
     TNodeBalanceResponse,
     IWavesBalanceResponse,
-} from "./interface";
-import { FetchTracker } from "../utils/FetchTracker";
-import { ChildStore } from "../ChildStore";
-import { AppStore } from "../AppStore";
-import { computed, makeObservable, reaction } from "mobx";
-import { Money } from "@waves/data-entities";
+} from './interface';
+import { FetchTracker } from '../utils/FetchTracker';
+import { ChildStore } from '../ChildStore';
+import { AppStore } from '../AppStore';
+import { computed, makeObservable, reaction } from 'mobx';
+import { Money } from '@waves/data-entities';
 
 export class BalanceStore extends ChildStore {
 
@@ -71,14 +71,14 @@ export class BalanceStore extends ChildStore {
         >({
             fetchUrl: `${this.rs.configStore.config.apiUrl.node}/assets/balance/${this.rs.authStore.user?.address}`,
             options: {
-                method: "POST",
+                method: 'POST',
                 headers: {
-                    'accept': "application/json",
-                    "Content-Type": "application/json",
+                    'accept': 'application/json',
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     ids: this.rs.configStore.config.assets
-                        .filter((a) => a.label !== "WAVES")
+                        .filter((a) => a.label !== 'WAVES')
                         .map((a) => a.id),
                 }),
             },

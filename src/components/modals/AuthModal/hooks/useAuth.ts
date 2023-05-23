@@ -6,12 +6,12 @@ import { AppStoreContext } from '../../../../App';
 import { TProvider } from '../../../../stores/AuthStore';
 
 export enum AUTH_DEVICE_STATES {
-    notInstalled = "notInstalled",
-    signCustom = "signCustom",
-    switchNetwork = "switchNetwork",
-    connectionRejected = "connectionRejected",
-    noAccounts = "noAccounts",
-    noLogin = "noLogin",
+    notInstalled = 'notInstalled',
+    signCustom = 'signCustom',
+    switchNetwork = 'switchNetwork',
+    connectionRejected = 'connectionRejected',
+    noAccounts = 'noAccounts',
+    noLogin = 'noLogin',
 }
 
 interface IUseAuth {

@@ -1,14 +1,14 @@
-import { FC, memo } from "react";
-import { Box, Flex } from "@waves.exchange/wx-react-uikit";
+import { FC, memo } from 'react';
+import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Text } from '../../../../uikit/Text/Text';
-import { Trans } from "@waves/ui-translator";
-import { Button } from "../../../../uikit/Button/Button";
-import wavesLpUrl from "/src/img/waveslp.svg";
-import { WithdrawItem } from "./WithdrawItem";
-import { InUsdText } from "../../../../components/InUsdText";
-import BigNumber from "@waves/bignumber";
+import { Trans } from '@waves/ui-translator';
+import { Button } from '../../../../uikit/Button/Button';
+import wavesLpUrl from '/src/img/waveslp.svg';
+import { WithdrawItem } from './WithdrawItem';
+import { InUsdText } from '../../../../components/InUsdText';
+import BigNumber from '@waves/bignumber';
 import { wavesAsset } from '../../../../services/assets';
-import { Asset, Money } from "@waves/data-entities";
+import { Asset, Money } from '@waves/data-entities';
 
 export const LpBalance: FC = memo(() => {
     const wavesdlpAsset = { ...wavesAsset, displayName: 'WAVESDLP' };
@@ -39,18 +39,18 @@ export const LpBalance: FC = memo(() => {
                         </Text>
                         <Flex alignItems="center" justifyContent={['center', 'initial']}>
                             <Text as="div" variant="text1" color="text" mr="4px">
-                                {`68.200351`}
+                                {'68.200351'}
                             </Text>
                             <Text variant="text2" color="wdtextsec">
-                                {`WAVESDLP`}
+                                {'WAVESDLP'}
                             </Text>
                         </Flex>
                         <Flex alignItems="center" justifyContent={['center', 'initial']}>
                             <Text as="div" variant="text2" color="text" mr="4px">
-                                {`~179.4567`}
+                                {'~179.4567'}
                             </Text>
                             <Text variant="text2" color="wdtextsec">
-                                {`WAVES`}
+                                {'WAVES'}
                             </Text>
                             <InUsdText usd={new BigNumber(250)} decimals={2} variant="text2" color="wdtextsec" ml="4px" />
                         </Flex>

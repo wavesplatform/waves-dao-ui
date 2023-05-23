@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import * as React from "react";
-import { Box, BoxProps, Help as HelpKit } from "@waves.exchange/wx-react-uikit";
+import * as React from 'react';
+import { Box, BoxProps, Help as HelpKit } from '@waves.exchange/wx-react-uikit';
 
 type TWrapperHelp = BoxProps & {
-    tooltipAlign?: "left" | "center" | "right" | "auto";
-    direction?: "top" | "bottom" | "left" | "right" | "auto";
+    tooltipAlign?: 'left' | 'center' | 'right' | 'auto';
+    direction?: 'top' | 'bottom' | 'left' | 'right' | 'auto';
 };
 
 export const Help: React.FC<TWrapperHelp> = ({
     children,
-    tooltipAlign = "left",
-    direction = "bottom",
+    tooltipAlign = 'left',
+    direction = 'bottom',
     ...rest
 }) => {
     const { sx, ...restProps } = rest;
@@ -18,7 +18,7 @@ export const Help: React.FC<TWrapperHelp> = ({
         <Box
             sx={{
                 '[data-popper-placement^="bottom"]': {
-                    backgroundColor: "#141D4B",
+                    backgroundColor: '#141D4B',
                 },
                 ...(sx as Record<string, any>),
             }}
@@ -26,7 +26,7 @@ export const Help: React.FC<TWrapperHelp> = ({
         >
             {/* @ts-ignore */}
             <HelpKit
-                colors={{ active: "#B0BAC7" }}
+                colors={{ active: '#B0BAC7' }}
                 direction={direction}
                 align={tooltipAlign}
             >
@@ -36,4 +36,4 @@ export const Help: React.FC<TWrapperHelp> = ({
     );
 };
 
-Help.displayName = "Help";
+Help.displayName = 'Help';

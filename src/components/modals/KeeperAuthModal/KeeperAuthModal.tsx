@@ -1,15 +1,15 @@
-import * as React from "react";
-import { MODAL_NAMES } from "../../ModalContainer/MODAL_NAMES";
-import { ModalProps } from "../../Modal/Modal";
-import { Box } from "@waves.exchange/wx-react-uikit";
-import { ModalStyled } from "../../Modal/ModalStyled";
-import { KeeperSignCustom } from "./modalStates/KeeperSignCustom";
-import { KeeperSwitchNetwork } from "./modalStates/KeeperSwitchNetwork";
-import { KeeperConnectionRejected } from "./modalStates/KeeperConnectionRejected";
-import { KeeperNoAccounts } from "./modalStates/KeeperNoAccounts";
-import { KeeperNoLogin } from "./modalStates/KeeperNoLogin";
-import { KeeperNotInstalled } from "./modalStates/KeeperNotInstalled";
-import { AuthTemplateProps } from "./components/AuthTemplate";
+import * as React from 'react';
+import { MODAL_NAMES } from '../../ModalContainer/MODAL_NAMES';
+import { ModalProps } from '../../Modal/Modal';
+import { Box } from '@waves.exchange/wx-react-uikit';
+import { ModalStyled } from '../../Modal/ModalStyled';
+import { KeeperSignCustom } from './modalStates/KeeperSignCustom';
+import { KeeperSwitchNetwork } from './modalStates/KeeperSwitchNetwork';
+import { KeeperConnectionRejected } from './modalStates/KeeperConnectionRejected';
+import { KeeperNoAccounts } from './modalStates/KeeperNoAccounts';
+import { KeeperNoLogin } from './modalStates/KeeperNoLogin';
+import { KeeperNotInstalled } from './modalStates/KeeperNotInstalled';
+import { AuthTemplateProps } from './components/AuthTemplate';
 import { AUTH_DEVICE_STATES } from '../AuthModal/hooks/useAuth';
 import { translate } from '@waves/ui-translator';
 
@@ -78,6 +78,6 @@ const KeeperAuthModalFC: React.FC<KeeperAuthModalProps & ModalProps> = ({
     );
 };
 
-KeeperAuthModalFC.displayName = "KeeperAuthModalFC";
+KeeperAuthModalFC.displayName = 'KeeperAuthModalFC';
 
 export const KeeperAuthModal = translate('app.page')(KeeperAuthModalFC);

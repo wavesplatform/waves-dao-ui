@@ -1,9 +1,9 @@
-import * as React from "react";
-import { Text } from "@waves.exchange/wx-react-uikit";
-import BigNumber from "@waves/bignumber";
-import { Trans } from "@waves/ui-translator";
+import * as React from 'react';
+import { Text } from '@waves.exchange/wx-react-uikit';
+import BigNumber from '@waves/bignumber';
+import { Trans } from '@waves/ui-translator';
 
-type TInputErrorState = "notEnoughFunds" | "minAmount" | "required";
+type TInputErrorState = 'notEnoughFunds' | 'minAmount' | 'required';
 type InputErrorsProps = {
     minAmount?: BigNumber;
     error?: TInputErrorState;
@@ -15,26 +15,32 @@ export const InputErrors: React.FC<InputErrorsProps> = React.memo(
         return (
             <>
                 <Text variant="caption" color="wdred" display="block" mt="8px">
-                    {error === "minAmount" && minAmount ? (
-                        <Trans
-                            i18key="error.min"
-                            i18Params={{
-                                amount: minAmount?.toFormat(),
-                                assetName,
-                            }}
-                        />
-                    ) : null}
+                    {error === 'minAmount' && minAmount
+                        ? (
+                            <Trans
+                                i18key="error.min"
+                                i18Params={{
+                                    amount: minAmount?.toFormat(),
+                                    assetName,
+                                }}
+                            />
+                        )
+                        : null}
 
-                    {error === "notEnoughFunds" ? (
-                        <Trans i18key="error.unsufficient" />
-                    ) : null}
-                    {error === "required" ? (
-                        <Trans i18key="error.required" />
-                    ) : null}
+                    {error === 'notEnoughFunds'
+                        ? (
+                            <Trans i18key="error.unsufficient" />
+                        )
+                        : null}
+                    {error === 'required'
+                        ? (
+                            <Trans i18key="error.required" />
+                        )
+                        : null}
                 </Text>
             </>
         );
     }
 );
 
-InputErrors.displayName = "InputErrors";
+InputErrors.displayName = 'InputErrors';

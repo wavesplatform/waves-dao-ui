@@ -1,8 +1,8 @@
-import { FC, memo } from "react";
-import { Box, Flex } from "@waves.exchange/wx-react-uikit";
+import { FC, memo } from 'react';
+import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Text } from '../../../../uikit/Text/Text';
-import { Trans } from "@waves/ui-translator";
-import { Button } from "../../../../uikit/Button/Button";
+import { Trans } from '@waves/ui-translator';
+import { Button } from '../../../../uikit/Button/Button';
 
 export const AvailableClaim: FC = memo(() => {
     return (
@@ -24,10 +24,10 @@ export const AvailableClaim: FC = memo(() => {
                 </Text>
                 <Flex>
                     <Text as="div" variant="text1" color="text" mr="4px">
-                        {`150`}
+                        {'150'}
                     </Text>
                     <Text variant="text1" color="wdtextsec">
-                        {`WAVESDLP`}
+                        {'WAVESDLP'}
                     </Text>
                 </Flex>
             </Box>

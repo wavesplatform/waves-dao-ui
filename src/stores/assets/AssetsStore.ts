@@ -31,9 +31,10 @@ export class AssetsStore extends ChildStore {
     };
 
     private transformAsset = (data: IExpandedAssetJson): AssetWithMeta | null | undefined => {
-        return data == null ?
-            (data === null ? null : undefined) :
-            Object.assign(new Asset(({
+        if (data === null) {
+            return null;
+        } else
+            return Object.assign(new Asset(({
                 ...data.data,
                 ticker: data.data.ticker || '',
                 hasScript: data.data.hasScript,

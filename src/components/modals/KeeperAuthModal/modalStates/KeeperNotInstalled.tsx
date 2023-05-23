@@ -1,10 +1,10 @@
 
-import * as React from "react";
-import { AuthTemplate, AuthTemplateProps } from "../components/AuthTemplate";
+import * as React from 'react';
+import { AuthTemplate, AuthTemplateProps } from '../components/AuthTemplate';
 import { keeperCalm } from './icons';
 
 interface KeeperNotInstalledProps {
-    onRetry: AuthTemplateProps["onRetry"];
+    onRetry: AuthTemplateProps['onRetry'];
 }
 
 export const KeeperNotInstalled: React.FC<KeeperNotInstalledProps> = ({
@@ -14,14 +14,14 @@ export const KeeperNotInstalled: React.FC<KeeperNotInstalledProps> = ({
         <AuthTemplate
             icon={keeperCalm}
             title={{
-                i18key: "keeperNotInstalledTitle",
+                i18key: 'keeperNotInstalledTitle',
             }}
             text={{
-                i18key: "keeperNotInstalledText",
+                i18key: 'keeperNotInstalledText',
             }}
             onRetry={onRetry}
         />
     );
 };
 
-KeeperNotInstalled.displayName = "KeeperNotInstalled";
+KeeperNotInstalled.displayName = 'KeeperNotInstalled';

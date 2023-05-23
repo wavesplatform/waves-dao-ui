@@ -1,6 +1,6 @@
-import { FC, memo } from "react";
-import { Box } from "@waves.exchange/wx-react-uikit";
-import { Trans } from "@waves/ui-translator";
+import { FC, memo } from 'react';
+import { Box } from '@waves.exchange/wx-react-uikit';
+import { Trans } from '@waves/ui-translator';
 import { Text } from '../../../../uikit/Text/Text';
 
 export const Treasury: FC = memo(() => {
@@ -10,7 +10,7 @@ export const Treasury: FC = memo(() => {
                 <Trans i18key="treasuty" />
             </Text>
             <Text variant="heading2">
-                {`$ 2,655,301.51`}
+                {'$ 2,655,301.51'}
             </Text>
         </Box>
     );
