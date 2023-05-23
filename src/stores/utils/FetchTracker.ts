@@ -76,7 +76,7 @@ export class FetchTracker<T, K> { // T - data type, K - fetch response type
                     }
                 },
                 this.refreshInterval,
-                false
+                true
             );
 
             return this.poll.play();
