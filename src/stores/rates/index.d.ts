@@ -10,7 +10,6 @@ export enum HEURISTICS {
 }
 
 export type TRateData = {
-    rate: BigNumber;
     exchange?: BigNumber;
     heuristic?: BigNumber
 };
@@ -25,7 +24,6 @@ export interface IRatesResponse {
         pair: string;
         heuristics: Array<HEURISTICS>;
         data: {
-            rate: number;
             exchange?: number | null;
             heuristic?: number | null;
         };

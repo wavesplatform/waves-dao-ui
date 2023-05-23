@@ -24,7 +24,6 @@ export function toId(asset: string | Asset): string {
     return (typeof asset === 'string' ? asset : asset?.id) || 'WAVES';
 }
 
-
 export const getPair = (assetId: string|Asset, asset2Id: string|Asset): string => {
     return `${toId(assetId)}/${toId(asset2Id)}`;
 };

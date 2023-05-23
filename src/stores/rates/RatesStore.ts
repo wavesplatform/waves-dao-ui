@@ -23,7 +23,7 @@ export class RatesStore extends ChildStore {
                 body: this.getRatesBody(),
             },
             parser: this.ratesParser,
-            refreshInterval: 30_60_000
+            refreshInterval: 30_000
         });
 
         reaction(
@@ -51,7 +51,6 @@ export class RatesStore extends ChildStore {
     private ratesParser({ data }: IRatesResponse): TRatesHash {
         return data.reduce<TRatesHash>((acc, item) => {
             acc[item.pair] = {
-                rate: new BigNumber(item.data.rate),
                 exchange: new BigNumber(item.data.exchange),
                 heuristic: new BigNumber(item.data.heuristic),
             };

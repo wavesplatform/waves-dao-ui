@@ -19,20 +19,13 @@ export const getInUsd = (value: Money, ratesData: TRatesHash): Money => {
         return baseMoney;
     }
 
-    const rate =
-        !rateData || rateData.rate?.isNaN()
-            ? new BigNumber(0)
-            : rateData.rate;
+    const exchangeRate = !rateData.exchange || rateData.exchange?.isNaN() ?
+        new BigNumber(0) :
+        rateData.exchange;
 
-    const exchangeRate =
-        !rateData.exchange || rateData.exchange?.isNaN()
-            ? new BigNumber(0)
-            : rateData.exchange;
-
-    const resultRate =
-        !rateData.heuristic || rateData.heuristic?.isNaN()
-            ? exchangeRate
-            : rate;
+    const resultRate = !rateData.heuristic || rateData.heuristic?.isNaN() ?
+        exchangeRate :
+        rateData.heuristic;
 
     return baseMoney.cloneWithTokens(value.getTokens().mul(resultRate));
 };
