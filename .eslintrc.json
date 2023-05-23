@@ -87,6 +87,7 @@
     "@typescript-eslint/interface-name-prefix": "off",
     "sort-imports": "off",
     "no-duplicate-imports": "off",
-    "comma-dangle": ["error", "only-multiline"]
+    "comma-dangle": ["error", "only-multiline"],
+    "no-nested-ternary": "off"
   }
 }
