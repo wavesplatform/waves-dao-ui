@@ -54,8 +54,12 @@ export class AuthStore extends ChildStore  {
 
     public logout = (): Promise<void> => {
         if (this.provider) {
-            this.user = undefined;
-            return this.provider.logout();
+            return this.provider?.logout()
+                .then(() => {
+                    runInAction(() => {
+                        this.user = undefined;
+                    });
+                });
         } else {
             return Promise.resolve();
         }
