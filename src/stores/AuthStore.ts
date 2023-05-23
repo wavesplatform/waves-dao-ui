@@ -1,14 +1,18 @@
-import { Signer, Provider, UserData } from "@waves/signer";
-import MobileDetect from "mobile-detect";
-import { ProviderKeeper } from "@waves/provider-keeper";
-import { ProviderCloud } from "@waves.exchange/provider-cloud";
-import { ProviderLedger } from "@waves/provider-ledger";
-import { ProviderWeb } from "@waves.exchange/provider-web";
+import { Signer, Provider, UserData } from '@waves/signer';
+import MobileDetect from 'mobile-detect';
+import { ProviderKeeper } from '@waves/provider-keeper';
+import { ProviderCloud } from '@waves.exchange/provider-cloud';
+import { ProviderLedger } from '@waves/provider-ledger';
+import { ProviderWeb } from '@waves.exchange/provider-web';
 import { AppStore } from './AppStore';
 import { ChildStore } from './ChildStore';
 import { computed, makeObservable, observable, runInAction } from 'mobx';
 
-export type TProvider = "web" | "cloud" | "ledger" | "keeper" | "metamask";
+export type TProvider = 'web' | 'cloud' | 'ledger' | 'keeper' | 'metamask';
+export type TUserType = 'keeper' | 'metamask' | 'wx';
+export interface IUserData extends UserData {
+    type: TUserType;
+}
 
 interface AuthStoreParams {
     nodeUrl: string;
@@ -25,7 +29,7 @@ const canIUseLedger = () => {
 export class AuthStore extends ChildStore  {
 
     public signer: Signer;
-    public user?: UserData;
+    public user?: IUserData;
 
     private provider: Provider | null = null;
     private readonly signerWebUrl: string;
@@ -53,7 +57,19 @@ export class AuthStore extends ChildStore  {
             })
             .then((userData) => {
                 runInAction(() => {
-                    this.user = userData;
+                    this.user = {
+                        ...userData,
+                        type: this.getUserType(providerId),
+                    };
+                });
+            });
+    }
+
+    public logout(): Promise<void> {
+        return this.provider?.logout()
+            .then(() => {
+                runInAction(() => {
+                    this.user = undefined;
                 });
             });
     }
@@ -103,6 +119,19 @@ export class AuthStore extends ChildStore  {
                 : Promise.reject(new Error(`${providerId} is not installed`));
         } else {
             Promise.resolve();
+        }
+    }
+
+    private getUserType(providerId?: TProvider): TUserType {
+        switch (providerId) {
+            case null:
+                return null;
+            case 'keeper':
+                return 'keeper';
+            case 'metamask':
+                return 'metamask';
+            default:
+                return 'wx';
         }
     }
 }
