@@ -14,12 +14,6 @@ export interface IUserData extends UserData {
     type: TUserType;
 }
 
-interface AuthStoreParams {
-    nodeUrl: string;
-    signerWebUrl: string;
-    signerCloudUrl: string;
-}
-
 const canIUseLedger = () => {
     const isChrome = !!(window as any).chrome;
     const mb = new MobileDetect(window.navigator.userAgent);
@@ -50,7 +44,7 @@ export class AuthStore extends ChildStore  {
         this.signerCloudUrl = rs.configStore.config.apiUrl.signerCloud;
     }
 
-    public login(providerId?: TProvider): Promise<void> {
+    public login = (providerId?: TProvider): Promise<void> => {
         return this.setProvider(providerId)
             .then(() => {
                 return this.provider?.login();
@@ -63,16 +57,20 @@ export class AuthStore extends ChildStore  {
                     };
                 });
             });
-    }
+    };
 
     public logout(): Promise<void> {
-        return this.provider?.logout()
-            .then(() => {
-                runInAction(() => {
-                    this.user = undefined;
+        if (this.provider) {
+            return this.provider?.logout()
+                .then(() => {
+                    runInAction(() => {
+                        this.user = undefined;
+                    });
                 });
-            });
-    }
+        } else {
+            return Promise.resolve();
+        }
+    };
 
     public get isAuthorized(): boolean {
         return !!this.user;
@@ -104,7 +102,7 @@ export class AuthStore extends ChildStore  {
         return this.signer.setProvider(this.provider);
     }
 
-    private checkDevice(providerId: TProvider): Promise<void> {
+    private checkDevice(providerId?: TProvider): Promise<void> {
         if (providerId === "metamask") {
             return (window as any).Metamask // todo check
                 ? Promise.resolve()
@@ -114,11 +112,11 @@ export class AuthStore extends ChildStore  {
                 ? Promise.resolve()
                 : Promise.reject(new Error(`${providerId} is not installed`));
         } else if (providerId === "ledger") {
-            canIUseLedger()
+            return canIUseLedger()
                 ? Promise.resolve()
                 : Promise.reject(new Error(`${providerId} is not installed`));
         } else {
-            Promise.resolve();
+            return Promise.resolve();
         }
     }
 

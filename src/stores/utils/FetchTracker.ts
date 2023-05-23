@@ -1,28 +1,34 @@
 import { makeObservable, observable, runInAction } from 'mobx';
+import { Poll } from './Poll';
 
-interface FetchTrackerProps<T> {
+interface FetchTrackerProps<T, K> {
     fetchUrl: string;
+    refreshInterval?: number;
     options?: RequestInit;
-    parser?: (data: unknown) => T;
+    parser?: (data: K) => T;
     autoFetch?: boolean;
 }
 
-export class FetchTracker<T> {
+export class FetchTracker<T, K> { // T - data type, K - fetch response type
 
-    public data: T;
-    public isLoading: boolean;
+    public data: T = Object.create(null);
+    public isLoading = true;
     public error: any;
+    public isFirstLoad = true;
 
-    private fetchUrl: string;
-    private options: RequestInit;
-    private readonly parser: (data: unknown) => T;
+    private poll: Poll<void> | undefined;
+    private fetchUrl: FetchTrackerProps<T, K>['fetchUrl'];
+    private options: FetchTrackerProps<T, K>['options'];
+    private readonly refreshInterval: FetchTrackerProps<T, K>['refreshInterval'];
+    private readonly parser: FetchTrackerProps<T, K>['parser'];
 
     constructor({
         fetchUrl,
         options,
         parser,
-        autoFetch = false
-    }: FetchTrackerProps<T>) {
+        autoFetch = false,
+        refreshInterval
+    }: FetchTrackerProps<T, K>) {
         makeObservable(this, {
             data: observable,
             isLoading: observable,
@@ -31,15 +37,16 @@ export class FetchTracker<T> {
         this.fetchUrl = fetchUrl;
         this.options = options;
         this.parser = parser;
+        this.refreshInterval = refreshInterval;
 
         if (autoFetch) {
+            this.isLoading = true;
             this.load();
         }
     }
 
     public load(): Promise<void> {
-        this.isLoading = true;
-        return fetch(this.fetchUrl)
+        const _load = () => fetch(this.fetchUrl, this.options)
             .then(res => res.json())
             .then(data => {
                 runInAction(() => {
@@ -50,12 +57,37 @@ export class FetchTracker<T> {
                     }
                     this.error = null;
                     this.isLoading = false;
+                    this.isFirstLoad = false;
                 });
             })
             .catch(e => {
                 runInAction(() => {
                     this.error = e;
+                    this.isFirstLoad = false;
                 });
             });
+
+        if (typeof this.refreshInterval === 'number') {
+            this.poll = new Poll<void>(
+                {
+                    get: () => _load(),
+                    set: () => {
+                        null;
+                    }
+                },
+                this.refreshInterval,
+                true
+            );
+
+            return this.poll.play();
+        } else {
+            return _load();
+        }
+    }
+
+    off(): void {
+        if (this.poll) {
+            this.poll.destroy();
+        }
     }
 }

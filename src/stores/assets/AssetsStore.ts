@@ -7,13 +7,13 @@ import { ChildStore } from '../ChildStore';
 
 export class AssetsStore extends ChildStore {
 
-    public assetsData: FetchTracker<Record<string, AssetWithMeta>>;
+    public assetsData: FetchTracker<Record<string, AssetWithMeta>, IAssetsResponse>;
 
     constructor(rs: AppStore) {
         super(rs);
         const config = this.rs.configStore.config;
         const assetsIds = config.assets.map(a => a.id);
-        this.assetsData = new FetchTracker<Record<string, AssetWithMeta>>({
+        this.assetsData = new FetchTracker<Record<string, AssetWithMeta>, IAssetsResponse>({
             fetchUrl: `${config.apiUrl.assets}?ids=${assetsIds.join('&ids=')}`,
             parser: this.assetsParser,
             autoFetch: true
@@ -25,12 +25,12 @@ export class AssetsStore extends ChildStore {
             .map(this.transformAsset)
             .filter(Boolean)
             .reduce((acc, asset) => {
-                acc[asset.id] = asset;
+                acc[(asset as AssetWithMeta).id] = asset;
                 return acc;
             }, Object.create(null));
     };
 
-    private transformAsset = (data: IExpandedAssetJson): AssetWithMeta => {
+    private transformAsset = (data: IExpandedAssetJson): AssetWithMeta | null | undefined => {
         return data == null ?
             (data === null ? null : undefined) :
             Object.assign(new Asset(({

@@ -7,16 +7,17 @@ interface INodeHeightsResponse {
 
 export class NodeHeightStore extends ChildStore {
 
-    public heightData: FetchTracker<number>;
+    public heightData: FetchTracker<number, INodeHeightsResponse>;
 
     constructor(props) {
         super(props);
 
         const config = this.rs.configStore.config;
-        this.heightData = new FetchTracker<number>({
+        this.heightData = new FetchTracker<number, INodeHeightsResponse>({
             fetchUrl: config.apiUrl.nodeHeight,
             parser: this.parser,
-            autoFetch: true
+            autoFetch: true,
+            refreshInterval: 60_000,
         });
     }
 

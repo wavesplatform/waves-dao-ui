@@ -28,7 +28,6 @@ function App() {
                                 <Page />;
                         }}
                     </Observer>
-                    <Page />
                 </TranslateProvider>
             </ThemeProvider>
         </AppStoreContext.Provider>
