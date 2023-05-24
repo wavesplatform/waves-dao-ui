@@ -4,11 +4,17 @@ import { MODAL_NAMES } from './MODAL_NAMES';
 import { KeeperAuthModal } from '../modals/KeeperAuthModal/KeeperAuthModal';
 import { AuthModal } from '../modals/AuthModal/AuthModal';
 import { LegalDisclaimerModal } from '../modals/LegalDisclaimerModal/LegalDisclaimerModal';
+import { GetWavesModal } from '../modals/GetWavesModal/GetWavesModal';
+import { ClaimWavesModal } from '../modals/ClaimWavesModal/ClaimWavesModal';
+import { CancelWithdrawalModal } from '../modals/CancelWithdrawalModal/CancelWithdrawalModal';
 
 const modals = {
     [MODAL_NAMES.authModal]: AuthModal,
     [MODAL_NAMES.keeperAuth]: KeeperAuthModal,
     [MODAL_NAMES.legalDisclaimer]: LegalDisclaimerModal,
+    [MODAL_NAMES.getWaves]: GetWavesModal,
+    [MODAL_NAMES.claimWaves]: ClaimWavesModal,
+    [MODAL_NAMES.cancelWithdrawal]: CancelWithdrawalModal,
 };
 
 export const useSystemModals = (

@@ -3,8 +3,12 @@ import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Text } from '../../../../uikit/Text/Text';
 import { Trans } from '@waves/ui-translator';
 import { Button } from '../../../../uikit/Button/Button';
+import { wavesAsset } from '../../../../services/assets';
+import { modalManager } from '../../../../services/modalManager';
+import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES';
 
 export const AvailableClaim: FC = memo(() => {
+    const wavesdlpAsset = { ...wavesAsset, displayName: 'WAVESDLP' };
     return (
         <Flex
             px="20px"
@@ -18,7 +22,10 @@ export const AvailableClaim: FC = memo(() => {
             border="1px solid"
             borderColor="wdpositive"
         >
-            <Box sx={{ pr: '8px', mb: ['8px', '0'] }} textAlign={['center', 'initial']}>
+            <Box
+                sx={{ pr: '8px', mb: ['8px', '0'] }}
+                textAlign={['center', 'initial']}
+            >
                 <Text as="div" variant="text2" color="text">
                     <Trans i18key="availableClaim" />
                 </Text>
@@ -31,7 +38,19 @@ export const AvailableClaim: FC = memo(() => {
                     </Text>
                 </Flex>
             </Box>
-            <Button variant="success">
+            <Button
+                variant="success"
+                onClick={() =>
+                    modalManager.openModal(
+                        MODAL_NAMES.claimWaves,
+                        {
+                            wavesdlpAsset,
+                            balance: '15',
+                        },
+                        500
+                    )
+                }
+            >
                 <Trans i18key="claimButton" />
             </Button>
         </Flex>

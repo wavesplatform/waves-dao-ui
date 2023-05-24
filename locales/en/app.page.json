@@ -92,5 +92,9 @@
         "desc3": "Attacks on WavesDAO, including without limitation:",
         "desc4": "{li}[Distributed denial of service;]{li}[Sybil attacks;]{li}[Phishing;]{li}[Social engineering;]{li}[Hacking;]{li}[Smurfing;]{li}[Malware;]{li}[Double spending;]{li}[Majority-mining, consensus-based, or other mining attacks;]{li}[Misinformation campaigns;]{li}[Forks;]{li}[and Spoofing.]",
         "desc5": "All Users acknowledge, agree, and warrant that they have been warned of all potential risks involved in funding projects and initiatives through WavesDAO infrastructure, as well as that there may be other risks involved, which are not specified herein, and that they fully accept such risks."
-    }
+    },
+    "availableForGet": "Available for Get",
+    "havenotfee": "You don't have enough funds to pay the Transaction Fee.",
+    "claimWAVESDLP": "Claim WAVESDLP",
+    "amount": "Amount"
 }
