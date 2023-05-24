@@ -9,11 +9,9 @@ import { KeeperConnectionRejected } from './modalStates/KeeperConnectionRejected
 import { KeeperNoAccounts } from './modalStates/KeeperNoAccounts';
 import { KeeperNoLogin } from './modalStates/KeeperNoLogin';
 import { KeeperNotInstalled } from './modalStates/KeeperNotInstalled';
-import { AuthTemplateProps } from './components/AuthTemplate';
+import { AuthTemplateProps } from '../components/AuthTemplate';
 import { AUTH_DEVICE_STATES } from '../AuthModal/hooks/useAuth';
 import { translate } from '@waves/ui-translator';
-
-
 
 export interface KeeperAuthModalProps {
     modalState: AUTH_DEVICE_STATES;
@@ -31,45 +29,27 @@ const KeeperAuthModalFC: React.FC<KeeperAuthModalProps & ModalProps> = ({
             modalName={MODAL_NAMES.keeperAuth}
             willClose={willClose}
             willOpen={willOpen}
+            sx={{
+                '& > div': {
+                    backgroundPosition: 'bottom',
+                    backgroundSize: 'cover',
+                },
+            }}
         >
             {(() => {
                 switch (modalState) {
                     case AUTH_DEVICE_STATES.notInstalled:
-                        return (
-                            <KeeperNotInstalled
-                                onRetry={onRetry}
-                            />
-                        );
+                        return <KeeperNotInstalled onRetry={onRetry} />;
                     case AUTH_DEVICE_STATES.signCustom:
-                        return (
-                            <KeeperSignCustom
-                                onRetry={onRetry}
-                            />
-                        );
+                        return <KeeperSignCustom onRetry={onRetry} />;
                     case AUTH_DEVICE_STATES.switchNetwork:
-                        return (
-                            <KeeperSwitchNetwork
-                                onRetry={onRetry}
-                            />
-                        );
+                        return <KeeperSwitchNetwork onRetry={onRetry} />;
                     case AUTH_DEVICE_STATES.connectionRejected:
-                        return (
-                            <KeeperConnectionRejected
-                                onRetry={onRetry}
-                            />
-                        );
+                        return <KeeperConnectionRejected onRetry={onRetry} />;
                     case AUTH_DEVICE_STATES.noAccounts:
-                        return (
-                            <KeeperNoAccounts
-                                onRetry={onRetry}
-                            />
-                        );
+                        return <KeeperNoAccounts onRetry={onRetry} />;
                     case AUTH_DEVICE_STATES.noLogin:
-                        return (
-                            <KeeperNoLogin
-                                onRetry={onRetry}
-                            />
-                        );
+                        return <KeeperNoLogin onRetry={onRetry} />;
                     default:
                         return <Box>something went wrong</Box>;
                 }
