@@ -1,10 +1,10 @@
-
-import * as React from "react";
-import { AuthTemplate, AuthTemplateProps } from "../components/AuthTemplate";
+import * as React from 'react';
+import { AuthTemplate, AuthTemplateProps } from '../components/AuthTemplate';
 import { keeperCalm } from './icons';
+import { getKeeperWalletDeviceName } from '../../../../utils/helpersInformationDevices';
 
 interface KeeperNotInstalledProps {
-    onRetry: AuthTemplateProps["onRetry"];
+    onRetry: AuthTemplateProps['onRetry'];
 }
 
 export const KeeperNotInstalled: React.FC<KeeperNotInstalledProps> = ({
@@ -14,14 +14,16 @@ export const KeeperNotInstalled: React.FC<KeeperNotInstalledProps> = ({
         <AuthTemplate
             icon={keeperCalm}
             title={{
-                i18key: "keeperNotInstalledTitle",
+                i18key: 'connectionFailed.title',
             }}
             text={{
-                i18key: "keeperNotInstalledText",
+                i18key: 'connectionFailed.descKeeperWallet',
             }}
             onRetry={onRetry}
+            isShowRetry={false}
+            device={getKeeperWalletDeviceName()}
         />
     );
 };
 
-KeeperNotInstalled.displayName = "KeeperNotInstalled";
+KeeperNotInstalled.displayName = 'KeeperNotInstalled';
