@@ -1,8 +1,8 @@
-import { FC, memo } from "react";
-import { Box, Flex } from "@waves.exchange/wx-react-uikit";
+import { FC, memo } from 'react';
+import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Text } from '../../../../uikit/Text/Text';
-import { Trans } from "@waves/ui-translator";
-import { Button } from "../../../../uikit/Button/Button";
+import { Trans } from '@waves/ui-translator';
+import { Button } from '../../../../uikit/Button/Button';
 
 export const FinalisePeriod: FC = memo(() => {
     return (

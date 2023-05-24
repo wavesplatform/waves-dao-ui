@@ -23,7 +23,7 @@ export type TButtonProps = BoxProps<
 
 export const Button = styled(Box as unknown as BoxAsElement<'button', TButtonProps>)(
     {
-        "cursor": 'pointer',
+        'cursor': 'pointer',
         ':disabled': {
             cursor: 'not-allowed',
         },

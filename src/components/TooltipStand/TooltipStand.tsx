@@ -1,6 +1,6 @@
-import { FC } from "react";
-import { Box, Flex, Tooltip } from "@waves.exchange/wx-react-uikit";
-import { WrapperTooltip } from "../../uikit/Tooltip/WrapperTooltip";
+import { FC } from 'react';
+import { Box, Flex, Tooltip } from '@waves.exchange/wx-react-uikit';
+import { WrapperTooltip } from '../../uikit/Tooltip/WrapperTooltip';
 
 export const TooltipStand: FC = () => {
     return (
@@ -16,4 +16,4 @@ export const TooltipStand: FC = () => {
     );
 };
 
-TooltipStand.displayName = "TooltipStand";
+TooltipStand.displayName = 'TooltipStand';

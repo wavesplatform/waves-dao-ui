@@ -9,8 +9,8 @@ export default<TConfig> {
         assetsIcons: 'https://wx.network/static/icons/assets',
         rates: 'https://wx.network/api/v1/rates',
         nodeHeight: 'https://nodes.wavesplatform.com/blocks/height',
-        signerWeb: "https://waves.exchange/signer/",
-        signerCloud: "https://waves.exchange/signer-cloud/"
+        signerWeb: 'https://waves.exchange/signer/',
+        signerCloud: 'https://waves.exchange/signer-cloud/'
     },
     contracts: {
 

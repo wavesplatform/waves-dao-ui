@@ -1,7 +1,7 @@
 import { FC, useContext } from 'react';
-import { Box, Flex } from "@waves.exchange/wx-react-uikit";
+import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Text } from '../../../../uikit/Text/Text';
-import { Diagram } from "../../../../uikit/Diagram/Diagram";
+import { Diagram } from '../../../../uikit/Diagram/Diagram';
 import { AppStoreContext } from '../../../../App';
 import { observer } from 'mobx-react-lite';
 
@@ -25,13 +25,13 @@ export const DiagramBlock: FC = observer(() => {
                     />
                     <Text as="div" variant="text1" display="flex" color="text">
                         <Text>
-                            {`1,000,000.51`}
+                            {'1,000,000.51'}
                         </Text>
                         <Text as="div" mx="4px" color="#3C69FF">
                             {assetsStore.assetsData.data?.WAVES?.displayName}
                         </Text>
                         <Text color="wdtextsec">
-                            {`$1,855,180.45`}
+                            {'$1,855,180.45'}
                         </Text>
                     </Text>
                 </Flex>
@@ -47,13 +47,13 @@ export const DiagramBlock: FC = observer(() => {
                     />
                     <Text as="div" variant="text1" display="flex" color="text">
                         <Text>
-                            {`800,120.51`}
+                            {'800,120.51'}
                         </Text>
                         <Text as="div" mx="4px" color="#2AC684">
-                            {`XTN`}
+                            {'XTN'}
                         </Text>
                         <Text color="wdtextsec">
-                            {`$800,120.51`}
+                            {'$800,120.51'}
                         </Text>
                     </Text>
                 </Flex>

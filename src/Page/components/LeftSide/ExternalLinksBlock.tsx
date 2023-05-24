@@ -1,7 +1,7 @@
-import { FC, memo } from "react";
-import { Flex, TFlexProps } from "@waves.exchange/wx-react-uikit";
-import { Trans } from "@waves/ui-translator";
-import { ExternalLinkRow } from "./ExternalLinkRow";
+import { FC, memo } from 'react';
+import { Flex, TFlexProps } from '@waves.exchange/wx-react-uikit';
+import { Trans } from '@waves/ui-translator';
+import { ExternalLinkRow } from './ExternalLinkRow';
 
 export const ExternalLinksBlock: FC<TFlexProps> = memo((props) => {
     return (

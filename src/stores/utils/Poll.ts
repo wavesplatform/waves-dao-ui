@@ -52,12 +52,12 @@ export class Poll<T> {
             return new Promise((resolve, reject) => {
                 const s = (data: T): void => {
                     resolve(data);
-                    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+                     
                     this.signals.requestError.off(r);
                 };
                 const r = (data: unknown): void => {
                     reject(data);
-                    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+                     
                     this.signals.requestSuccess.off(s);
                 };
                 this.signals.requestSuccess.once(s);

@@ -1,8 +1,8 @@
-import { FC } from "react";
-import { Flex, FormattedInput, Text } from "@waves.exchange/wx-react-uikit";
-import { WrapperFormattedInput } from "../../uikit/FormattedInput/WrapperFormattedInput";
-import { SetAmountButtons } from "../../uikit/SetAmountButtons/SetAmountButtons";
-import { InputErrors } from "../../uikit/InputErrors/InputErrors";
+import { FC } from 'react';
+import { Flex, FormattedInput, Text } from '@waves.exchange/wx-react-uikit';
+import { WrapperFormattedInput } from '../../uikit/FormattedInput/WrapperFormattedInput';
+import { SetAmountButtons } from '../../uikit/SetAmountButtons/SetAmountButtons';
+import { InputErrors } from '../../uikit/InputErrors/InputErrors';
 
 export const FormattedInputStand: FC = () => {
     return (
@@ -25,10 +25,10 @@ export const FormattedInputStand: FC = () => {
             </WrapperFormattedInput>
             <Flex flexDirection="column" maxWidth="300px" color="wdtextsec">
                 <Flex justifyContent="space-between" mb="6px">
-                    <Text variant="caption">I send</Text>{" "}
+                    <Text variant="caption">I send</Text>{' '}
                     <SetAmountButtons
-                        presets={["max"]}
-                        onClick={() => console.log("setMaxAmount")}
+                        presets={['max']}
+                        onClick={() => console.log('setMaxAmount')}
                     />
                 </Flex>
                 <WrapperFormattedInput>
@@ -45,4 +45,4 @@ export const FormattedInputStand: FC = () => {
     );
 };
 
-FormattedInputStand.displayName = "FormattedInputStand";
+FormattedInputStand.displayName = 'FormattedInputStand';

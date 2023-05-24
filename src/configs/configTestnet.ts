@@ -9,8 +9,8 @@ export default<TConfig> {
         assetsIcons: 'https://testnet.wx.network/static/icons/assets',
         rates: 'https://testnet.wx.network/api/v1/rates',
         nodeHeight: 'https://nodes-testnet.wavesnodes.com/blocks/height',
-        signerWeb: "https://testnet.wx.network/signer/",
-        signerCloud: "https://testnet.wx.network/signer-cloud/"
+        signerWeb: 'https://testnet.wx.network/signer/',
+        signerCloud: 'https://testnet.wx.network/signer-cloud/'
     },
     contracts: {
 

@@ -1,6 +1,6 @@
-import { FC } from "react";
-import { Box, Flex, Text } from "@waves.exchange/wx-react-uikit";
-import { Help } from "../../uikit/Help/Help";
+import { FC } from 'react';
+import { Box, Flex, Text } from '@waves.exchange/wx-react-uikit';
+import { Help } from '../../uikit/Help/Help';
 
 export const HelpStand: FC = () => {
     return (
@@ -19,4 +19,4 @@ export const HelpStand: FC = () => {
     );
 };
 
-HelpStand.displayName = "HelpStand";
+HelpStand.displayName = 'HelpStand';

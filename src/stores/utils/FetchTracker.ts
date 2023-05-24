@@ -3,6 +3,7 @@ import { Poll } from './Poll';
 
 interface FetchTrackerProps<T, K> {
     fetchUrl: string;
+    preloadData?: T;
     refreshInterval?: number;
     options?: RequestInit;
     parser?: (data: K) => T;
@@ -27,13 +28,17 @@ export class FetchTracker<T, K> { // T - data type, K - fetch response type
         options,
         parser,
         autoFetch = false,
-        refreshInterval
+        refreshInterval,
+        preloadData
     }: FetchTrackerProps<T, K>) {
         makeObservable(this, {
             data: observable,
             isLoading: observable,
             error: observable
         });
+        if (preloadData) {
+            this.data = preloadData;
+        }
         this.fetchUrl = fetchUrl;
         this.options = options;
         this.parser = parser;

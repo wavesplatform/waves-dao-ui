@@ -35,7 +35,7 @@ export const ButtonsStand: React.FC = () => {
                 </Button>
             </Flex>
         </Flex>
-    )
-}
+    );
+};
 
 ButtonsStand.displayName = 'ButtonsStand';

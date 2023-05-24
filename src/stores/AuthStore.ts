@@ -79,19 +79,19 @@ export class AuthStore extends ChildStore  {
     private async setProvider(providerId?: TProvider): Promise<void> {
         await this.checkDevice(providerId);
         switch (providerId) {
-            case "web":
+            case 'web':
                 this.provider = new ProviderWeb(this.signerWebUrl, true);
                 break;
 
-            case "cloud":
+            case 'cloud':
                 this.provider = new ProviderCloud(this.signerCloudUrl, true);
                 break;
 
-            case "ledger":
+            case 'ledger':
                 this.provider = new ProviderLedger();
                 break;
 
-            case "keeper":
+            case 'keeper':
                 this.provider = new ProviderKeeper();
                 break;
 
@@ -103,15 +103,15 @@ export class AuthStore extends ChildStore  {
     }
 
     private checkDevice(providerId?: TProvider): Promise<void> {
-        if (providerId === "metamask") {
+        if (providerId === 'metamask') {
             return (window as any).Metamask // todo check
                 ? Promise.resolve()
                 : Promise.reject(new Error(`${providerId} is not installed`));
-        } else if (providerId === "keeper") {
+        } else if (providerId === 'keeper') {
             return window.WavesKeeper
                 ? Promise.resolve()
                 : Promise.reject(new Error(`${providerId} is not installed`));
-        } else if (providerId === "ledger") {
+        } else if (providerId === 'ledger') {
             return canIUseLedger()
                 ? Promise.resolve()
                 : Promise.reject(new Error(`${providerId} is not installed`));
