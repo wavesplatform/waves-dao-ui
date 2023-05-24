@@ -27,8 +27,10 @@ const AuthModalFC: React.FC<ModalProps> = (props) => {
     React.useEffect(() => {
         const legalDisclaimer =
             wrapperRef.current.querySelector('.legalDisclaimer');
-        const clickHandler = () =>
+        const clickHandler = (e: React.MouseEvent) => {
+            e.preventDefault();
             modalManager.openModal(MODAL_NAMES.legalDisclaimer, undefined, 500);
+        };
         if (legalDisclaimer) {
             legalDisclaimer.addEventListener('click', clickHandler);
         }

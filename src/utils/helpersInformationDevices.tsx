@@ -21,7 +21,3 @@ export const getKeeperWalletDeviceName =
 export const getLedgerDeviceName = (): DEVICES_FULL_NAMES.Ledger => {
     return DEVICES_FULL_NAMES.Ledger;
 };
-
-export const networkCodeToNetworkMap = {
-    W: 'Mainnet',
-};
