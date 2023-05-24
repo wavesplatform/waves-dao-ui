@@ -43,3 +43,4 @@ export async function search<T = string>(
 
     return { entries, has_next_page };
 }
+
