@@ -9,7 +9,7 @@ import { KeeperConnectionRejected } from './modalStates/KeeperConnectionRejected
 import { KeeperNoAccounts } from './modalStates/KeeperNoAccounts';
 import { KeeperNoLogin } from './modalStates/KeeperNoLogin';
 import { KeeperNotInstalled } from './modalStates/KeeperNotInstalled';
-import { AuthTemplateProps } from './components/AuthTemplate';
+import { AuthTemplateProps } from '../components/AuthTemplate';
 import { AUTH_DEVICE_STATES } from '../AuthModal/hooks/useAuth';
 import { translate } from '@waves/ui-translator';
 

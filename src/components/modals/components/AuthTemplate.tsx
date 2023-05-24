@@ -7,13 +7,13 @@ import {
     Flex,
     Icon,
 } from '@waves.exchange/wx-react-uikit';
-import { Text } from '../../../../uikit/Text/Text';
-import { Button } from '../../../../uikit/Button/Button';
+import { Text } from '../../../uikit/Text/Text';
+import { Button } from '../../../uikit/Button/Button';
 import {
     TYPE_DEVICES_NAMES,
     getKeeperWalletDeviceName,
     getMetamaskDeviceName,
-} from '../../../../utils/helpersInformationDevices';
+} from '../../../utils/helpersInformationDevices';
 
 export interface AuthTemplateProps {
     icon: IIcon;
@@ -32,7 +32,7 @@ export const AuthTemplate: React.FC<AuthTemplateProps> = ({
     device,
     isShowRetry = true,
 }) => {
-    const wrapperRef = React.createRef<HTMLSpanElement>();
+    const wrapperRef = React.createRef<HTMLDivElement>();
     const [isPending, setIsPending] = React.useState(false);
     const handleRetry = async () => {
         setIsPending(true);

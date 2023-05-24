@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AuthTemplate, AuthTemplateProps } from '../components/AuthTemplate';
+import { AuthTemplate, AuthTemplateProps } from '../../components/AuthTemplate';
 import { keeperCalm } from './icons';
 import {
     getKeeperWalletDeviceName,
