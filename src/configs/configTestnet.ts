@@ -10,10 +10,11 @@ export default<TConfig> {
         rates: 'https://testnet.wx.network/api/v1/rates',
         nodeHeight: 'https://nodes-testnet.wavesnodes.com/blocks/height',
         signerWeb: 'https://testnet.wx.network/signer/',
-        signerCloud: 'https://testnet.wx.network/signer-cloud/'
+        signerCloud: 'https://testnet.wx.network/signer-cloud/',
+        stateSearch: 'https://testnet.wx.network/api/v1/state/search',
     },
     contracts: {
-
+        factory: ''
     },
     assets: [
         { label: 'WAVES', id: 'WAVES' },
