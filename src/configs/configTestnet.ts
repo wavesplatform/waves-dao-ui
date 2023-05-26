@@ -13,7 +13,7 @@ export default<TConfig> {
         signerCloud: 'https://testnet.wx.network/signer-cloud/'
     },
     contracts: {
-
+        calculator: ''
     },
     assets: [
         { label: 'WAVES', id: 'WAVES' },

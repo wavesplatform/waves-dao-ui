@@ -31,7 +31,12 @@ const MessageFC: React.FC<TMessageProps> = ({
     }
 
     return (
-        <PlateNote type={type} {...rest}>
+        <PlateNote
+            type={type}
+            borderColor="transparent"
+            bg="rgba(246, 31, 31, 0.6)"
+            {...rest}
+        >
             <Text color={color} variant="body2">
                 {transProps ? <Trans {...transProps} /> : null}
                 {children}

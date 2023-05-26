@@ -3,7 +3,7 @@ import { MODAL_NAMES } from '../../../ModalContainer/MODAL_NAMES';
 import { useContext, useRef, useState } from 'react';
 import { KeeperAuthModalProps } from '../../KeeperAuthModal/KeeperAuthModal';
 import { AppStoreContext } from '../../../../App';
-import { TProvider } from '../../../../stores/AuthStore';
+import { PROVIDER_TYPES_VALUES } from '../../../../stores/AuthStore';
 
 export enum AUTH_DEVICE_STATES {
     notInstalled = 'notInstalled',
@@ -25,11 +25,11 @@ type TKeeperError = {
     message: string;
 };
 
-const getModalNameBySelectedProvider = (selectedProvider: TProvider): MODAL_NAMES => {
+const getModalNameBySelectedProvider = (selectedProvider: PROVIDER_TYPES_VALUES): MODAL_NAMES => {
     return `${selectedProvider}Auth` as MODAL_NAMES;
 };
 
-export const useAuth = (selectedProvider: TProvider): IUseAuth => {
+export const useAuth = (selectedProvider: PROVIDER_TYPES_VALUES): IUseAuth => {
     const { authStore } = useContext(AppStoreContext);
     const [deviceState, setDeviceState] = useState<AUTH_DEVICE_STATES | undefined>();
     const prevState = useRef<AUTH_DEVICE_STATES | undefined>();

@@ -1,4 +1,4 @@
-import { FC, memo, useContext } from 'react';
+import { FC, memo, useCallback } from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Text } from 'uikit';
 import { Trans } from '@waves/ui-translator';
@@ -8,17 +8,22 @@ import BigNumber from '@waves/bignumber';
 import { InUsdText } from '../../../../components/utilComponents/inUsdText';
 import { modalManager } from '../../../../services/modalManager';
 import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES';
-import { AppStoreContext } from '../../../../App';
-import { wavesAsset } from '../../../../services/assets';
 
 export const WithdrawItem: FC<{
     lpAmount: Money;
     baseTokenAmount: Money;
     equil?: BigNumber;
 }> = memo(({ baseTokenAmount, lpAmount, equil }) => {
-    const wavesdlpAsset = { ...wavesAsset, displayName: 'WAVESDLP' };
-    const { balanceStore } = useContext(AppStoreContext);
     const unlocked = !!baseTokenAmount;
+
+    const handleClickButton = useCallback(() => {
+        if (unlocked) {
+            modalManager.openModal(MODAL_NAMES.getWaves);
+        } else {
+            modalManager.openModal(MODAL_NAMES.cancelWithdrawal);
+        }
+    }, [unlocked]);
+
     return (
         <Flex
             px="20px"
@@ -110,27 +115,7 @@ export const WithdrawItem: FC<{
                     display: 'flex',
                     alignItems: 'center',
                 }}
-                onClick={() => {
-                    if (unlocked) {
-                        modalManager.openModal(
-                            MODAL_NAMES.getWaves,
-                            {
-                                WAVES: balanceStore.balances.WAVES?.asset,
-                                balance: '150',
-                            },
-                            500
-                        );
-                    } else {
-                        modalManager.openModal(
-                            MODAL_NAMES.cancelWithdrawal,
-                            {
-                                wavesdlpAsset,
-                                balance: '15',
-                            },
-                            500
-                        );
-                    }
-                }}
+                onClick={handleClickButton}
             >
                 <Trans i18key={unlocked ? 'get' : 'cancelWithdrawal'} />
             </Button>

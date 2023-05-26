@@ -17,6 +17,9 @@ export const FeeError: React.FC<IFeeError & TPlateNote> = ({
             flexDirection="row"
             justifyContent="space-between"
             alignItems="center"
+            borderColor='transparent'
+            bg='rgba(246, 31, 31, 0.6)'
+            borderRadius='8px'
             sx={{
                 '& > span': {
                     display: 'flex',
@@ -28,8 +31,8 @@ export const FeeError: React.FC<IFeeError & TPlateNote> = ({
             }}
             {...rest}
         >
-            <Text color="text">
-                <Trans i18key="havenotfee" ns="app" {...transProps} />
+            <Text color="wdred">
+                <Trans i18key="havenotfee" {...transProps} />
             </Text>
         </PlateNote>
     );

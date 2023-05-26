@@ -96,5 +96,13 @@
     "availableForGet": "Available for Get",
     "havenotfee": "You don't have enough funds to pay the Transaction Fee.",
     "claimWAVESDLP": "Claim WAVESDLP",
-    "amount": "Amount"
+    "amount": "Amount",
+    "tryAgain": "Try Again",
+    "waitingConfirmation": "Waiting for confirmation from {{device}}.",
+    "rejectedByUserDevice": "You did not confirm the request using {{device}}.",
+    "rejectedByUser": "You did not confirm the request.",
+    "wrongNetworkError": "Wrong network is selected in the {{device}}. Choose the proper network and try again.",
+    "wrongUser": "Wrong account is selected in the {{device}}. Activate the proper account and try again.",
+    "somethingWrongWithNode": "Something went wrong. Node error code: {{code}}.",
+    "somethingWrong": "Something went wrong."
 }
