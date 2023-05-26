@@ -7,12 +7,15 @@ export interface IWithdrawal {
     claimTxId: string;
 }
 
-export interface IContractData {
+export interface ICommonContractData {
     startHeight: number;
     periodLength: number;
     currentPeriod: number;
     investedWaves: Money;
     investedLp: Money;
+}
+
+export interface IUserContractData {
     availableToClaim: Money;
     claimed: Money;
     withdraws?: IWithdrawal[];

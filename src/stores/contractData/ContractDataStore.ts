@@ -6,12 +6,12 @@ import { search } from '../../utils/search/searchRequest';
 import { IState } from '../../utils/search';
 import { parseSearchStr } from '../../utils/search/parseContractData';
 import { Money } from '@waves/data-entities';
-import { IContractData, TPriceData } from '.';
-
+import { ICommonContractData, IUserContractData, TPriceData } from '.';
 
 export class ContractDataStore extends ChildStore {
 
-    public contractData: FetchTracker<IContractData, IState>;
+    public commonContractData: FetchTracker<ICommonContractData, IState>;
+    public userContractData: FetchTracker<IUserContractData, IState>;
     public priceData: FetchTracker<TPriceData, IState>;
 
     constructor(rs: AppStore) {
@@ -21,7 +21,7 @@ export class ContractDataStore extends ChildStore {
         const contractAddress = this.rs.configStore.config.contracts.factory;
         const userAddress = this.rs.authStore.user.address;
 
-        this.contractData = new FetchTracker<any, any>({
+        this.commonContractData = new FetchTracker<any, any>({
             fetchUrl: searchUrl,
             fetcher: (fetchUrl) => search(
                 fetchUrl,
@@ -37,39 +37,71 @@ export class ContractDataStore extends ChildStore {
                                             { key: { operation: 'eq', value: '%s__periodLength' } },
                                             { key: { operation: 'eq', value: '%s__currentPeriod' } },
                                             { key: { operation: 'eq', value: '%s%s__invested__WAVES' } },
-                                            { key: { operation: 'eq', value: `%s%s__invested__${'lPAssetId'}` } },
-                                            { key: { operation: 'eq', value: `%s%s%s__available__${userAddress}` } },
-                                            { key: { operation: 'eq', value: `%s%s%s__claimed__${userAddress}` } },
+                                            { key: { operation: 'eq', value: `%s%s__invested__${'XTN'}` } }
                                         ]
                                     }
                                 ]
-                            },
-                            {
-                                in: {
-                                    //%s%s%s__withdrawal__<userAddress>__<txId>
-                                    properties: [
-                                        { address: {} },
-                                        { fragment: { position: 0, type: 'string' } },
-                                        { fragment: { position: 1, type: 'string' } },
-                                    ],
-                                    values: [[contractAddress, 'withdrawal', userAddress]]
-                                }
                             }
                         ],
                     }
                 }
             ),
             refreshInterval: 60_000,
-            autoFetch: true,
-            parser: this.contractDataParser
+            parser: this.contractDataParser,
+            autoFetch: true
         });
 
+        reaction(
+            () => this.rs.authStore.isAuthorized,
+            () => {
+                if (this.rs.authStore.isAuthorized) {
+                    this.userContractData = new FetchTracker<IUserContractData, IState>({
+                        fetchUrl: searchUrl,
+                        fetcher: (fetchUrl) => search(
+                            fetchUrl,
+                            {
+                                filter: {
+                                    or: [
+                                        {
+                                            and: [
+                                                { address: { operation: 'eq', value: contractAddress } },
+                                                {
+                                                    or: [
+                                                        { key: { operation: 'eq', value: `%s%s%s__available__${userAddress}` } },
+                                                        { key: { operation: 'eq', value: `%s%s%s__claimed__${userAddress}` } },
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            in: {
+                                                //%s%s%s__withdrawal__<userAddress>__<txId>
+                                                properties: [
+                                                    { address: {} },
+                                                    { fragment: { position: 0, type: 'string' } },
+                                                    { fragment: { position: 1, type: 'string' } },
+                                                ],
+                                                values: [[contractAddress, 'withdrawal', userAddress]]
+                                            }
+                                        }
+                                    ],
+                                }
+                            }
+                        ),
+                        refreshInterval: 60_000,
+                        parser: this.userContractDataParser,
+                        autoFetch: true
+                    });
+
+                }
+            }
+        );
 
         reaction(
-            () => this.contractData.isLoading,
+            () => this.userContractData.isLoading,
             () => {
-                if (!this.contractData.isLoading) {
-                    const period = this.contractData.data.withdraws.map(w => w.targetPeriod); // TODO: get period from contractData
+                if (!this.userContractData.isLoading) {
+                    const period = this.userContractData.data.withdraws.map(w => w.targetPeriod); // TODO: get period from contractData
                     this.priceData = new FetchTracker<any, any>({
                         fetchUrl: `${this.rs.configStore.config.apiUrl.stateSearch}`,
                         fetcher: (fetchUrl) => search(
@@ -95,7 +127,7 @@ export class ContractDataStore extends ChildStore {
         );
     }
 
-    private contractDataParser(data: IState): IContractData {
+    private contractDataParser = (data: IState): ICommonContractData => {
         const parseEntries = (key: string, value: string | number) => {
             switch (true) {
                 case key.includes('startHeight'):
@@ -108,6 +140,20 @@ export class ContractDataStore extends ChildStore {
                     return { investedWaves: new Money(value, this.rs.assetsStore.assetsData.data.WAVES) };
                 case key.includes(`invested__${'lPAssetId'}`):
                     return { investedLp: new Money(value, this.rs.assetsStore.assetsData.data['lPAssetId']) };
+                default:
+                    return {};
+            }
+        };
+
+        return data.entries.reduce((acc, entry) => {
+            const parsed = parseEntries(entry.key, entry.value);
+            return { ...acc, ...parsed };
+        }, Object.create(null));
+    };
+
+    private userContractDataParser = (data: IState): IUserContractData => {
+        const parseEntries = (key: string, value: string | number) => {
+            switch (true) {
                 case key.includes('available'):
                     return { availableToClaim: new Money(value, this.rs.assetsStore.assetsData.data['lPAssetId']) };
                 case key.includes('claimed'):
@@ -153,7 +199,7 @@ export class ContractDataStore extends ChildStore {
                 return { ...acc, ...parsed };
             }
         }, Object.create(null));
-    }
+    };
 
     private priceDataParser(data: IState): TPriceData {
         return data.entries.reduce((acc, entry) => {
