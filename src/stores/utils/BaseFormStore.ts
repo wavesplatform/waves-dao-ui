@@ -114,6 +114,10 @@ export class BaseFormStore {
     }
 
     public sendTransaction(promise: () => Promise<any>): any {
+        if(this.isPending){
+            return;
+        }
+
         this.updateFormState(FORM_STATE.pending);
         this.updateIsConfirmClicked(true);
 
