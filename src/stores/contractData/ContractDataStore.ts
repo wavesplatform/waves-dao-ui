@@ -6,30 +6,13 @@ import { search } from '../../utils/search/searchRequest';
 import { IState } from '../../utils/search';
 import { parseSearchStr } from '../../utils/search/parseContractData';
 import { Money } from '@waves/data-entities';
+import { IContractData, TPriceData } from '.';
 
-
-interface IWithdrawal {
-    status: string;
-    lpAssetAmount: Money;
-    targetPeriod: number;
-    claimTxId: string;
-}
-
-interface IContractData {
-    startHeight: number;
-    periodLength: number;
-    currentPeriod: number;
-    investedWaves: Money;
-    investedLp: Money;
-    availableToClaim: Money;
-    claimed: Money;
-    withdraws?: IWithdrawal[];
-}
 
 export class ContractDataStore extends ChildStore {
 
     public contractData: FetchTracker<IContractData, IState>;
-    public priceData: FetchTracker<any, IState>;
+    public priceData: FetchTracker<TPriceData, IState>;
 
     constructor(rs: AppStore) {
         super(rs);
@@ -86,7 +69,7 @@ export class ContractDataStore extends ChildStore {
             () => this.contractData.isLoading,
             () => {
                 if (!this.contractData.isLoading) {
-                    const period = this.contractData.data; // TODO: get period from contractData
+                    const period = this.contractData.data.withdraws.map(w => w.targetPeriod); // TODO: get period from contractData
                     this.priceData = new FetchTracker<any, any>({
                         fetchUrl: `${this.rs.configStore.config.apiUrl.stateSearch}`,
                         fetcher: (fetchUrl) => search(
@@ -96,13 +79,16 @@ export class ContractDataStore extends ChildStore {
                                     or: [{
                                         and: [
                                             { address: { operation: 'eq', value: contractAddress } },
-                                            { or: [{ key: { operation: 'eq', value: `%s%d__price__${period}` } }] }
+                                            { or: period.map(p => {
+                                                return { key: { operation: 'eq', value: `%s%d__price__${p}` } };
+                                            }) }
                                         ]
                                     }]
                                 }
                             }),
                         refreshInterval: 60_000,
-                        autoFetch: true
+                        autoFetch: true,
+                        parser: this.priceDataParser
                     });
                 }
             }
@@ -166,6 +152,12 @@ export class ContractDataStore extends ChildStore {
                 const parsed = parseEntries(entry.key, entry.value);
                 return { ...acc, ...parsed };
             }
+        }, Object.create(null));
+    }
+
+    private priceDataParser(data: IState): TPriceData {
+        return data.entries.reduce((acc, entry) => {
+            return { ...acc, [entry.key]: entry.value }; // todo
         }, Object.create(null));
     }
 
