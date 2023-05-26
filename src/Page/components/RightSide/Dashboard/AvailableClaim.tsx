@@ -3,12 +3,10 @@ import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Text } from '../../../../uikit/Text/Text';
 import { Trans } from '@waves/ui-translator';
 import { Button } from '../../../../uikit/Button/Button';
-import { wavesAsset } from '../../../../services/assets';
 import { modalManager } from '../../../../services/modalManager';
 import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES';
 
 export const AvailableClaim: FC = memo(() => {
-    const wavesdlpAsset = { ...wavesAsset, displayName: 'WAVESDLP' };
     return (
         <Flex
             px="20px"
@@ -40,16 +38,7 @@ export const AvailableClaim: FC = memo(() => {
             </Box>
             <Button
                 variant="success"
-                onClick={() =>
-                    modalManager.openModal(
-                        MODAL_NAMES.claimWaves,
-                        {
-                            wavesdlpAsset,
-                            balance: '15',
-                        },
-                        500
-                    )
-                }
+                onClick={() => modalManager.openModal(MODAL_NAMES.claimWaves)}
             >
                 <Trans i18key="claimButton" />
             </Button>
