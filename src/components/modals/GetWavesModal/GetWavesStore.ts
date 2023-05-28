@@ -18,7 +18,7 @@ export class GetWavesStore extends BaseFormStore {
         return {
             call: {
                 function: 'claimWaves',
-                args: [this.user?.address],
+                args: [{ type: 'string', value: this.user?.address }],
             },
             payment: [],
         };

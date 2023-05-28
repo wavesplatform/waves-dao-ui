@@ -18,7 +18,7 @@ export class ClaimWavesStore extends BaseFormStore {
         return {
             call: {
                 function: 'claimLP',
-                args: [this.user?.address],
+                args: [{ type: 'string', value: this.user?.address }],
             },
             payment: [],
         };

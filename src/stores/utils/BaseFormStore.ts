@@ -10,30 +10,13 @@ import {
     getDevice,
     isAvailableDevice,
 } from '../../utils/helpersInformationDevices';
-import { isNumber } from 'ts-utils';
-
-const makeErrorTest = (regex: RegExp) => (e: Error | string) => {
-    const msg = typeof e === 'string' ? e : e.message;
-    return regex.test(msg);
-};
-
-export const isUserRejection = makeErrorTest(
-    /user rejection|window was closed by user|user denied message/im
-);
-export const isWrongChain = makeErrorTest(
-    /not equals keeper connect|invalid connect options./im
-);
-export const isAnotherAccount = makeErrorTest(
-    /your address is not equal to login address./im
-);
+import { parseError } from '.';
 
 export enum FORM_STATE {
     'pending' = 'pending',
     'error' = 'error',
     'initial' = 'initial',
 }
-
-export type FORM_STATE_VALUES = keyof typeof FORM_STATE;
 
 export class BaseFormStore {
     public formState: FORM_STATE = FORM_STATE.initial;
@@ -132,34 +115,7 @@ export class BaseFormStore {
                 return data;
             })
             .catch((e) => {
-                if (isUserRejection(e)) {
-                    this.updateSignError({
-                        i18key: `rejectedByUser${
-                            this.isDevices ? 'Device' : ''
-                        }`,
-                        i18Params: { device: this.currentDevice },
-                    });
-                } else if (isWrongChain(e)) {
-                    this.updateSignError({
-                        i18key: 'wrongNetworkError',
-                        i18Params: { device: this.currentDevice },
-                    });
-                } else if (isAnotherAccount(e)) {
-                    this.updateSignError({
-                        i18key: 'wrongUser',
-                        i18Params: { device: this.currentDevice },
-                    });
-                } else if (e && e?.error && isNumber(e?.error)) {
-                    this.updateSignError({
-                        i18key: 'somethingWrongWithNode',
-                        i18Params: { code: e.error },
-                    });
-                } else {
-                    this.updateSignError({
-                        i18key: 'somethingWrong',
-                    });
-                }
-
+                this.updateSignError(parseError(e, this.isDevices, this.currentDevice));
                 this.updateFormState(FORM_STATE.error);
                 return null;
             });

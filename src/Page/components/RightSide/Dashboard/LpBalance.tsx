@@ -4,7 +4,7 @@ import { Text } from 'uikit';
 import { Trans } from '@waves/ui-translator';
 import { Button } from 'uikit';
 import wavesLpUrl from '/src/img/waveslp.svg';
-import { WithdrawItem } from './WithdrawItem';
+import { WithdrawItem } from './WithdrawItem/WithdrawItem';
 import BigNumber from '@waves/bignumber';
 import { wavesAsset } from '../../../../services/assets';
 import { Asset, Money } from '@waves/data-entities';

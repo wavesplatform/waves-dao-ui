@@ -18,7 +18,7 @@ export class CancelWithdrawalStore extends BaseFormStore {
         return {
             call: {
                 function: 'cancelWithdraw',
-                args: [this.user?.address],
+                args: [{ type: 'string', value: this.user?.address }],
             },
             payment: [],
         };

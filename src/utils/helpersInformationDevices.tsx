@@ -27,7 +27,6 @@ export const getLedgerDeviceName = (): DEVICES_FULL_NAMES.Ledger => {
 };
 
 export const getDevice = (userType: USER_TYPES_VALUES): TYPE_DEVICES_NAMES => {
-    console.log(userType, 'userType')
     switch (userType) {
         case USER_TYPES.keeper:
             return getKeeperWalletDeviceName();
