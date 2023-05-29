@@ -10,9 +10,15 @@ import { Trans } from '@waves/ui-translator';
 import { Button } from 'uikit';
 import { observer } from 'mobx-react-lite';
 import { AppStoreContext } from '../../../../App';
+import { modalManager } from '../../../../services/modalManager';
+import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES';
 
 export const Balance: FC = observer(() => {
     const { balanceStore } = useContext(AppStoreContext);
+
+    const handleDepositClick = () => {
+        modalManager.openModal(MODAL_NAMES.depositWaves);
+    };
 
     return (
         <Flex
@@ -90,6 +96,7 @@ export const Balance: FC = observer(() => {
                     variant="primary"
                     px={['32px !important', '50px !important']}
                     ml="8px"
+                    onClick={handleDepositClick}
                 >
                     <Trans i18key="deposit" />
                 </Button>
