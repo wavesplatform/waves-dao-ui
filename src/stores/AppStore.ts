@@ -22,17 +22,17 @@ export class AppStore {
     constructor() {
         this.configStore = new ConfigStore();
         this.assetsStore = new AssetsStore(this);
-        this.providerStore = new ProviderStore(this);
+        this.authStore = new AuthStore(this);
 
         reaction(
             () => this.assetsStore.assetsData.isLoading,
             () => {
                 if (!this.assetsStore.assetsData.isLoading) {
-                    this.authStore = new AuthStore(this);
+                    this.providerStore = new ProviderStore(this);
                     this.balanceStore = new BalanceStore(this);
                     this.nodeHeightStore = new NodeHeightStore(this);
                     this.ratesStore = new RatesStore(this);
-                    this.contractDataStore = new ContractDataStore(this);
+                    // this.contractDataStore = new ContractDataStore(this);
                 }
             }
         );
