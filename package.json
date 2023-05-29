@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite",
     "dev:testnet": "VITE_NETWORK=testnet vite",
-    "build": "tsc --noEmit && vite build --silent",
-    "build:testnet": "tsc --noEmit && VITE_NETWORK=testnet vite build --silent",
+    "build": "tsc --noEmit && vite build",
+    "build:testnet": "tsc --noEmit && VITE_NETWORK=testnet vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
