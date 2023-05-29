@@ -4,7 +4,7 @@ import { getAlign, getColor, getSize } from './helpers';
 import { WithSkeleton } from '../../components/WithSkeleton';
 import { BalanceSimple, BalanceSimpleProps } from './BalanceSimple';
 import { BalanceIcon } from './BalanceIcon';
-import { Text } from '../../uikit';
+import { TColor, TTextVariant, Text } from '../../uikit';
 
 export type TBalanceContentSize = 'medium';
 export type BalanceContentProps = BalanceSimpleProps & {
@@ -68,8 +68,8 @@ export const BalanceContent: React.FC<BalanceContentProps> = ({
                 ) : equivalent ? (
                     <Text
                         as="div"
-                        variant={getSize(variantsArray, 'equivalent')}
-                        color={getColor(variantsArray, 'equivalent')}
+                        variant={getSize(variantsArray, 'equivalent') as TTextVariant}
+                        color={getColor(variantsArray, 'equivalent') as TColor}
                         ml="4px"
                     >
                         {equivalent}

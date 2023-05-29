@@ -15,7 +15,7 @@ export const SkeletonBox: React.FC<
             borderRadius="6px"
             backgroundColor="#333842"
             className={hasAnimation ? 'skeleton-component-animation' : ''}
-            {...rest}
+            {...rest as any}
         />
     );
 };

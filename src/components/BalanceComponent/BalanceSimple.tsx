@@ -5,7 +5,7 @@ import { SkeletonProps } from '../../components/Skeleton/types';
 import { TBalanceContentSize } from './BalanceContent';
 import { BalanceIcon } from './BalanceIcon';
 import { getColor, getSize } from './helpers';
-import { Text } from '../../uikit';
+import { TColor, TTextVariant, Text } from '../../uikit';
 
 export type BalanceSimpleProps = {
     variant?: Array<TBalanceContentSize>;
@@ -32,16 +32,16 @@ export const BalanceSimple: React.FC<BalanceSimpleProps> = ({
                 >
                     <Text
                         as="div"
-                        variant={getSize(variantsArray, 'balance')}
-                        color={getColor(variantsArray, 'balance')}
+                        variant={getSize(variantsArray, 'balance') as TTextVariant}
+                        color={getColor(variantsArray, 'balance') as TColor}
                     >
                         {balance}
                     </Text>
                     {ticker ? (
                         <Text
                             as="div"
-                            variant={getSize(variantsArray, 'ticker')}
-                            color={getColor(variantsArray, 'ticker')}
+                            variant={getSize(variantsArray, 'ticker') as TTextVariant}
+                            color={getColor(variantsArray, 'ticker') as TColor}
                             ml="4px"
                         >
                             {ticker}

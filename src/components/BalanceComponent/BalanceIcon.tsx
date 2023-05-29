@@ -15,8 +15,8 @@ export const BalanceIcon: React.FC<{
         <Flex mr="6px">
             <img
                 src={iconUrl}
-                width={getIconSize(variantsArray)}
-                height={getIconSize(variantsArray)}
+                width={getIconSize(variantsArray)[0]}
+                height={getIconSize(variantsArray)[0]}
             />
         </Flex>
     );

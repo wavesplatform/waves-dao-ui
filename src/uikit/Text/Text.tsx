@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Text as TextKit, TTextProps as TextPropsKit } from '@waves.exchange/wx-react-uikit';
+import { ResponsiveValue } from 'styled-system';
 
 const variants = {
     heading1: {
@@ -29,8 +30,9 @@ const variants = {
     },
 };
 
-export type TTextVariant = keyof typeof variants | Array<keyof typeof variants | undefined | null>;
+export type TTextVariant = keyof typeof variants | Array<keyof typeof variants | undefined | null> & "heading1" | "heading2" | "heading3" | "text1" | "text2";
 export type TextProps = TextPropsKit & { variant?: keyof typeof variants };
+export type TColor = string & ResponsiveValue<string>;
 
 export const Text: FC<TextProps> = ({ children, variant, ...props }) => {
     return (

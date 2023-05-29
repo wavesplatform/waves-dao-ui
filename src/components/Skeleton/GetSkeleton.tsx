@@ -17,7 +17,7 @@ export const GetSkeleton: React.FC<SkeletonProps> = ({
                 <SkeletonIcon
                     size={size}
                     hasAnimation={hasAnimation}
-                    {...rest}
+                    {...rest as any}
                 />
             );
         case 'text':
@@ -25,7 +25,7 @@ export const GetSkeleton: React.FC<SkeletonProps> = ({
                 <SkeletonText
                     size={size}
                     hasAnimation={hasAnimation}
-                    {...rest}
+                    {...rest  as any}
                 />
             );
         case 'table':
@@ -33,7 +33,7 @@ export const GetSkeleton: React.FC<SkeletonProps> = ({
                 <SkeletonTable
                     size={size}
                     hasAnimation={hasAnimation}
-                    {...rest}
+                    {...rest as any}
                 />
             );
         case 'box':
@@ -41,7 +41,7 @@ export const GetSkeleton: React.FC<SkeletonProps> = ({
                 <SkeletonBox
                     size={size}
                     hasAnimation={hasAnimation}
-                    {...rest}
+                    {...rest as any}
                 />
             );
         default:

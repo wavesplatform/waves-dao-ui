@@ -15,7 +15,6 @@ export type TButtonContent = {
 export const ButtonContent: React.FC<TButtonContent> = ({
     isPending,
     isDevices,
-    currentDevice,
     isRetry,
     transRetry = { i18key: 'tryAgain' },
     transText,

@@ -6,6 +6,7 @@ import {
 import { BalanceContent, BalanceContentProps } from './BalanceContent';
 import { Box, BoxProps } from '@waves.exchange/wx-react-uikit';
 import { getColor, getSize } from './helpers';
+import { TColor, TTextVariant } from '../../uikit';
 
 type BalanceComponentProps = BoxProps &
     Partial<Omit<LabelComponentProps, 'variant'>> &
@@ -39,8 +40,8 @@ export const BalanceComponent: React.FC<BalanceComponentProps> = ({
                     label={label}
                     labelHelp={labelHelp}
                     markerColor={markerColor}
-                    variant={getSize(variant, 'label')}
-                    colorTitle={getColor(variant, 'label')}
+                    variant={getSize(variant, 'label') as TTextVariant}
+                    colorTitle={getColor(variant, 'label') as TColor}
                     align={align}
                 >
                     <BalanceContent

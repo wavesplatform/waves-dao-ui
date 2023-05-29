@@ -20,7 +20,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
                             type={type}
                             size={size}
                             skeletonConfig={skeletonConfig}
-                            {...rest}
+                            {...rest as any}
                         />
                     )
                 )}
@@ -33,7 +33,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
             type={type}
             size={size}
             hasAnimation={hasAnimation}
-            {...rest}
+            {...rest as any}
         />
     );
 };

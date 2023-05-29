@@ -16,7 +16,7 @@ export const SkeletonTable: React.FC<
                     {...rest}
                 />
             </Flex>
-            <Flex px="12px" height="48px" alignItems="center" opacity="0.4">
+            <Flex px="12px" height="48px" alignItems="center" opacity={0.4}>
                 <SkeletonText
                     size={size}
                     hasAnimation={hasAnimation}
@@ -24,7 +24,7 @@ export const SkeletonTable: React.FC<
                     {...rest}
                 />
             </Flex>
-            <Flex px="12px" height="48px" alignItems="center" opacity="0.1">
+            <Flex px="12px" height="48px" alignItems="center" opacity={0.1}>
                 <SkeletonText
                     size={size}
                     hasAnimation={hasAnimation}

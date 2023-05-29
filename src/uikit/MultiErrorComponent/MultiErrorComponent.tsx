@@ -14,7 +14,7 @@ export const MultiErrorComponent: React.FC<MultiErrorComponentProps> = ({
     ...rest
 }) => {
     return (
-        <Box width="100%" {...rest}>
+        <Box width="100%" {...rest as any}>
             {activeErrors &&
                 toArray(activeErrors).map((error) => {
                     if (error.i18key === 'noEnoughFee') {

@@ -15,7 +15,7 @@ export const SkeletonIcon: React.FC<
             position="relative"
             overflow="hidden"
             className={hasAnimation ? 'skeleton-component-animation' : ''}
-            {...rest}
+            {...rest as any}
         />
     );
 };

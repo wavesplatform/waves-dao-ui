@@ -30,6 +30,7 @@ export class ProviderStore extends ChildStore {
         call: InvokeScriptCall<string | number> | null;
         payment: Array<InvokeScriptPayment<string | number>> | null;
     }): Promise<any> {
+        console.log(call, payment)
         return this.signer.login().then((user) => {
             if (user.address !== this.rs.authStore.user?.address) {
                 throw new Error('Your address is not equal to login address.');

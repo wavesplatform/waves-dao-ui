@@ -3,7 +3,7 @@ import { Box, Flex, TFlexProps } from '@waves.exchange/wx-react-uikit';
 import { getAlign } from '../../components/BalanceComponent/helpers';
 import { ITransProps, Trans } from '@waves/ui-translator';
 import { Help } from '../../uikit/Help/Help';
-import { Text, TTextVariant } from '../../uikit';
+import { TColor, Text, TTextVariant } from '../../uikit';
 
 export type LabelComponentProps = {
     label: ITransProps;
@@ -11,7 +11,7 @@ export type LabelComponentProps = {
     markerColor?: Readonly<string>;
     variant?: TTextVariant;
     align?: 'left' | 'center' | 'right';
-    colorTitle?: string | string[];
+    colorTitle?: TColor;
 };
 
 export const LabelComponent: React.FC<TFlexProps & LabelComponentProps> = ({
@@ -33,7 +33,7 @@ export const LabelComponent: React.FC<TFlexProps & LabelComponentProps> = ({
                 null,
                 getAlign(align),
             ]}
-            {...rest}
+            {...rest as any}
         >
             <Flex alignItems="center" mb={children ? '6px' : '0'}>
                 {markerColor ? (
