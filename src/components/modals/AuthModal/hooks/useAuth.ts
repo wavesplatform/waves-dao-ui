@@ -63,8 +63,6 @@ export const useAuth = (selectedProvider: PROVIDER_TYPES_VALUES): IUseAuth => {
     const onChangeDeviceState = async (_deviceState: AUTH_DEVICE_STATES) => {
         setDeviceState(_deviceState);
         if (_deviceState) {
-            console.log('%c _deviceState', 'color: #e5b6ed', _deviceState);
-            console.log('%c prevState.current', 'color: #e5b6ed', prevState.current);
             const modalName = getModalNameBySelectedProvider(selectedProvider);
             if (modalManager.openedModals.includes(modalName) && prevState.current === _deviceState) {
                 return;

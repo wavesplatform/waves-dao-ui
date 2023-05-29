@@ -3,6 +3,7 @@ import { Poll } from './Poll';
 
 interface FetchTrackerProps<T, K> {
     fetchUrl: string;
+    fetcher?: (url?: string, options?: RequestInit) => Promise<K>;
     preloadData?: T;
     refreshInterval?: number;
     options?: RequestInit;
@@ -17,6 +18,9 @@ export class FetchTracker<T, K> { // T - data type, K - fetch response type
     public error: any;
     public isFirstLoad = true;
 
+    private fetcher: FetchTrackerProps<T, K>['fetcher'] = (fetchUrl, options) =>
+        fetch(fetchUrl, options).then(res => res.json() as unknown as Promise<K>);
+
     private poll: Poll<void> | undefined;
     private fetchUrl: FetchTrackerProps<T, K>['fetchUrl'];
     private options: FetchTrackerProps<T, K>['options'];
@@ -25,6 +29,7 @@ export class FetchTracker<T, K> { // T - data type, K - fetch response type
 
     constructor({
         fetchUrl,
+        fetcher,
         options,
         parser,
         autoFetch = false,
@@ -36,6 +41,11 @@ export class FetchTracker<T, K> { // T - data type, K - fetch response type
             isLoading: observable,
             error: observable
         });
+
+        if (fetcher) {
+            this.fetcher = fetcher;
+        }
+
         if (preloadData) {
             this.data = preloadData;
         }
@@ -51,14 +61,13 @@ export class FetchTracker<T, K> { // T - data type, K - fetch response type
     }
 
     public load(): Promise<void> {
-        const _load = () => fetch(this.fetchUrl, this.options)
-            .then(res => res.json())
+        const _load = () => this.fetcher(this.fetchUrl, this.options)
             .then(data => {
                 runInAction(() => {
                     if (typeof this.parser === 'function') {
                         this.data = this.parser(data);
                     } else {
-                        this.data = data as T;
+                        this.data = data as unknown as T;
                     }
                     this.error = null;
                     this.isLoading = false;

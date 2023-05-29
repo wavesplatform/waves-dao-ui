@@ -12,9 +12,11 @@ export type TConfig = {
         rates: string,
         nodeHeight: string,
         signerWeb: string,
-        signerCloud: string
+        signerCloud: string,
+        stateSearch: string
     },
     contracts: {
+        factory: string;
         calculator: string;
     },
     assets: Array<TAssetConfig>

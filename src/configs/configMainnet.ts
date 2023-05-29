@@ -10,10 +10,12 @@ export default<TConfig> {
         rates: 'https://wx.network/api/v1/rates',
         nodeHeight: 'https://nodes.wavesplatform.com/blocks/height',
         signerWeb: 'https://waves.exchange/signer/',
-        signerCloud: 'https://waves.exchange/signer-cloud/'
+        signerCloud: 'https://waves.exchange/signer-cloud/',
+        stateSearch: 'https://wx.network/api/v1/state/search',
     },
     contracts: {
-        calculator: ''
+        factory: '',
+        calculator: '',
     },
     assets: [
         { label: 'WAVES', id: 'WAVES' },
