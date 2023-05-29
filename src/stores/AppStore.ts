@@ -4,6 +4,7 @@ import { AuthStore } from './AuthStore';
 import { BalanceStore } from './balance/BalanceStore';
 import { NodeHeightStore } from './NodeHeightStore';
 import { RatesStore } from './rates/RatesStore';
+import { ProviderStore } from './ProviderStore';
 
 export class AppStore {
 
@@ -13,6 +14,7 @@ export class AppStore {
     public balanceStore: BalanceStore;
     public nodeHeightStore: NodeHeightStore;
     public ratesStore: RatesStore;
+    public providerStore: ProviderStore;
 
     constructor() {
         this.configStore = new ConfigStore();
@@ -21,6 +23,7 @@ export class AppStore {
         this.balanceStore = new BalanceStore(this);
         this.nodeHeightStore = new NodeHeightStore(this);
         this.ratesStore = new RatesStore(this);
+        this.providerStore = new ProviderStore(this);
     }
 
 }

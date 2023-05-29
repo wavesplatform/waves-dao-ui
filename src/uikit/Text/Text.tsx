@@ -29,6 +29,7 @@ const variants = {
     },
 };
 
+export type TTextVariant = keyof typeof variants | Array<keyof typeof variants | undefined | null>;
 export type TextProps = TextPropsKit & { variant?: keyof typeof variants };
 
 export const Text: FC<TextProps> = ({ children, variant, ...props }) => {

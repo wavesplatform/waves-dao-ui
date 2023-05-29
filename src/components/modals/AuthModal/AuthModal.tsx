@@ -12,11 +12,11 @@ import { useAuth } from './hooks/useAuth';
 import { modalManager } from '../../../services/modalManager';
 import { MODAL_NAMES } from '../../ModalContainer/MODAL_NAMES';
 import { Trans, translate } from '@waves/ui-translator';
-import { TProvider } from '../../../stores/AuthStore';
+import { PROVIDER_TYPES, PROVIDER_TYPES_VALUES } from '../../../stores/AuthStore';
 
 const AuthModalFC: React.FC<ModalProps> = (props) => {
     const [checked, setChecked] = useState(false);
-    const [selectedProvider, setSelectedProvider] = useState<TProvider>();
+    const [selectedProvider, setSelectedProvider] = useState<PROVIDER_TYPES_VALUES>();
     const { login } = useAuth(selectedProvider);
     const wrapperRef = React.useRef(null);
     const handleContinue = async () => {
@@ -53,35 +53,35 @@ const AuthModalFC: React.FC<ModalProps> = (props) => {
                 {/* <AuthItem
                     icon={metaMask}
                     text={{ i18key: 'metaMask' }}
-                    onSelect={() => setSelectedProvider('metamask')}
+                    onSelect={() => setSelectedProvider(PROVIDER_TYPES.metamask)}
                     className={`${
-                        selectedProvider === 'metamask' ? 'selected' : ''
+                        selectedProvider === PROVIDER_TYPES.metamask ? 'selected' : ''
                     }`}
                 /> */}
                 <AuthItem
                     icon={keeper}
                     text={{ i18key: 'keeperWallet' }}
-                    onSelect={() => setSelectedProvider('keeper')}
+                    onSelect={() => setSelectedProvider(PROVIDER_TYPES.keeper)}
                     className={`${
-                        selectedProvider === 'keeper' ? 'selected' : ''
+                        selectedProvider === PROVIDER_TYPES.keeper ? 'selected' : ''
                     }`}
                 />
 
                 <AuthItem
                     icon={wxIcon}
                     text={{ i18key: 'seed' }}
-                    onSelect={() => setSelectedProvider('web')}
+                    onSelect={() => setSelectedProvider(PROVIDER_TYPES.web)}
                     className={`${
-                        selectedProvider === 'web' ? 'selected' : ''
+                        selectedProvider === PROVIDER_TYPES.web ? 'selected' : ''
                     }`}
                 />
 
                 <AuthItem
                     icon={wxIcon}
                     text={{ i18key: 'cloud' }}
-                    onSelect={() => setSelectedProvider('cloud')}
+                    onSelect={() => setSelectedProvider(PROVIDER_TYPES.cloud)}
                     className={`${
-                        selectedProvider === 'cloud' ? 'selected' : ''
+                        selectedProvider === PROVIDER_TYPES.cloud ? 'selected' : ''
                     }`}
                 />
 

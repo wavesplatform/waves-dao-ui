@@ -8,10 +8,27 @@ import { AppStore } from './AppStore';
 import { ChildStore } from './ChildStore';
 import { computed, makeObservable, observable, runInAction } from 'mobx';
 
-export type TProvider = 'web' | 'cloud' | 'ledger' | 'keeper' | 'metamask';
-export type TUserType = 'keeper' | 'metamask' | 'wx';
+export enum USER_TYPES {
+    keeper = 'keeper',
+    ledger = 'ledger',
+    metamask = 'metamask',
+    wx = 'wx'
+}
+
+export enum PROVIDER_TYPES {
+    keeper = 'keeper',
+    ledger = 'ledger',
+    metamask = 'metamask',
+    wx = 'wx',
+    web = 'web',
+    cloud = 'cloud'
+}
+
+export type USER_TYPES_VALUES = keyof typeof USER_TYPES;
+export type PROVIDER_TYPES_VALUES = keyof typeof PROVIDER_TYPES;
+
 export interface IUserData extends UserData {
-    type: TUserType;
+    type: USER_TYPES_VALUES;
 }
 
 const canIUseLedger = () => {
@@ -44,7 +61,7 @@ export class AuthStore extends ChildStore  {
         this.signerCloudUrl = rs.configStore.config.apiUrl.signerCloud;
     }
 
-    public login = (providerId?: TProvider): Promise<void> => {
+    public login = (providerId?: PROVIDER_TYPES_VALUES): Promise<void> => {
         return this.setProvider(providerId)
             .then(() => {
                 return this.provider?.login();
@@ -76,22 +93,22 @@ export class AuthStore extends ChildStore  {
         return !!this.user;
     }
 
-    private async setProvider(providerId?: TProvider): Promise<void> {
+    private async setProvider(providerId?: PROVIDER_TYPES_VALUES): Promise<void> {
         await this.checkDevice(providerId);
         switch (providerId) {
-            case 'web':
+            case PROVIDER_TYPES.web:
                 this.provider = new ProviderWeb(this.signerWebUrl, true);
                 break;
 
-            case 'cloud':
+            case PROVIDER_TYPES.cloud:
                 this.provider = new ProviderCloud(this.signerCloudUrl, true);
                 break;
 
-            case 'ledger':
+            case PROVIDER_TYPES.ledger:
                 this.provider = new ProviderLedger();
                 break;
 
-            case 'keeper':
+            case PROVIDER_TYPES.keeper:
                 this.provider = new ProviderKeeper();
                 break;
 
@@ -102,16 +119,16 @@ export class AuthStore extends ChildStore  {
         return this.signer.setProvider(this.provider);
     }
 
-    private checkDevice(providerId?: TProvider): Promise<void> {
-        if (providerId === 'metamask') {
+    private checkDevice(providerId?: PROVIDER_TYPES_VALUES): Promise<void> {
+        if (providerId === PROVIDER_TYPES.metamask) {
             return (window as any).Metamask // todo check
                 ? Promise.resolve()
                 : Promise.reject(new Error(`${providerId} is not installed`));
-        } else if (providerId === 'keeper') {
+        } else if (providerId === PROVIDER_TYPES.keeper) {
             return window.WavesKeeper
                 ? Promise.resolve()
                 : Promise.reject(new Error(`${providerId} is not installed`));
-        } else if (providerId === 'ledger') {
+        } else if (providerId === PROVIDER_TYPES.ledger) {
             return canIUseLedger()
                 ? Promise.resolve()
                 : Promise.reject(new Error(`${providerId} is not installed`));
@@ -120,16 +137,16 @@ export class AuthStore extends ChildStore  {
         }
     }
 
-    private getUserType(providerId?: TProvider): TUserType {
+    private getUserType(providerId?: PROVIDER_TYPES_VALUES): USER_TYPES_VALUES {
         switch (providerId) {
             case null:
                 return null;
-            case 'keeper':
-                return 'keeper';
-            case 'metamask':
-                return 'metamask';
+            case PROVIDER_TYPES.keeper:
+                return USER_TYPES.keeper;
+            case PROVIDER_TYPES.metamask:
+                return USER_TYPES.metamask;
             default:
-                return 'wx';
+                return USER_TYPES.wx;
         }
     }
 }

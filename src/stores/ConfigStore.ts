@@ -14,7 +14,9 @@ export type TConfig = {
         signerWeb: string,
         signerCloud: string
     },
-    contracts: any,
+    contracts: {
+        calculator: string;
+    },
     assets: Array<TAssetConfig>
 };
 
