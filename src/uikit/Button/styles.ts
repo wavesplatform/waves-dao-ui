@@ -1,8 +1,8 @@
 export const variants = {
     primary: {
-        'bg': '#1F5AF6',
-        'color': '#FFFFFF',
-        'outline': 'none',
+        "bg": '#1F5AF6',
+        "color": '#FFFFFF',
+        "outline": 'none',
         ':hover:not(:disabled)': {
             opacity: '.8',
         },
@@ -15,11 +15,11 @@ export const variants = {
         },
     },
     transparent: {
-        'bg': 'transparent',
-        'color': 'text',
-        'border': '1px solid',
-        'borderColor': '#1F5AF6',
-        'outline': 'none',
+        "bg": 'transparent',
+        "color": 'text',
+        "border": '1px solid',
+        "borderColor": '#1F5AF6',
+        "outline": 'none',
         ':hover:not(:disabled)': {
             border: '1px solid',
             borderColor: '#1F5AF6',
@@ -32,9 +32,9 @@ export const variants = {
         },
     },
     success: {
-        'bg': '#03A500',
-        'color': '#FFFFFF',
-        'outline': 'none',
+        "bg": '#03A500',
+        "color": '#FFFFFF',
+        "outline": 'none',
         ':hover:not(:disabled)': {
             opacity: '.8',
         },
@@ -48,7 +48,7 @@ export const sizes = {
     default: {
         fontSize: '14px',
         lineHeight: '38px',
-        height: '38px',
+        height: '48px',
         paddingLeft: '50px',
         paddingRight: '50px',
     }

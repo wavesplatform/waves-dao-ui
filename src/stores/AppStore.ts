@@ -6,6 +6,7 @@ import { NodeHeightStore } from './NodeHeightStore';
 import { RatesStore } from './rates/RatesStore';
 import { ContractDataStore } from './contractData/ContractDataStore';
 import { reaction } from 'mobx';
+import { ProviderStore } from './ProviderStore';
 
 export class AppStore {
 
@@ -16,10 +17,12 @@ export class AppStore {
     public nodeHeightStore: NodeHeightStore;
     public ratesStore: RatesStore;
     public contractDataStore: ContractDataStore;
+    public providerStore: ProviderStore;
 
     constructor() {
         this.configStore = new ConfigStore();
         this.assetsStore = new AssetsStore(this);
+        this.providerStore = new ProviderStore(this);
 
         reaction(
             () => this.assetsStore.assetsData.isLoading,

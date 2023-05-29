@@ -16,6 +16,8 @@ export default {
         alerttext: '#FFA756',
         wddanger: '#F61F1F',
         wdred: '#FF5353',
+        wdBlackButton: '#121314',
+        wdBg: '#020915',
     },
     breakpoints: ['1280px'],
 };

@@ -14,7 +14,8 @@ export default<TConfig> {
         stateSearch: 'https://wx.network/api/v1/state/search',
     },
     contracts: {
-        factory: ''
+        factory: '',
+        calculator: '',
     },
     assets: [
         { label: 'WAVES', id: 'WAVES' },

@@ -17,15 +17,23 @@ export type TConfig = {
     },
     contracts: {
         factory: string;
+        calculator: string;
     },
     assets: Array<TAssetConfig>
+};
+
+export const remapNetwork = {
+    mainnet: 'Mainnet',
+    testnet: 'Testnet',
 };
 
 export class ConfigStore {
 
     public config: TConfig;
+    public network: string;
 
     constructor() {
+        this.network = import.meta.env.VITE_NETWORK;
         this.config =
             import.meta.env.VITE_NETWORK === 'testnet'
                 ? configs.testnet
