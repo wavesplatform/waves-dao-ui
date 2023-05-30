@@ -21,7 +21,6 @@ import { TxHeader } from '../components/TxHeader';
 import { AppStoreContext } from '../../../App';
 import { WithdrawModalStore } from './WithdrawModalStore';
 import { Trans, translate } from '@waves/ui-translator';
-import { BalanceComponent } from '../../BalanceComponent/BalanceComponent';
 import { MultiErrorComponent } from '../../../uikit/MultiErrorComponent/MultiErrorComponent';
 import { ButtonContent } from '../../../uikit/Button/ButtonContent';
 import { useState } from 'react';
@@ -33,7 +32,10 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
     const wavesBalance = rs.balanceStore.balances.WAVES;
 
     const withdrawStore = React.useMemo(() => {
-        return new WithdrawModalStore(rs);
+        return new WithdrawModalStore({
+            rs,
+            inputMoney: wavesBalance.balance.cloneWithTokens(0) // todo LP ASSET
+        });
     }, []);
 
     return (
@@ -89,13 +91,13 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                                         decimals={8}
                                         tag={'LP ASSET'}
                                         aria-invalid={
-                                            withdrawStore.inputError
+                                            withdrawStore.amountError
                                                 ? 'true'
                                                 : 'false'
                                         }
                                     />
                                 </WrapperFormattedInput>
-                                {withdrawStore.inputError && (
+                                {withdrawStore.amountError && (
                                     <InputErrors error="required" />
                                 )}
                             </Flex>
