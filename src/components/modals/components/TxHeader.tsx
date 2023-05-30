@@ -37,8 +37,13 @@ export const TxHeader: React.FC<TxHeaderProps> = ({ icon, title, subtitle }) => 
                 variant="text2"
                 as="div"
                 textAlign="center"
-                color="standard.$0"
+                color="wdtextsec"
                 mb="24px"
+                sx={{
+                    '.available': {
+                        color: 'standard.$0',
+                    }
+                }}
             >
                 <Trans {...subtitle} />
             </Text> : null}

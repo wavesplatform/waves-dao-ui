@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Observer } from 'mobx-react-lite';
 import {
+    Box,
     Flex,
     FormattedInput,
     PlateNote,
@@ -18,21 +19,21 @@ import { ModalStyled } from '../../Modal/ModalStyled';
 import { ModalProps } from '../../Modal/Modal';
 import { TxHeader } from '../components/TxHeader';
 import { AppStoreContext } from '../../../App';
-import { DepositWavesStore } from './DepositWavesStore';
+import { WithdrawModalStore } from './WithdrawModalStore';
 import { Trans, translate } from '@waves/ui-translator';
 import { BalanceComponent } from '../../BalanceComponent/BalanceComponent';
 import { MultiErrorComponent } from '../../../uikit/MultiErrorComponent/MultiErrorComponent';
 import { ButtonContent } from '../../../uikit/Button/ButtonContent';
 import { useState } from 'react';
 
-const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
+const WithdrawModalFC: React.FC<ModalProps> = (props) => {
     const rs = React.useContext(AppStoreContext);
     const [checked, setChecked] = useState(false);
 
     const wavesBalance = rs.balanceStore.balances.WAVES;
 
-    const depositWavesStore = React.useMemo(() => {
-        return new DepositWavesStore(rs);
+    const withdrawStore = React.useMemo(() => {
+        return new WithdrawModalStore(rs);
     }, []);
 
     return (
@@ -52,21 +53,18 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
                             <TxHeader
                                 icon={rs.assetsStore.assetsData.data.WAVES.icon}
                                 title={{
-                                    i18key: 'depositTitle',
+                                    i18key: 'withdrawTitle',
                                     i18Params: {
                                         assetName:
-                                            rs.assetsStore.assetsData.data.WAVES
-                                                .displayName,
+                                        rs.assetsStore.assetsData.data.WAVES
+                                            .displayName,
                                     },
                                 }}
                                 subtitle={{
-                                    i18key: 'depositSubtitle',
+                                    i18key: 'withdrawSubtitle',
                                     i18Params: {
-                                        amount: wavesBalance?.balance
-                                            .getTokens()
-                                            .toFormat(),
-                                        assetName:
-                                            wavesBalance.asset.displayName,
+                                        amount: '100500', // todo LP ASSET
+                                        assetName: 'LP ASSET'
                                     },
                                 }}
                             />
@@ -89,45 +87,35 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
                                     <FormattedInput
                                         formatSeparator=","
                                         decimals={8}
-                                        tag="WAVES"
+                                        tag={'LP ASSET'}
                                         aria-invalid={
-                                            depositWavesStore.inputError
+                                            withdrawStore.inputError
                                                 ? 'true'
                                                 : 'false'
                                         }
                                     />
                                 </WrapperFormattedInput>
-                                {depositWavesStore.inputError && (
+                                {withdrawStore.inputError && (
                                     <InputErrors error="required" />
                                 )}
                             </Flex>
 
-                            <BalanceComponent
-                                label={{
-                                    i18key: 'iReceive',
-                                }}
-                                // todo change to lp
-                                balance={wavesBalance?.balance
-                                    .getTokens()
-                                    .toFormat()}
-                                bottomContent={() => {
-                                    return (
-                                        <Flex color="wdtextsec" mt={4}>
-                                            <Text variant="text2" mr="4px">
-                                                1{' '}
-                                                {wavesBalance.asset.displayName}{' '}
-                                                = 1 {'LP ASSET'}
-                                            </Text>
-                                        </Flex>
-                                    );
-                                }}
-                                ticker={wavesBalance?.asset.ticker}
-                                iconUrl={wavesBalance?.asset.icon}
-                                mb="28px"
-                            />
+                            <Box
+                                backgroundColor="rgba(0, 6, 22, 0.5)"
+                                py="16px"
+                                borderRadius="8px"
+                                textAlign='center'
+                            >
+                                <Text variant='text2' color='wdtextsec' as='div'>
+                                    <Trans i18key='iReceive' />
+                                </Text>
+                                <Text variant='text1' color='standard.$0'>
+                                    <Trans i18key='withdrawReceive'/>
+                                </Text>
+                            </Box>
                             <FeeComponent mb="28px" />
                             <MultiErrorComponent
-                                activeErrors={depositWavesStore.activeErrors}
+                                activeErrors={withdrawStore.activeErrors}
                             />
                             <PlateNote
                                 type="warning"
@@ -141,8 +129,8 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
                                     mb="10px"
                                 >
                                     <Trans
-                                        i18key="depositWarning"
-                                        i18Params={{ assetName: 'LP ASSET' }}
+                                        i18key="withdrawWarning"
+                                        i18Params={{ stakedAssetName: 'WAVES', lpAssetName: 'LP ASSET' }}
                                     />
                                 </Text>
                                 <Checkbox
@@ -164,17 +152,16 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
                             <Button
                                 variant="primary"
                                 width="100%"
-                                onClick={depositWavesStore.invoke}
-                                disabled={depositWavesStore.isPending || !checked}
+                                onClick={withdrawStore.invoke}
+                                disabled={withdrawStore.isPending || !checked}
                             >
                                 <ButtonContent
-                                    isPending={depositWavesStore.isPending}
-                                    isRetry={depositWavesStore.isRetry}
+                                    isPending={withdrawStore.isPending}
+                                    isRetry={withdrawStore.isRetry}
                                     transText={{
-                                        i18key: 'depositSubmit',
+                                        i18key: 'withdrawSubmit',
                                         i18Params: {
-                                            assetName:
-                                                wavesBalance.asset.displayName,
+                                            assetName: wavesBalance.asset.displayName,
                                         },
                                     }}
                                 />
@@ -187,5 +174,5 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
     );
 };
 
-DepositWavesModalFC.displayName = 'DepositWavesModal';
-export const DepositWavesModal = translate('app.page')(DepositWavesModalFC);
+WithdrawModalFC.displayName = 'WithdrawModal';
+export const WithdrawModal = translate('app.page')(WithdrawModalFC);

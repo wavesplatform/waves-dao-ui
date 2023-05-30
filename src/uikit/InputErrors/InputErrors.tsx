@@ -4,7 +4,7 @@ import BigNumber from '@waves/bignumber';
 import { Trans } from '@waves/ui-translator';
 
 type TInputErrorState = 'notEnoughFunds' | 'minAmount' | 'required';
-type InputErrorsProps = {
+export type InputErrorsProps = {
     minAmount?: BigNumber;
     error?: TInputErrorState;
     assetName?: string;
