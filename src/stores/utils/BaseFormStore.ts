@@ -11,7 +11,6 @@ import {
     isAvailableDevice,
 } from '../../utils/helpersInformationDevices';
 import { parseError } from '.';
-import { InputErrorsProps } from 'uikit';
 
 export enum FORM_STATE {
     'pending' = 'pending',
@@ -25,7 +24,6 @@ export class BaseFormStore {
     public signError: ITransProps;
     public isConfirmClicked = false;
     public balanceStore: BalanceStore;
-    public inputError: InputErrorsProps | undefined;
     public rs: AppStore;
 
     constructor(rs: AppStore) {
@@ -35,7 +33,6 @@ export class BaseFormStore {
         makeObservable(this, {
             formState: observable,
             isConfirmClicked: observable,
-            inputError: observable,
             isRetry: computed,
             isPending: computed,
             isEnoughMoney: computed,

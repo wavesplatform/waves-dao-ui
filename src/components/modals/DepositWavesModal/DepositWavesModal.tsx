@@ -32,7 +32,10 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
     const wavesBalance = rs.balanceStore.balances.WAVES;
 
     const depositWavesStore = React.useMemo(() => {
-        return new DepositWavesStore(rs);
+        return new DepositWavesStore({
+            rs,
+            inputMoney: wavesBalance.balance.cloneWithTokens(0)
+        });
     }, []);
 
     return (
@@ -81,24 +84,28 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
                                     <SetAmountButtons
                                         presets={['max']}
                                         onClick={() =>
-                                            console.log('setMaxAmount')
+                                            depositWavesStore.onClickMaxAmount()
                                         }
                                     />
                                 </Flex>
                                 <WrapperFormattedInput>
                                     <FormattedInput
+                                        onChange={(e) => {
+                                            depositWavesStore.onInputChange(e.target.value);
+                                        }}
+                                        value={depositWavesStore.inputString}
                                         formatSeparator=","
                                         decimals={8}
                                         tag="WAVES"
                                         aria-invalid={
-                                            depositWavesStore.inputError
+                                            depositWavesStore.amountError
                                                 ? 'true'
                                                 : 'false'
                                         }
                                     />
                                 </WrapperFormattedInput>
-                                {depositWavesStore.inputError && (
-                                    <InputErrors error="required" />
+                                {depositWavesStore.amountError && (
+                                    <InputErrors {...depositWavesStore.amountError} />
                                 )}
                             </Flex>
 
