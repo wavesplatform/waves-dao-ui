@@ -34,7 +34,7 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
     const withdrawStore = React.useMemo(() => {
         return new WithdrawModalStore({
             rs,
-            inputMoney: wavesBalance.balance.cloneWithTokens(0) // todo LP ASSET
+            inputMoney: wavesBalance.balance.cloneWithTokens(0), // todo LP ASSET
         });
     }, []);
 
@@ -58,15 +58,15 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                                     i18key: 'withdrawTitle',
                                     i18Params: {
                                         assetName:
-                                        rs.assetsStore.assetsData.data.WAVES
-                                            .displayName,
+                                            rs.assetsStore.assetsData.data.WAVES
+                                                .displayName,
                                     },
                                 }}
                                 subtitle={{
                                     i18key: 'withdrawSubtitle',
                                     i18Params: {
                                         amount: '100500', // todo LP ASSET
-                                        assetName: 'LP ASSET'
+                                        assetName: 'LP ASSET',
                                     },
                                 }}
                             />
@@ -85,7 +85,14 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                                         }
                                     />
                                 </Flex>
-                                <WrapperFormattedInput>
+                                <WrapperFormattedInput
+                                    sx={{
+                                        input: {
+                                            backgroundColor:
+                                                'rgba(0, 6, 22, 0.5)',
+                                        },
+                                    }}
+                                >
                                     <FormattedInput
                                         formatSeparator=","
                                         decimals={8}
@@ -105,17 +112,22 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                             <Box
                                 backgroundColor="rgba(0, 6, 22, 0.5)"
                                 py="16px"
+                                px="16px"
                                 borderRadius="8px"
-                                textAlign='center'
+                                textAlign="center"
                             >
-                                <Text variant='text2' color='wdtextsec' as='div'>
-                                    <Trans i18key='iReceive' />
+                                <Text
+                                    variant="text2"
+                                    color="wdtextsec"
+                                    as="div"
+                                >
+                                    <Trans i18key="iReceive" />
                                 </Text>
-                                <Text variant='text1' color='standard.$0'>
-                                    <Trans i18key='withdrawReceive'/>
+                                <Text variant="text1" color="standard.$0">
+                                    <Trans i18key="withdrawReceive" />
                                 </Text>
                             </Box>
-                            <FeeComponent mb="28px" />
+                            <FeeComponent my="16px" />
                             <MultiErrorComponent
                                 activeErrors={withdrawStore.activeErrors}
                             />
@@ -132,7 +144,10 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                                 >
                                     <Trans
                                         i18key="withdrawWarning"
-                                        i18Params={{ stakedAssetName: 'WAVES', lpAssetName: 'LP ASSET' }}
+                                        i18Params={{
+                                            stakedAssetName: 'WAVES',
+                                            lpAssetName: 'LP ASSET',
+                                        }}
                                     />
                                 </Text>
                                 <Checkbox
@@ -163,7 +178,8 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                                     transText={{
                                         i18key: 'withdrawSubmit',
                                         i18Params: {
-                                            assetName: wavesBalance.asset.displayName,
+                                            assetName:
+                                                wavesBalance.asset.displayName,
                                         },
                                     }}
                                 />

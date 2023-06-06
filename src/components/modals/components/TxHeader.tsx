@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box } from '@waves.exchange/wx-react-uikit';
+import { Flex } from '@waves.exchange/wx-react-uikit';
 import { Text } from 'uikit';
 import { ITransProps, Trans } from '@waves/ui-translator';
 
@@ -9,21 +9,28 @@ interface TxHeaderProps {
     subtitle?: ITransProps;
 }
 
-export const TxHeader: React.FC<TxHeaderProps> = ({ icon, title, subtitle }) => {
-
+export const TxHeader: React.FC<TxHeaderProps> = ({
+    icon,
+    title,
+    subtitle,
+}) => {
     return (
         <>
-            <Box
-                mt="10px"
+            <Flex
+                mt="30px"
                 width="82px"
                 height="82px"
-                backgroundImage={`url(${icon})`}
-                backgroundRepeat="no-repeat"
-                backgroundSize="contain"
                 marginLeft="auto"
                 marginRight="auto"
+                alignItems="center"
+                justifyContent="center"
+                backgroundColor="wdBlackButton"
+                borderRadius="70px"
                 mb="24px"
-            />
+            >
+                <img src={icon} alt="icon" width="41" height="41" />
+            </Flex>
+
             <Text
                 variant="heading2"
                 as="div"
@@ -33,20 +40,22 @@ export const TxHeader: React.FC<TxHeaderProps> = ({ icon, title, subtitle }) => 
             >
                 <Trans {...title} />
             </Text>
-            {subtitle ? <Text
-                variant="text2"
-                as="div"
-                textAlign="center"
-                color="wdtextsec"
-                mb="24px"
-                sx={{
-                    '.available': {
-                        color: 'standard.$0',
-                    }
-                }}
-            >
-                <Trans {...subtitle} />
-            </Text> : null}
+            {subtitle ? (
+                <Text
+                    variant="text2"
+                    as="div"
+                    textAlign="center"
+                    color="wdtextsec"
+                    mb="24px"
+                    sx={{
+                        '.available': {
+                            color: 'standard.$0',
+                        },
+                    }}
+                >
+                    <Trans {...subtitle} />
+                </Text>
+            ) : null}
         </>
     );
 };

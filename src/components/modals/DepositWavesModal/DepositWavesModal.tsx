@@ -34,7 +34,7 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
     const depositWavesStore = React.useMemo(() => {
         return new DepositWavesStore({
             rs,
-            inputMoney: wavesBalance.balance.cloneWithTokens(0)
+            inputMoney: wavesBalance.balance.cloneWithTokens(0),
         });
     }, []);
 
@@ -88,10 +88,19 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
                                         }
                                     />
                                 </Flex>
-                                <WrapperFormattedInput>
+                                <WrapperFormattedInput
+                                    sx={{
+                                        input: {
+                                            backgroundColor:
+                                                'rgba(0, 6, 22, 0.5)',
+                                        },
+                                    }}
+                                >
                                     <FormattedInput
                                         onChange={(e) => {
-                                            depositWavesStore.onInputChange(e.target.value);
+                                            depositWavesStore.onInputChange(
+                                                e.target.value
+                                            );
                                         }}
                                         value={depositWavesStore.inputString}
                                         formatSeparator=","
@@ -105,7 +114,9 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
                                     />
                                 </WrapperFormattedInput>
                                 {depositWavesStore.amountError && (
-                                    <InputErrors {...depositWavesStore.amountError} />
+                                    <InputErrors
+                                        {...depositWavesStore.amountError}
+                                    />
                                 )}
                             </Flex>
 
@@ -130,9 +141,8 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
                                 }}
                                 ticker={wavesBalance?.asset.ticker}
                                 iconUrl={wavesBalance?.asset.icon}
-                                mb="28px"
                             />
-                            <FeeComponent mb="28px" />
+                            <FeeComponent my="16px"/>
                             <MultiErrorComponent
                                 activeErrors={depositWavesStore.activeErrors}
                             />
@@ -172,7 +182,9 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
                                 variant="primary"
                                 width="100%"
                                 onClick={depositWavesStore.invoke}
-                                disabled={depositWavesStore.isPending || !checked}
+                                disabled={
+                                    depositWavesStore.isPending || !checked
+                                }
                             >
                                 <ButtonContent
                                     isPending={depositWavesStore.isPending}
