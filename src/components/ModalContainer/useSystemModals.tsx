@@ -7,6 +7,8 @@ import { LegalDisclaimerModal } from '../modals/LegalDisclaimerModal/LegalDiscla
 import { GetWavesModal } from '../modals/GetWavesModal/GetWavesModal';
 import { ClaimWavesModal } from '../modals/ClaimWavesModal/ClaimWavesModal';
 import { CancelWithdrawalModal } from '../modals/CancelWithdrawalModal/CancelWithdrawalModal';
+import { DepositWavesModal } from '../modals/DepositWavesModal/DepositWavesModal';
+import { WithdrawModal } from '../modals/WithdrawModal/WithdrawModal';
 
 const modals = {
     [MODAL_NAMES.authModal]: AuthModal,
@@ -15,6 +17,8 @@ const modals = {
     [MODAL_NAMES.getWaves]: GetWavesModal,
     [MODAL_NAMES.claimWaves]: ClaimWavesModal,
     [MODAL_NAMES.cancelWithdrawal]: CancelWithdrawalModal,
+    [MODAL_NAMES.depositWaves]: DepositWavesModal,
+    [MODAL_NAMES.withdraw]: WithdrawModal,
 };
 
 export const useSystemModals = (

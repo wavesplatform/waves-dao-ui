@@ -5,4 +5,6 @@ export enum MODAL_NAMES {
     getWaves = 'getWaves',
     claimWaves = 'claimWaves',
     cancelWithdrawal = 'cancelWithdrawal',
+    depositWaves = 'depositWaves',
+    withdraw = 'withdraw',
 }

@@ -9,9 +9,15 @@ import BigNumber from '@waves/bignumber';
 import { wavesAsset } from '../../../../services/assets';
 import { Asset, Money } from '@waves/data-entities';
 import { InUsdText } from '../../../../components/utilComponents/inUsdText';
+import { modalManager } from '../../../../services/modalManager';
+import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES';
 
 export const LpBalance: FC = memo(() => {
     const wavesdlpAsset = { ...wavesAsset, displayName: 'WAVESDLP' };
+
+    const handleWithdrawClick = () => {
+        modalManager.openModal(MODAL_NAMES.withdraw);
+    };
 
     return (
         <Box sx={{ borderRadius: '12px', overflow: 'hidden' }}>
@@ -86,7 +92,7 @@ export const LpBalance: FC = memo(() => {
                         </Flex>
                     </Box>
                 </Flex>
-                <Button variant="primary">
+                <Button variant="primary" onClick={handleWithdrawClick}>
                     <Trans i18key="withdraw" />
                 </Button>
             </Flex>

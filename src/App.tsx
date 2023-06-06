@@ -8,6 +8,7 @@ import { DotLoader } from '@waves.exchange/wx-react-uikit';
 import { ModalContainer } from './components/ModalContainer/ModalContainer';
 import { Page } from './Page/Page';
 import { AppStore } from './stores/AppStore';
+// import { Stand } from './components/Stand';
 
 export const AppStoreContext = createContext<AppStore>(null);
 
