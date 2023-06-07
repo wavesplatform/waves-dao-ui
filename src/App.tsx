@@ -4,7 +4,7 @@ import { ThemeProvider } from 'emotion-theming';
 import { TranslateProvider } from '@waves/ui-translator';
 import theme from './theme';
 import { Observer } from 'mobx-react-lite';
-import { DotLoader } from '@waves.exchange/wx-react-uikit';
+import { DotLoader, Flex } from '@waves.exchange/wx-react-uikit';
 import { ModalContainer } from './components/ModalContainer/ModalContainer';
 import { Page } from './Page/Page';
 import { AppStore } from './stores/AppStore';
@@ -24,9 +24,18 @@ function App() {
                     <ModalContainer />
                     <Observer>
                         {(): ReactElement => {
-                            return appStore.assetsStore.assetsData.isLoading ?
-                                <DotLoader /> :
-                                <Page />;
+                            return appStore.assetsStore.assetsData.isLoading  ? (
+                                <Flex
+                                    height="100vh"
+                                    alignItems="center"
+                                    justifyContent="center"
+                                    bg="wdBg"
+                                >
+                                    <DotLoader />
+                                </Flex>
+                            ) : (
+                                <Page />
+                            );
                         }}
                     </Observer>
                 </TranslateProvider>
