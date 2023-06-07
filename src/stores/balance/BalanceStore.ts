@@ -10,9 +10,12 @@ import { computed, makeObservable, reaction } from 'mobx';
 import { Money } from '@waves/data-entities';
 
 export class BalanceStore extends ChildStore {
-
-    private wavesBalance: | FetchTracker<Record<string, IBalance>, IWavesBalanceResponse> | undefined;
-    private otherBalance: | FetchTracker<Record<string, IBalance>, TNodeBalanceResponse> | undefined;
+    private wavesBalance:
+        | FetchTracker<Record<string, IBalance>, IWavesBalanceResponse>
+        | undefined;
+    private otherBalance:
+        | FetchTracker<Record<string, IBalance>, TNodeBalanceResponse>
+        | undefined;
 
     constructor(rs: AppStore) {
         super(rs);
@@ -46,6 +49,10 @@ export class BalanceStore extends ChildStore {
         );
     }
 
+    public get getWavesLpBalance(): IBalance['balance'] {
+        return this.balances[this.rs.assetsStore.getWAVESDAOLP().id]?.balance;
+    }
+
     public off() {
         this.wavesBalance?.off();
         this.otherBalance?.off();
@@ -73,7 +80,7 @@ export class BalanceStore extends ChildStore {
             options: {
                 method: 'POST',
                 headers: {
-                    'accept': 'application/json',
+                    accept: 'application/json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
@@ -92,10 +99,10 @@ export class BalanceStore extends ChildStore {
     ): Record<string, IBalance> => {
         return {
             WAVES: {
-                asset: this.rs.assetsStore.assetsData.data.WAVES,
+                asset: this.rs.assetsStore.getWaves(),
                 balance: new Money(
                     wavesBalance.available,
-                    this.rs.assetsStore.assetsData.data.WAVES
+                    this.rs.assetsStore.getWaves()
                 ),
             },
         };

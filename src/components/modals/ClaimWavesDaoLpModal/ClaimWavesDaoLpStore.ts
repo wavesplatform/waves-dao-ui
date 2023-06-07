@@ -3,7 +3,7 @@ import { AppStore } from '../../../stores/AppStore';
 import { IUserData } from '../../../stores/AuthStore';
 import { BaseFormStore } from '../../../stores/utils/BaseFormStore';
 
-export class ClaimWavesStore extends BaseFormStore {
+export class ClaimWavesDaoLpStore extends BaseFormStore {
     public user: IUserData;
 
     constructor(rs: AppStore) {

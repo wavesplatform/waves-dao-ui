@@ -10,27 +10,24 @@ import { Button, FeeComponent, Text } from '../../../uikit';
 import { MultiErrorComponent } from '../../../uikit/MultiErrorComponent/MultiErrorComponent';
 import wavesLpWithoutBg from '/src/img/wavesLpWithoutBg.svg';
 import { AppStoreContext } from '../../../App';
-import { wavesAsset } from '../../../services/assets';
-import { ClaimWavesStore } from './ClaimWavesStore';
+import { ClaimWavesDaoLpStore } from './ClaimWavesDaoLpStore';
 import { Observer } from 'mobx-react-lite';
 import { ButtonContent } from '../../../uikit/Button/ButtonContent';
 
-type TClaimWavesModalFC = ModalProps & BoxProps;
+type TClaimWavesDaoLpModalFC = ModalProps & BoxProps;
 
-const ClaimWavesModalFC: React.FC<TClaimWavesModalFC> = ({ ...props }) => {
+const ClaimWavesDaoLpModalFC: React.FC<TClaimWavesDaoLpModalFC> = ({
+    ...props
+}) => {
     const rootStore = React.useContext(AppStoreContext);
-    const claimWavesStore = React.useMemo(() => {
-        return new ClaimWavesStore(rootStore);
+    const claimWavesDaoLpStore = React.useMemo(() => {
+        return new ClaimWavesDaoLpStore(rootStore);
     }, []);
-    const WAVES = rootStore.balanceStore.balances.WAVES?.asset;
-    const balance =
-        rootStore.balanceStore.balances[WAVES?.id]?.balance?.toFormat();
-    const wavesdlpAsset = { ...wavesAsset, displayName: 'WAVESDLP' };
     const { sx = {}, ...restProps } = props;
 
     return (
         <ModalStyled
-            modalName={MODAL_NAMES.claimWaves}
+            modalName={MODAL_NAMES.claimWavesDaoLp}
             sx={{
                 '& > div': {
                     backgroundPosition: 'center -50px',
@@ -65,27 +62,36 @@ const ClaimWavesModalFC: React.FC<TClaimWavesModalFC> = ({ ...props }) => {
                                 <Trans i18key="claimWAVESDLP" />
                             </Text>
                             <BalanceComponent
+                                sx={{
+                                    img: {
+                                        width: '100%',
+                                        height: '100%',
+                                    },
+                                }}
                                 label={{
                                     i18key: 'availableClaim',
                                 }}
-                                balance={balance}
-                                ticker={wavesdlpAsset?.ticker}
+                                balance={rootStore.contractDataStore.availableToClaim?.toFormat()}
+                                ticker={
+                                    rootStore.assetsStore.getWAVESDAOLP()
+                                        .displayName
+                                }
                                 iconUrl={wavesLpWithoutBg}
                                 mb="28px"
                             />
                             <FeeComponent mb="28px" />
                             <MultiErrorComponent
-                                activeErrors={claimWavesStore.activeErrors}
+                                activeErrors={claimWavesDaoLpStore.activeErrors}
                             />
                             <Button
                                 variant="primary"
                                 width="100%"
-                                onClick={claimWavesStore.invoke}
-                                disabled={claimWavesStore.isPending}
+                                onClick={claimWavesDaoLpStore.invoke}
+                                disabled={claimWavesDaoLpStore.isPending}
                             >
                                 <ButtonContent
-                                    isPending={claimWavesStore.isPending}
-                                    isRetry={claimWavesStore.isRetry}
+                                    isPending={claimWavesDaoLpStore.isPending}
+                                    isRetry={claimWavesDaoLpStore.isRetry}
                                     transText={{ i18key: 'claimWAVESDLP' }}
                                 />
                             </Button>
@@ -97,6 +103,8 @@ const ClaimWavesModalFC: React.FC<TClaimWavesModalFC> = ({ ...props }) => {
     );
 };
 
-ClaimWavesModalFC.displayName = 'ClaimWavesModal';
+ClaimWavesDaoLpModalFC.displayName = 'ClaimWavesDaoLpModal';
 
-export const ClaimWavesModal = translate('app.page')(ClaimWavesModalFC);
+export const ClaimWavesDaoLpModal = translate('app.page')(
+    ClaimWavesDaoLpModalFC
+);

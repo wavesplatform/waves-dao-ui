@@ -8,11 +8,12 @@ export interface IWithdrawal {
 }
 
 export interface ICommonContractData {
-    startHeight: number;
+    prices: Record<string, number>;
+    startHeights: Record<string, number>;
     periodLength: number;
     currentPeriod: number;
     investedWaves: Money;
-    investedLp: Money;
+    investedXtn: Money;
 }
 
 export interface IUserContractData {

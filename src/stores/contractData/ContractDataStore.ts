@@ -6,160 +6,332 @@ import { search } from '../../utils/search/searchRequest';
 import { IState } from '../../utils/search';
 import { parseSearchStr } from '../../utils/search/parseContractData';
 import { Money } from '@waves/data-entities';
-import { ICommonContractData, IUserContractData, TPriceData } from '.';
+import { ICommonContractData, IUserContractData, IWithdrawal } from '.';
+import BigNumber from '@waves/bignumber';
 
 export class ContractDataStore extends ChildStore {
-
     public commonContractData: FetchTracker<ICommonContractData, IState>;
-    public userContractData: FetchTracker<IUserContractData, IState>;
-    public priceData: FetchTracker<TPriceData, IState>;
+    public userContractData: FetchTracker<IUserContractData, IState> =
+        new FetchTracker();
 
     constructor(rs: AppStore) {
         super(rs);
-
         const searchUrl = this.rs.configStore.config.apiUrl.stateSearch;
         const contractAddress = this.rs.configStore.config.contracts.factory;
-        const userAddress = this.rs.authStore.user.address;
-
         this.commonContractData = new FetchTracker<any, any>({
             fetchUrl: searchUrl,
-            fetcher: (fetchUrl) => search(
-                fetchUrl,
-                {
+            fetcher: (fetchUrl) =>
+                search(fetchUrl, {
                     filter: {
                         or: [
                             {
                                 and: [
-                                    { address: { operation: 'eq', value: contractAddress } },
+                                    {
+                                        address: {
+                                            operation: 'eq',
+                                            value: contractAddress,
+                                        },
+                                    },
                                     {
                                         or: [
-                                            { key: { operation: 'eq', value: '%s__startHeight' } },
-                                            { key: { operation: 'eq', value: '%s__periodLength' } },
-                                            { key: { operation: 'eq', value: '%s__currentPeriod' } },
-                                            { key: { operation: 'eq', value: '%s%s__invested__WAVES' } },
-                                            { key: { operation: 'eq', value: `%s%s__invested__${'XTN'}` } }
-                                        ]
-                                    }
-                                ]
-                            }
+                                            {
+                                                key: {
+                                                    operation: 'eq',
+                                                    value: '%s__periodLength',
+                                                },
+                                            },
+                                            {
+                                                key: {
+                                                    operation: 'eq',
+                                                    value: '%s__currentPeriod',
+                                                },
+                                            },
+                                            {
+                                                key: {
+                                                    operation: 'eq',
+                                                    value: '%s%s__invested__WAVES',
+                                                },
+                                            },
+                                            {
+                                                key: {
+                                                    operation: 'eq',
+                                                    value: `%s%s__invested__${
+                                                        this.rs.assetsStore.getXTN()
+                                                            .id
+                                                    }`,
+                                                },
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                            {
+                                in: {
+                                    properties: [
+                                        { address: {} },
+                                        {
+                                            fragment: {
+                                                position: 0,
+                                                type: 'string',
+                                            },
+                                        },
+                                    ],
+                                    values: [[contractAddress, 'price']],
+                                },
+                            },
+                            {
+                                in: {
+                                    properties: [
+                                        { address: {} },
+                                        {
+                                            fragment: {
+                                                position: 0,
+                                                type: 'string',
+                                            },
+                                        },
+                                    ],
+                                    values: [[contractAddress, 'startHeight']],
+                                },
+                            },
                         ],
-                    }
-                }
-            ),
+                    },
+                }),
             refreshInterval: 60_000,
             parser: this.contractDataParser,
-            autoFetch: true
+            autoFetch: true,
         });
 
         reaction(
             () => this.rs.authStore.isAuthorized,
             () => {
                 if (this.rs.authStore.isAuthorized) {
-                    this.userContractData = new FetchTracker<IUserContractData, IState>({
+                    const userAddress = this.rs.authStore.user.address;
+                    this.userContractData.setOptions({
                         fetchUrl: searchUrl,
-                        fetcher: (fetchUrl) => search(
-                            fetchUrl,
-                            {
+                        fetcher: (fetchUrl) =>
+                            search(fetchUrl, {
                                 filter: {
                                     or: [
                                         {
                                             and: [
-                                                { address: { operation: 'eq', value: contractAddress } },
+                                                {
+                                                    address: {
+                                                        operation: 'eq',
+                                                        value: contractAddress,
+                                                    },
+                                                },
                                                 {
                                                     or: [
-                                                        { key: { operation: 'eq', value: `%s%s%s__available__${userAddress}` } },
-                                                        { key: { operation: 'eq', value: `%s%s%s__claimed__${userAddress}` } },
-                                                    ]
-                                                }
-                                            ]
+                                                        {
+                                                            key: {
+                                                                operation: 'eq',
+                                                                value: `%s%s__available__${userAddress}`,
+                                                            },
+                                                        },
+                                                        {
+                                                            key: {
+                                                                operation: 'eq',
+                                                                value: `%s%s__claimed__${userAddress}`,
+                                                            },
+                                                        },
+                                                    ],
+                                                },
+                                            ],
                                         },
                                         {
                                             in: {
                                                 //%s%s%s__withdrawal__<userAddress>__<txId>
                                                 properties: [
                                                     { address: {} },
-                                                    { fragment: { position: 0, type: 'string' } },
-                                                    { fragment: { position: 1, type: 'string' } },
+                                                    {
+                                                        fragment: {
+                                                            position: 0,
+                                                            type: 'string',
+                                                        },
+                                                    },
+                                                    {
+                                                        fragment: {
+                                                            position: 1,
+                                                            type: 'string',
+                                                        },
+                                                    },
                                                 ],
-                                                values: [[contractAddress, 'withdrawal', userAddress]]
-                                            }
-                                        }
+                                                values: [
+                                                    [
+                                                        contractAddress,
+                                                        'withdrawal',
+                                                        userAddress,
+                                                    ],
+                                                ],
+                                            },
+                                        },
                                     ],
-                                }
-                            }
-                        ),
-                        refreshInterval: 60_000,
-                        parser: this.userContractDataParser,
-                        autoFetch: true
-                    });
-
-                }
-            }
-        );
-
-        reaction(
-            () => this.userContractData.isLoading,
-            () => {
-                if (!this.userContractData.isLoading) {
-                    const period = this.userContractData.data.withdraws.map(w => w.targetPeriod); // TODO: get period from contractData
-                    this.priceData = new FetchTracker<any, any>({
-                        fetchUrl: `${this.rs.configStore.config.apiUrl.stateSearch}`,
-                        fetcher: (fetchUrl) => search(
-                            fetchUrl,
-                            {
-                                filter: {
-                                    or: [{
-                                        and: [
-                                            { address: { operation: 'eq', value: contractAddress } },
-                                            { or: period.map(p => {
-                                                return { key: { operation: 'eq', value: `%s%d__price__${p}` } };
-                                            }) }
-                                        ]
-                                    }]
-                                }
+                                },
                             }),
                         refreshInterval: 60_000,
+                        parser: this.userContractDataParser,
                         autoFetch: true,
-                        parser: this.priceDataParser
                     });
                 }
             }
         );
     }
 
+    public get getTreasuryUsd(): BigNumber {
+        return this.rs.ratesStore.getInvestedWavesUsd.add(
+            this.rs.ratesStore.getInvestedXtnUsd
+        );
+    }
+
+    public get withdraws(): IWithdrawal[] {
+        return this.userContractData.data?.withdraws || [];
+    }
+
+    public get availableToClaim(): Money {
+        return (
+            this.userContractData?.data?.availableToClaim ||
+            new Money(0, this.rs.assetsStore.getWAVESDAOLP())
+        );
+    }
+
+    public get isUnlockedTokensMS(): boolean {
+        return Boolean(
+            this.withdraws.filter((item) => item.status === 'FINISHED').length
+        );
+    }
+
+    public get investedWaves(): Money {
+        return (
+            this.commonContractData.data?.investedWaves ||
+            new Money(0, this.rs.assetsStore.getWaves())
+        );
+    }
+
+    public get investedXtn(): Money {
+        return (
+            this.commonContractData.data?.investedXtn ||
+            new Money(0, this.rs.assetsStore.getXTN())
+        );
+    }
+
+    public get getCurrentPeriod(): number {
+        return this.commonContractData.data?.currentPeriod || 0;
+    }
+
+    public get getCurrentPriceWaves(): Money {
+        const { prices = {}, currentPeriod = 0 } =
+            this.commonContractData?.data || {};
+
+        return new Money(
+            prices[currentPeriod] || 0,
+            this.rs.assetsStore.getWaves()
+        );
+    }
+
+    public get getCurrentPriceWavesLp(): Money {
+        const { prices = {}, currentPeriod = 0 } =
+            this.commonContractData?.data || {};
+        const price = new Money(100000000, this.rs.assetsStore.getWaves())
+            .getCoins()
+            .div(prices[currentPeriod]);
+
+        return new Money(price, this.rs.assetsStore.getWAVESDAOLP());
+    }
+
+    public get finalizingKPI(): number {
+        const {
+            periodLength = 0,
+            startHeights = {},
+            currentPeriod = 0,
+        } = this.commonContractData?.data || {};
+
+        return (
+            (startHeights[currentPeriod] || 0) +
+            periodLength -
+            this.rs.nodeHeightStore.heightData.data
+        );
+    }
+
     private contractDataParser = (data: IState): ICommonContractData => {
-        const parseEntries = (key: string, value: string | number) => {
+        const parseEntries = (key: string, value: string | number, acc) => {
             switch (true) {
                 case key.includes('startHeight'):
-                    return { startHeight: value };
+                    const startHeightPeriod = key.split('__')[2];
+                    if (startHeightPeriod) {
+                        acc.startHeights[startHeightPeriod] = value;
+                    }
+                    return;
                 case key.includes('periodLength'):
                     return { periodLength: value };
                 case key.includes('currentPeriod'):
                     return { currentPeriod: value };
+                case key.includes('price'):
+                    const pricePeriod = key.split('__')[2];
+                    if (pricePeriod) {
+                        acc.prices[pricePeriod] = value;
+                    }
+                    return;
                 case key.includes('invested__WAVES'):
-                    return { investedWaves: new Money(value, this.rs.assetsStore.assetsData.data.WAVES) };
-                case key.includes(`invested__${'lPAssetId'}`):
-                    return { investedLp: new Money(value, this.rs.assetsStore.assetsData.data['lPAssetId']) };
+                    return {
+                        investedWaves: new Money(
+                            value,
+                            this.rs.assetsStore.getWaves()
+                        ),
+                    };
+                case key.includes(
+                    `invested__${this.rs.assetsStore.getXTN().id}`
+                ):
+                    return {
+                        investedXtn: new Money(
+                            value,
+                            this.rs.assetsStore.getXTN()
+                        ),
+                    };
                 default:
                     return {};
             }
         };
 
-        return data.entries.reduce((acc, entry) => {
-            const parsed = parseEntries(entry.key, entry.value);
-            return { ...acc, ...parsed };
-        }, Object.create(null));
+        return data.entries.reduce(
+            (acc, entry) => {
+                const parsed = parseEntries(entry.key, entry.value, acc);
+                return { ...acc, ...parsed };
+            },
+            {
+                currentPeriod: undefined,
+                investedWaves: undefined,
+                investedXtn: undefined,
+                periodLength: undefined,
+                startHeights: {},
+                prices: {},
+            }
+        );
     };
 
     private userContractDataParser = (data: IState): IUserContractData => {
         const parseEntries = (key: string, value: string | number) => {
             switch (true) {
                 case key.includes('available'):
-                    return { availableToClaim: new Money(value, this.rs.assetsStore.assetsData.data['lPAssetId']) };
+                    return {
+                        availableToClaim: new Money(
+                            value,
+                            this.rs.assetsStore.getWAVESDAOLP()
+                        ),
+                    };
                 case key.includes('claimed'):
-                    return { claimed: new Money(value, this.rs.assetsStore.assetsData.data['lPAssetId']) };
+                    return {
+                        claimed: new Money(
+                            value,
+                            this.rs.assetsStore.getWAVESDAOLP()
+                        ),
+                    };
                 case key.includes('withdrawal'):
-                    return { withdrawal: new Money(value, this.rs.assetsStore.assetsData.data['lPAssetId']) };
+                    return {
+                        withdrawal: new Money(
+                            value,
+                            this.rs.assetsStore.getWAVESDAOLP()
+                        ),
+                    };
                 default:
                     return {};
             }
@@ -172,16 +344,19 @@ export class ContractDataStore extends ChildStore {
                 lpAssetAmount: number;
                 targetPeriod: number;
                 claimTxId: string;
-            }>(entry, [
+            }>(entry?.value || '', [
                 'status',
                 'lpAssetAmount',
                 'targetPeriod',
-                'claimTxId'
+                'claimTxId',
             ]);
 
             return {
                 ...parsedStr,
-                lpAssetAmount: new Money(parsedStr.lpAssetAmount, this.rs.assetsStore.assetsData.data['lPAssetId'])
+                lpAssetAmount: new Money(
+                    parsedStr.lpAssetAmount,
+                    this.rs.assetsStore.getWAVESDAOLP()
+                ),
             };
         };
 
@@ -200,11 +375,4 @@ export class ContractDataStore extends ChildStore {
             }
         }, Object.create(null));
     };
-
-    private priceDataParser(data: IState): TPriceData {
-        return data.entries.reduce((acc, entry) => {
-            return { ...acc, [entry.key]: entry.value }; // todo
-        }, Object.create(null));
-    }
-
 }

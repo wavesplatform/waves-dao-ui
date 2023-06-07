@@ -6,12 +6,36 @@ import { AppStoreContext } from '../../../../App';
 import { observer } from 'mobx-react-lite';
 
 export const DiagramBlock: FC = observer(() => {
-    const { assetsStore } = useContext(AppStoreContext);
-    const mock = [{ color: '#3C69FF', value: 8 }, { color: '#2AC684', value: 4 }];
+    const { assetsStore, contractDataStore, ratesStore } = useContext(AppStoreContext);
 
     return (
-        <Flex flex={1} alignItems={[null, 'center']} flexDirection={['column', 'row']}>
-            <Diagram dataProps={mock} widthChart={64} heightChart={64} height={64} width={64} />
+        <Flex
+            flex={1}
+            alignItems={[null, 'center']}
+            flexDirection={['column', 'row']}
+        >
+            <Diagram
+                dataProps={[
+                    {
+                        color: '#3C69FF',
+                        value:
+                            contractDataStore.investedWaves
+                                ?.getTokens()
+                                ?.toNumber() || 0,
+                    },
+                    {
+                        color: '#2AC684',
+                        value:
+                            contractDataStore.investedXtn
+                                ?.getTokens()
+                                ?.toNumber() || 0,
+                    },
+                ]}
+                widthChart={64}
+                heightChart={64}
+                height={64}
+                width={64}
+            />
             <Box sx={{ ml: [null, '16px'], mt: ['16px', '0'] }}>
                 <Flex alignItems="center" sx={{ mb: '8px' }}>
                     <Box
@@ -20,18 +44,20 @@ export const DiagramBlock: FC = observer(() => {
                         sx={{
                             mr: '8px',
                             borderRadius: '50%',
-                            backgroundColor: '#3C69FF'
+                            backgroundColor: '#3C69FF',
                         }}
                     />
                     <Text as="div" variant="text1" display="flex" color="text">
                         <Text>
-                            {'1,000,000.51'}
+                            {contractDataStore.investedWaves?.toFormat(2)}
                         </Text>
                         <Text as="div" mx="4px" color="#3C69FF">
-                            {assetsStore.assetsData.data?.WAVES?.displayName}
+                            {assetsStore.getWaves().displayName}
                         </Text>
                         <Text color="wdtextsec">
-                            {'$1,855,180.45'}
+                            {`$${ratesStore.getInvestedWavesUsd.toFormat(
+                                2
+                            )}`}
                         </Text>
                     </Text>
                 </Flex>
@@ -42,18 +68,20 @@ export const DiagramBlock: FC = observer(() => {
                         sx={{
                             mr: '8px',
                             borderRadius: '50%',
-                            backgroundColor: '#2AC684'
+                            backgroundColor: '#2AC684',
                         }}
                     />
                     <Text as="div" variant="text1" display="flex" color="text">
                         <Text>
-                            {'800,120.51'}
+                            {contractDataStore.investedXtn?.toFormat(2)}
                         </Text>
                         <Text as="div" mx="4px" color="#2AC684">
-                            {'XTN'}
+                            {assetsStore.assetsData.data?.XTN?.displayName}
                         </Text>
                         <Text color="wdtextsec">
-                            {'$800,120.51'}
+                            {`$${ratesStore.getInvestedXtnUsd.toFormat(
+                                2
+                            )}`}
                         </Text>
                     </Text>
                 </Flex>

@@ -24,7 +24,7 @@ export const FinalisePeriod: FC = memo(() => {
                     <Trans i18key="finalisePeriodDesc" />
                 </Text>
             </Box>
-            <Button variant="primary">
+            <Button variant="primary" disabled>
                 <Trans i18key="topUp" />
             </Button>
         </Flex>

@@ -14,12 +14,12 @@ export default<TConfig> {
         stateSearch: 'https://testnet.wx.network/api/v1/state/search',
     },
     contracts: {
-        factory: '',
+        factory: '3MuS6qVvhBR6wSynFRdcE3fVqmGBjoc7Hhx',
         calculator: '',
     },
     assets: [
         { label: 'WAVES', id: 'WAVES' },
-        // { label: 'WAVESDLP', id: '' },
+        { label: 'WAVESDLP', id: '8UPrJqcm9PE8S472bFDKhE3R9DawsYAHYvq8hMSwJgGG' },
         { label: 'XTN', id: '25FEqEjRkqK6yCkiT7Lz6SAYz7gUFCtxfCChnrVFD5AT' },
     ]
 };

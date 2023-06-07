@@ -7,7 +7,6 @@ import { createBaseAsset, getPair } from '../../utils/dataEntriesUtils';
 import { BigNumber } from '@waves/bignumber';
 
 export class RatesStore extends ChildStore {
-
     rates: FetchTracker<TRatesHash, IRatesResponse>;
 
     constructor(rs: AppStore) {
@@ -23,7 +22,8 @@ export class RatesStore extends ChildStore {
                 body: this.getRatesBody(),
             },
             parser: this.ratesParser,
-            refreshInterval: 30_000
+            refreshInterval: 30_000,
+            autoFetch: true,
         });
 
         reaction(
@@ -44,6 +44,47 @@ export class RatesStore extends ChildStore {
         });
     }
 
+    public get getInvestedXtnUsd(): BigNumber {
+        if (this.getRateXTN.isZero()) {
+            return this.rs.contractDataStore.investedXtn.getTokens();
+        }
+        return this.rs.contractDataStore.investedXtn
+            .getTokens()
+            .mul(this.getRateXTN);
+    }
+
+    public get getCurrentPriceWavesUsd(): BigNumber {
+        if (this.getRateWaves.isZero()) {
+            return this.rs.contractDataStore.investedWaves.getTokens();
+        }
+        return this.rs.contractDataStore.investedWaves
+            .getTokens()
+            .mul(this.getRateWaves);
+    }
+
+    public get getInvestedWavesUsd(): BigNumber {
+        return this.rs.contractDataStore.getCurrentPriceWaves
+            .getTokens()
+            .mul(this.getRateWaves);
+    }
+
+    public get getRateWaves(): BigNumber {
+        const rateWaves = this.rs.ratesStore.rates.data['WAVES/USD'];
+        return rateWaves?.exchange && !rateWaves.exchange.isNaN()
+            ? rateWaves.exchange
+            : new BigNumber(0);
+    }
+
+    public get getRateXTN(): BigNumber {
+        const rateXTN =
+            this.rs.ratesStore.rates.data[
+                `${this.rs.assetsStore.getXTN().id}/USD`
+            ];
+        return rateXTN?.exchange && !rateXTN.exchange.isNaN()
+            ? rateXTN.exchange
+            : new BigNumber(0);
+    }
+
     public off() {
         this.rates.off();
     }
@@ -59,7 +100,9 @@ export class RatesStore extends ChildStore {
     }
 
     private getRatesBody(): string {
-        const assetsIds = this.rs.configStore.config.assets.map((asset) => asset.id);
+        const assetsIds = this.rs.configStore.config.assets.map(
+            (asset) => asset.id
+        );
         const toAsset = 'USD';
         const pairs = assetsIds.map((assetId) => getPair(assetId, toAsset));
         return JSON.stringify({ pairs });

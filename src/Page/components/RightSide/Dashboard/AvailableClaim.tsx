@@ -1,12 +1,15 @@
-import { FC, memo } from 'react';
+import { FC, useContext } from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Text } from '../../../../uikit/Text/Text';
 import { Trans } from '@waves/ui-translator';
 import { Button } from '../../../../uikit/Button/Button';
 import { modalManager } from '../../../../services/modalManager';
 import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES';
+import { observer } from 'mobx-react-lite';
+import { AppStoreContext } from '../../../../App';
 
-export const AvailableClaim: FC = memo(() => {
+export const AvailableClaim: FC = observer(() => {
+    const { contractDataStore, assetsStore } = useContext(AppStoreContext);
     return (
         <Flex
             px="20px"
@@ -29,16 +32,18 @@ export const AvailableClaim: FC = memo(() => {
                 </Text>
                 <Flex>
                     <Text as="div" variant="text1" color="text" mr="4px">
-                        {'150'}
+                        {contractDataStore.availableToClaim.toFormat()}
                     </Text>
                     <Text variant="text1" color="wdtextsec">
-                        {'WAVESDLP'}
+                        {assetsStore.getWAVESDAOLP().displayName}
                     </Text>
                 </Flex>
             </Box>
             <Button
                 variant="success"
-                onClick={() => modalManager.openModal(MODAL_NAMES.claimWaves)}
+                onClick={() =>
+                    modalManager.openModal(MODAL_NAMES.claimWavesDaoLp)
+                }
             >
                 <Trans i18key="claimButton" />
             </Button>

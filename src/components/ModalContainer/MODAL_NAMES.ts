@@ -3,7 +3,7 @@ export enum MODAL_NAMES {
     keeperAuth = 'keeperAuth',
     legalDisclaimer = 'legalDisclaimer',
     getWaves = 'getWaves',
-    claimWaves = 'claimWaves',
+    claimWavesDaoLp = 'claimWavesDaoLp',
     cancelWithdrawal = 'cancelWithdrawal',
     depositWaves = 'depositWaves',
     withdraw = 'withdraw',
