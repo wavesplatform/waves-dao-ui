@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 import { AppStoreContext } from '../../../../App';
 import { getTimeUnitStr } from '../../../../utils/BlocksToTime/helpers';
 import { BlocksToTime } from '../../../../utils/BlocksToTime';
+import { InUsdText } from '../../../../components/utilComponents/inUsdText';
 
 export const InfoBlock: FC = observer(() => {
     const { contractDataStore, ratesStore } = useContext(AppStoreContext);
@@ -24,9 +25,13 @@ export const InfoBlock: FC = observer(() => {
                             i18Params={{ assetName: 'WAVES' }}
                         />
                     </Text>
-                    <Text as="div" color="text" variant="text1">
-                        {`$${ratesStore.getRateWaves.toFormat(2)}`}
-                    </Text>
+                    <InUsdText
+                        usd={ratesStore.getCurrentPriceWavesInUsd}
+                        decimals={2}
+                        variant="text1"
+                        color="text"
+                        as="div"
+                    />
                 </Flex>
                 <Box
                     width="6px"
@@ -46,13 +51,17 @@ export const InfoBlock: FC = observer(() => {
                         />
                     </Text>
                     <Text as="div" color="text" variant="text1" mr="4px">
-                        {`${contractDataStore.getCurrentPriceWaves.toFormat(
+                        {`${contractDataStore.getCurrentPriceLpInWaves.toFormat(
                             2
                         )} WAVES`}
                     </Text>
-                    <Text as="div" color="wdtextsec" variant="text1">
-                        {`($${ratesStore.getCurrentPriceWavesUsd.toFormat(2)})`}
-                    </Text>
+                    <InUsdText
+                        usd={ratesStore.getCurrentPriceLpInWavesUsd}
+                        decimals={2}
+                        variant="text1"
+                        color="wdtextsec"
+                        as="div"
+                    />
                 </Flex>
                 <Box
                     width="6px"

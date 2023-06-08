@@ -73,8 +73,7 @@ const ClaimWavesDaoLpModalFC: React.FC<TClaimWavesDaoLpModalFC> = ({
                                 }}
                                 balance={rootStore.contractDataStore.availableToClaim?.toFormat()}
                                 ticker={
-                                    rootStore.assetsStore.getWAVESDAOLP()
-                                        .displayName
+                                    rootStore.assetsStore.WAVESDAOLP.displayName
                                 }
                                 iconUrl={wavesLpWithoutBg}
                                 mb="28px"

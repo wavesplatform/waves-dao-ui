@@ -53,19 +53,23 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                     return (
                         <>
                             <TxHeader
-                                icon={rs.assetsStore.getWaves().icon}
+                                icon={rs.assetsStore.WAVES.icon}
                                 title={{
                                     i18key: 'withdrawTitle',
                                     i18Params: {
                                         assetName:
-                                            rs.assetsStore.getWaves().displayName,
+                                            rs.assetsStore.WAVES.displayName,
                                     },
                                 }}
                                 subtitle={{
                                     i18key: 'withdrawSubtitle',
                                     i18Params: {
-                                        amount: rs.balanceStore.getWavesLpBalance.getTokens().toFormat(),
-                                        assetName: rs.balanceStore.getWavesLpBalance.asset.displayName,
+                                        amount: rs.balanceStore.getWavesLpBalance
+                                            .getTokens()
+                                            .toFormat(),
+                                        assetName:
+                                            rs.balanceStore.getWavesLpBalance
+                                                .asset.displayName,
                                     },
                                 }}
                             />
@@ -95,7 +99,10 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                                     <FormattedInput
                                         formatSeparator=","
                                         decimals={8}
-                                        tag={rs.balanceStore.getWavesLpBalance.asset.displayName}
+                                        tag={
+                                            rs.balanceStore.getWavesLpBalance
+                                                .asset.displayName
+                                        }
                                         aria-invalid={
                                             withdrawStore.amountError
                                                 ? 'true'
@@ -145,7 +152,10 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                                         i18key="withdrawWarning"
                                         i18Params={{
                                             stakedAssetName: 'WAVES',
-                                            lpAssetName: rs.balanceStore.getWavesLpBalance.asset.displayName,
+                                            lpAssetName:
+                                                rs.balanceStore
+                                                    .getWavesLpBalance.asset
+                                                    .displayName,
                                         }}
                                     />
                                 </Text>

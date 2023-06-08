@@ -50,7 +50,7 @@ export class BalanceStore extends ChildStore {
     }
 
     public get getWavesLpBalance(): IBalance['balance'] {
-        return this.balances[this.rs.assetsStore.getWAVESDAOLP().id]?.balance;
+        return this.balances[this.rs.assetsStore.WAVESDAOLP.id]?.balance;
     }
 
     public off() {
@@ -99,10 +99,10 @@ export class BalanceStore extends ChildStore {
     ): Record<string, IBalance> => {
         return {
             WAVES: {
-                asset: this.rs.assetsStore.getWaves(),
+                asset: this.rs.assetsStore.WAVES,
                 balance: new Money(
                     wavesBalance.available,
-                    this.rs.assetsStore.getWaves()
+                    this.rs.assetsStore.WAVES
                 ),
             },
         };

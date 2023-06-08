@@ -24,7 +24,7 @@ const CancelWithdrawalModalFC: React.FC<TCancelWithdrawalModalFC> = ({
     const cancelWithdrawalStore = React.useMemo(() => {
         return new CancelWithdrawalStore(rootStore);
     }, []);
-    const WAVES = rootStore.assetsStore.getWaves();
+    const WAVES = rootStore.assetsStore.WAVES;
     const balance =
         rootStore.balanceStore.balances[WAVES?.id]?.balance?.toFormat();
     const wavesdlpAsset = { ...wavesAsset, displayName: 'WAVESDLP' };

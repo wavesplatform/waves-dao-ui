@@ -36,7 +36,7 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
         return new DepositWavesStore({
             rs,
             inputMoney: wavesBalance.balance.cloneWithTokens(0),
-            isMinAmountForWaves: true
+            isMinAmountForWaves: true,
         });
     }, []);
 
@@ -55,13 +55,12 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
                     return (
                         <>
                             <TxHeader
-                                icon={rs.assetsStore.getWaves().icon}
+                                icon={rs.assetsStore.WAVES.icon}
                                 title={{
                                     i18key: 'depositTitle',
                                     i18Params: {
                                         assetName:
-                                            rs.assetsStore.getWaves()
-                                                .displayName,
+                                            rs.assetsStore.WAVES.displayName,
                                     },
                                 }}
                                 subtitle={{

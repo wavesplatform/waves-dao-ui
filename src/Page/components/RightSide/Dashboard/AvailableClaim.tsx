@@ -35,7 +35,7 @@ export const AvailableClaim: FC = observer(() => {
                         {contractDataStore.availableToClaim.toFormat()}
                     </Text>
                     <Text variant="text1" color="wdtextsec">
-                        {assetsStore.getWAVESDAOLP().displayName}
+                        {assetsStore.WAVESDAOLP.displayName}
                     </Text>
                 </Flex>
             </Box>

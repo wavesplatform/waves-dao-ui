@@ -5,6 +5,8 @@ import { IRatesResponse, TRatesHash } from './index';
 import { reaction } from 'mobx';
 import { createBaseAsset, getPair } from '../../utils/dataEntriesUtils';
 import { BigNumber } from '@waves/bignumber';
+import { getInUsd } from '../../utils/usdUtils';
+import { Money } from '@waves/data-entities';
 
 export class RatesStore extends ChildStore {
     rates: FetchTracker<TRatesHash, IRatesResponse>;
@@ -44,45 +46,32 @@ export class RatesStore extends ChildStore {
         });
     }
 
-    public get getInvestedXtnUsd(): BigNumber {
-        if (this.getRateXTN.isZero()) {
-            return this.rs.contractDataStore.investedXtn.getTokens();
-        }
-        return this.rs.contractDataStore.investedXtn
-            .getTokens()
-            .mul(this.getRateXTN);
+    public get getInvestedXtnInUsd(): BigNumber {
+        return getInUsd(
+            this.rs.contractDataStore.investedXtn,
+            this.rates.data
+        ).getTokens();
     }
 
-    public get getCurrentPriceWavesUsd(): BigNumber {
-        if (this.getRateWaves.isZero()) {
-            return this.rs.contractDataStore.investedWaves.getTokens();
-        }
-        return this.rs.contractDataStore.investedWaves
-            .getTokens()
-            .mul(this.getRateWaves);
+    public get getInvestedWavesInUsd(): BigNumber {
+        return getInUsd(
+            this.rs.contractDataStore.investedWaves,
+            this.rates.data
+        ).getTokens();
     }
 
-    public get getInvestedWavesUsd(): BigNumber {
-        return this.rs.contractDataStore.getCurrentPriceWaves
-            .getTokens()
-            .mul(this.getRateWaves);
+    public get getCurrentPriceLpInWavesUsd(): BigNumber {
+        return getInUsd(
+            this.rs.contractDataStore.getCurrentPriceLpInWaves,
+            this.rates.data
+        ).getTokens();
     }
 
-    public get getRateWaves(): BigNumber {
-        const rateWaves = this.rs.ratesStore.rates.data['WAVES/USD'];
-        return rateWaves?.exchange && !rateWaves.exchange.isNaN()
-            ? rateWaves.exchange
-            : new BigNumber(0);
-    }
-
-    public get getRateXTN(): BigNumber {
-        const rateXTN =
-            this.rs.ratesStore.rates.data[
-                `${this.rs.assetsStore.getXTN().id}/USD`
-            ];
-        return rateXTN?.exchange && !rateXTN.exchange.isNaN()
-            ? rateXTN.exchange
-            : new BigNumber(0);
+    public get getCurrentPriceWavesInUsd(): BigNumber {
+        return getInUsd(
+            new Money(0, this.rs.assetsStore.WAVES).cloneWithTokens(1),
+            this.rates.data
+        ).getTokens();
     }
 
     public off() {

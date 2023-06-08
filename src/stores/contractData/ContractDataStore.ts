@@ -8,6 +8,7 @@ import { parseSearchStr } from '../../utils/search/parseContractData';
 import { Money } from '@waves/data-entities';
 import { ICommonContractData, IUserContractData, IWithdrawal } from '.';
 import BigNumber from '@waves/bignumber';
+import { filterObjectCommonContract, filterObjectUserContract } from './utils';
 
 export class ContractDataStore extends ChildStore {
     public commonContractData: FetchTracker<ICommonContractData, IState>;
@@ -21,81 +22,13 @@ export class ContractDataStore extends ChildStore {
         this.commonContractData = new FetchTracker<any, any>({
             fetchUrl: searchUrl,
             fetcher: (fetchUrl) =>
-                search(fetchUrl, {
-                    filter: {
-                        or: [
-                            {
-                                and: [
-                                    {
-                                        address: {
-                                            operation: 'eq',
-                                            value: contractAddress,
-                                        },
-                                    },
-                                    {
-                                        or: [
-                                            {
-                                                key: {
-                                                    operation: 'eq',
-                                                    value: '%s__periodLength',
-                                                },
-                                            },
-                                            {
-                                                key: {
-                                                    operation: 'eq',
-                                                    value: '%s__currentPeriod',
-                                                },
-                                            },
-                                            {
-                                                key: {
-                                                    operation: 'eq',
-                                                    value: '%s%s__invested__WAVES',
-                                                },
-                                            },
-                                            {
-                                                key: {
-                                                    operation: 'eq',
-                                                    value: `%s%s__invested__${
-                                                        this.rs.assetsStore.getXTN()
-                                                            .id
-                                                    }`,
-                                                },
-                                            },
-                                        ],
-                                    },
-                                ],
-                            },
-                            {
-                                in: {
-                                    properties: [
-                                        { address: {} },
-                                        {
-                                            fragment: {
-                                                position: 0,
-                                                type: 'string',
-                                            },
-                                        },
-                                    ],
-                                    values: [[contractAddress, 'price']],
-                                },
-                            },
-                            {
-                                in: {
-                                    properties: [
-                                        { address: {} },
-                                        {
-                                            fragment: {
-                                                position: 0,
-                                                type: 'string',
-                                            },
-                                        },
-                                    ],
-                                    values: [[contractAddress, 'startHeight']],
-                                },
-                            },
-                        ],
-                    },
-                }),
+                search(
+                    fetchUrl,
+                    filterObjectCommonContract({
+                        contractAddress,
+                        xtnId: this.rs.assetsStore.XTN.id,
+                    })
+                ),
             refreshInterval: 60_000,
             parser: this.contractDataParser,
             autoFetch: true,
@@ -109,65 +42,13 @@ export class ContractDataStore extends ChildStore {
                     this.userContractData.setOptions({
                         fetchUrl: searchUrl,
                         fetcher: (fetchUrl) =>
-                            search(fetchUrl, {
-                                filter: {
-                                    or: [
-                                        {
-                                            and: [
-                                                {
-                                                    address: {
-                                                        operation: 'eq',
-                                                        value: contractAddress,
-                                                    },
-                                                },
-                                                {
-                                                    or: [
-                                                        {
-                                                            key: {
-                                                                operation: 'eq',
-                                                                value: `%s%s__available__${userAddress}`,
-                                                            },
-                                                        },
-                                                        {
-                                                            key: {
-                                                                operation: 'eq',
-                                                                value: `%s%s__claimed__${userAddress}`,
-                                                            },
-                                                        },
-                                                    ],
-                                                },
-                                            ],
-                                        },
-                                        {
-                                            in: {
-                                                //%s%s%s__withdrawal__<userAddress>__<txId>
-                                                properties: [
-                                                    { address: {} },
-                                                    {
-                                                        fragment: {
-                                                            position: 0,
-                                                            type: 'string',
-                                                        },
-                                                    },
-                                                    {
-                                                        fragment: {
-                                                            position: 1,
-                                                            type: 'string',
-                                                        },
-                                                    },
-                                                ],
-                                                values: [
-                                                    [
-                                                        contractAddress,
-                                                        'withdrawal',
-                                                        userAddress,
-                                                    ],
-                                                ],
-                                            },
-                                        },
-                                    ],
-                                },
-                            }),
+                            search(
+                                fetchUrl,
+                                filterObjectUserContract({
+                                    userAddress,
+                                    contractAddress,
+                                })
+                            ),
                         refreshInterval: 60_000,
                         parser: this.userContractDataParser,
                         autoFetch: true,
@@ -178,8 +59,8 @@ export class ContractDataStore extends ChildStore {
     }
 
     public get getTreasuryUsd(): BigNumber {
-        return this.rs.ratesStore.getInvestedWavesUsd.add(
-            this.rs.ratesStore.getInvestedXtnUsd
+        return this.rs.ratesStore.getInvestedWavesInUsd.add(
+            this.rs.ratesStore.getInvestedXtnInUsd
         );
     }
 
@@ -190,7 +71,7 @@ export class ContractDataStore extends ChildStore {
     public get availableToClaim(): Money {
         return (
             this.userContractData?.data?.availableToClaim ||
-            new Money(0, this.rs.assetsStore.getWAVESDAOLP())
+            new Money(0, this.rs.assetsStore.WAVESDAOLP)
         );
     }
 
@@ -203,14 +84,14 @@ export class ContractDataStore extends ChildStore {
     public get investedWaves(): Money {
         return (
             this.commonContractData.data?.investedWaves ||
-            new Money(0, this.rs.assetsStore.getWaves())
+            new Money(0, this.rs.assetsStore.WAVES)
         );
     }
 
     public get investedXtn(): Money {
         return (
             this.commonContractData.data?.investedXtn ||
-            new Money(0, this.rs.assetsStore.getXTN())
+            new Money(0, this.rs.assetsStore.XTN)
         );
     }
 
@@ -218,24 +99,22 @@ export class ContractDataStore extends ChildStore {
         return this.commonContractData.data?.currentPeriod || 0;
     }
 
-    public get getCurrentPriceWaves(): Money {
+    public get getCurrentPriceLpInWaves(): Money {
         const { prices = {}, currentPeriod = 0 } =
             this.commonContractData?.data || {};
 
-        return new Money(
-            prices[currentPeriod] || 0,
-            this.rs.assetsStore.getWaves()
-        );
+        return new Money(prices[currentPeriod] || 0, this.rs.assetsStore.WAVES);
     }
 
     public get getCurrentPriceWavesLp(): Money {
         const { prices = {}, currentPeriod = 0 } =
             this.commonContractData?.data || {};
-        const price = new Money(100000000, this.rs.assetsStore.getWaves())
+        const price = new Money(0, this.rs.assetsStore.WAVES)
+            .cloneWithTokens(1)
             .getCoins()
             .div(prices[currentPeriod]);
 
-        return new Money(price, this.rs.assetsStore.getWAVESDAOLP());
+        return new Money(price, this.rs.assetsStore.WAVESDAOLP);
     }
 
     public get finalizingKPI(): number {
@@ -275,17 +154,12 @@ export class ContractDataStore extends ChildStore {
                     return {
                         investedWaves: new Money(
                             value,
-                            this.rs.assetsStore.getWaves()
+                            this.rs.assetsStore.WAVES
                         ),
                     };
-                case key.includes(
-                    `invested__${this.rs.assetsStore.getXTN().id}`
-                ):
+                case key.includes(`invested__${this.rs.assetsStore.XTN.id}`):
                     return {
-                        investedXtn: new Money(
-                            value,
-                            this.rs.assetsStore.getXTN()
-                        ),
+                        investedXtn: new Money(value, this.rs.assetsStore.XTN),
                     };
                 default:
                     return {};
@@ -315,21 +189,21 @@ export class ContractDataStore extends ChildStore {
                     return {
                         availableToClaim: new Money(
                             value,
-                            this.rs.assetsStore.getWAVESDAOLP()
+                            this.rs.assetsStore.WAVESDAOLP
                         ),
                     };
                 case key.includes('claimed'):
                     return {
                         claimed: new Money(
                             value,
-                            this.rs.assetsStore.getWAVESDAOLP()
+                            this.rs.assetsStore.WAVESDAOLP
                         ),
                     };
                 case key.includes('withdrawal'):
                     return {
                         withdrawal: new Money(
                             value,
-                            this.rs.assetsStore.getWAVESDAOLP()
+                            this.rs.assetsStore.WAVESDAOLP
                         ),
                     };
                 default:
@@ -355,7 +229,7 @@ export class ContractDataStore extends ChildStore {
                 ...parsedStr,
                 lpAssetAmount: new Money(
                     parsedStr.lpAssetAmount,
-                    this.rs.assetsStore.getWAVESDAOLP()
+                    this.rs.assetsStore.WAVESDAOLP
                 ),
             };
         };

@@ -53,7 +53,7 @@ export const LpBalance: FC = observer(() => {
                                 i18key="assetBalance"
                                 i18Params={{
                                     assetName:
-                                        assetsStore.getWAVESDAOLP().displayName,
+                                        assetsStore.WAVESDAOLP.displayName,
                                 }}
                             />
                         </Text>
@@ -71,7 +71,7 @@ export const LpBalance: FC = observer(() => {
                                     0}
                             </Text>
                             <Text variant="text2" color="wdtextsec">
-                                {assetsStore.getWAVESDAOLP().displayName}
+                                {assetsStore.WAVESDAOLP.displayName}
                             </Text>
                         </Flex>
                         <Flex
@@ -87,7 +87,7 @@ export const LpBalance: FC = observer(() => {
                                 {'~179.4567'}
                             </Text>
                             <Text variant="text2" color="wdtextsec">
-                                {assetsStore.getWaves().displayName}
+                                {assetsStore.WAVES.displayName}
                             </Text>
                             <InUsdText
                                 usd={new BigNumber(250)}

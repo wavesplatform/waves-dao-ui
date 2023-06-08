@@ -37,7 +37,7 @@ export class BaseInputFormStore extends BaseFormStore {
     }
 
     public get minAmount(): Money {
-        return new Money(0, this.rs.assetsStore.getWaves()).cloneWithTokens(1);
+        return new Money(0, this.rs.assetsStore.WAVES).cloneWithTokens(1);
     }
 
     public get maxAmount(): Money | undefined {

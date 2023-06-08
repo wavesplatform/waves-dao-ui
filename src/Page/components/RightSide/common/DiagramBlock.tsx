@@ -6,7 +6,8 @@ import { AppStoreContext } from '../../../../App';
 import { observer } from 'mobx-react-lite';
 
 export const DiagramBlock: FC = observer(() => {
-    const { assetsStore, contractDataStore, ratesStore } = useContext(AppStoreContext);
+    const { assetsStore, contractDataStore, ratesStore } =
+        useContext(AppStoreContext);
 
     return (
         <Flex
@@ -52,12 +53,10 @@ export const DiagramBlock: FC = observer(() => {
                             {contractDataStore.investedWaves?.toFormat(2)}
                         </Text>
                         <Text as="div" mx="4px" color="#3C69FF">
-                            {assetsStore.getWaves().displayName}
+                            {assetsStore.WAVES.displayName}
                         </Text>
                         <Text color="wdtextsec">
-                            {`$${ratesStore.getInvestedWavesUsd.toFormat(
-                                2
-                            )}`}
+                            {`$${ratesStore.getInvestedWavesInUsd.toFormat(2)}`}
                         </Text>
                     </Text>
                 </Flex>
@@ -79,9 +78,7 @@ export const DiagramBlock: FC = observer(() => {
                             {assetsStore.assetsData.data?.XTN?.displayName}
                         </Text>
                         <Text color="wdtextsec">
-                            {`$${ratesStore.getInvestedXtnUsd.toFormat(
-                                2
-                            )}`}
+                            {`$${ratesStore.getInvestedXtnInUsd.toFormat(2)}`}
                         </Text>
                     </Text>
                 </Flex>
