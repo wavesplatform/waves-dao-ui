@@ -98,6 +98,7 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                                 >
                                     <FormattedInput
                                         formatSeparator=","
+                                        value={withdrawStore.inputString}
                                         decimals={8}
                                         tag={
                                             rs.balanceStore.getWavesLpBalance

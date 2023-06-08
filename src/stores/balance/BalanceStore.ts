@@ -53,6 +53,13 @@ export class BalanceStore extends ChildStore {
         return this.balances[this.rs.assetsStore.WAVESDAOLP.id]?.balance;
     }
 
+    public get getBalanceLpInWaves(): Money {
+        return new Money(
+            this.getWavesLpBalance?.getCoins() || 0,
+            this.rs.assetsStore.WAVES
+        );
+    }
+
     public off() {
         this.wavesBalance?.off();
         this.otherBalance?.off();

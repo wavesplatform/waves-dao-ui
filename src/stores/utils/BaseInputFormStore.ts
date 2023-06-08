@@ -65,8 +65,15 @@ export class BaseInputFormStore extends BaseFormStore {
     public onClickMaxAmount = (): void => {
         const tokenId = this.currentTokenBalance?.asset.id;
         const feeId = this.fee?.asset.id;
-        const max = tokenId && tokenId === feeId ? this.currentTokenBalance.minus(this.fee) : this.currentTokenBalance;
-        this.onInputChange(max?.getTokens().toString() || '0');
+        const max =
+            tokenId && tokenId === feeId
+                ? this.currentTokenBalance.minus(this.fee)
+                : this.currentTokenBalance;
+        this.onInputChange(
+            max && !max?.getTokens()?.isNegative()
+                ? max?.getTokens()?.toFormat()
+                : '0'
+        );
     };
 
     public checkInput = (): boolean => {

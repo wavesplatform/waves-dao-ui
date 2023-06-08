@@ -15,7 +15,7 @@ import { modalManager } from '../../../../services/modalManager';
 import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES';
 
 export const LpBalance: FC = observer(() => {
-    const { assetsStore, balanceStore, contractDataStore } =
+    const { assetsStore, balanceStore, contractDataStore, ratesStore } =
         useContext(AppStoreContext);
 
     const handleWithdrawClick = () => {
@@ -84,13 +84,13 @@ export const LpBalance: FC = observer(() => {
                                 color="text"
                                 mr="4px"
                             >
-                                {'~179.4567'}
+                                {`~${balanceStore.getBalanceLpInWaves?.toFormat()}`}
                             </Text>
                             <Text variant="text2" color="wdtextsec">
                                 {assetsStore.WAVES.displayName}
                             </Text>
                             <InUsdText
-                                usd={new BigNumber(250)}
+                                usd={ratesStore.getBalanceLpInWavesUsd}
                                 decimals={2}
                                 variant="text2"
                                 color="wdtextsec"
