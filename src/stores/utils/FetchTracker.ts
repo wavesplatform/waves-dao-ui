@@ -1,4 +1,4 @@
-import { makeObservable, observable, runInAction } from 'mobx';
+import { action, makeObservable, observable, runInAction } from 'mobx';
 import { Poll } from './Poll';
 
 interface FetchTrackerProps<T, K> {
@@ -11,7 +11,8 @@ interface FetchTrackerProps<T, K> {
     autoFetch?: boolean;
 }
 
-export class FetchTracker<T, K> { // T - data type, K - fetch response type
+export class FetchTracker<T, K> {
+    // T - data type, K - fetch response type
 
     public data: T = Object.create(null);
     public isLoading = true;
@@ -19,29 +20,39 @@ export class FetchTracker<T, K> { // T - data type, K - fetch response type
     public isFirstLoad = true;
 
     private fetcher: FetchTrackerProps<T, K>['fetcher'] = (fetchUrl, options) =>
-        fetch(fetchUrl, options).then(res => res.json() as unknown as Promise<K>);
+        fetch(fetchUrl, options).then(
+            (res) => res.json() as unknown as Promise<K>
+        );
 
     private poll: Poll<void> | undefined;
     private fetchUrl: FetchTrackerProps<T, K>['fetchUrl'];
     private options: FetchTrackerProps<T, K>['options'];
-    private readonly refreshInterval: FetchTrackerProps<T, K>['refreshInterval'];
-    private readonly parser: FetchTrackerProps<T, K>['parser'];
+    private refreshInterval: FetchTrackerProps<T, K>['refreshInterval'];
+    private parser: FetchTrackerProps<T, K>['parser'];
 
-    constructor({
-        fetchUrl,
-        fetcher,
-        options,
-        parser,
-        autoFetch = false,
-        refreshInterval,
-        preloadData
-    }: FetchTrackerProps<T, K>) {
+    constructor(args?: FetchTrackerProps<T, K>) {
         makeObservable(this, {
             data: observable,
             isLoading: observable,
-            error: observable
+            error: observable,
+            setOptions: action,
         });
 
+        if (args) {
+            this.setOptions(args);
+        }
+    }
+
+    public setOptions(args: FetchTrackerProps<T, K>) {
+        const {
+            fetchUrl,
+            fetcher,
+            options,
+            parser,
+            autoFetch = false,
+            refreshInterval,
+            preloadData,
+        } = args;
         if (fetcher) {
             this.fetcher = fetcher;
         }
@@ -61,25 +72,26 @@ export class FetchTracker<T, K> { // T - data type, K - fetch response type
     }
 
     public load(): Promise<void> {
-        const _load = () => this.fetcher(this.fetchUrl, this.options)
-            .then(data => {
-                runInAction(() => {
-                    if (typeof this.parser === 'function') {
-                        this.data = this.parser(data);
-                    } else {
-                        this.data = data as unknown as T;
-                    }
-                    this.error = null;
-                    this.isLoading = false;
-                    this.isFirstLoad = false;
+        const _load = () =>
+            this.fetcher(this.fetchUrl, this.options)
+                .then((data) => {
+                    runInAction(() => {
+                        if (typeof this.parser === 'function') {
+                            this.data = this.parser(data);
+                        } else {
+                            this.data = data as unknown as T;
+                        }
+                        this.error = null;
+                        this.isLoading = false;
+                        this.isFirstLoad = false;
+                    });
+                })
+                .catch((e) => {
+                    runInAction(() => {
+                        this.error = e;
+                        this.isFirstLoad = false;
+                    });
                 });
-            })
-            .catch(e => {
-                runInAction(() => {
-                    this.error = e;
-                    this.isFirstLoad = false;
-                });
-            });
 
         if (typeof this.refreshInterval === 'number') {
             this.poll = new Poll<void>(
@@ -87,7 +99,7 @@ export class FetchTracker<T, K> { // T - data type, K - fetch response type
                     get: () => _load(),
                     set: () => {
                         null;
-                    }
+                    },
                 },
                 this.refreshInterval,
                 true

@@ -3,12 +3,14 @@ import { Money } from '@waves/data-entities';
 import { BaseFormStore } from './BaseFormStore';
 import { AppStore } from '../AppStore';
 import { InputErrorsProps } from 'uikit';
+import BigNumber from '@waves/bignumber';
 
 export type TInputErrorState = 'notEnoughFunds' | 'minAmount' | 'required';
 
 export interface BaseInputFormStoreParams {
     rs: AppStore;
     inputMoney: Money;
+    isMinAmountForWaves?: boolean
 }
 
 export class BaseInputFormStore extends BaseFormStore {
@@ -16,10 +18,12 @@ export class BaseInputFormStore extends BaseFormStore {
     public currentAmount: Money;
     public amountError: InputErrorsProps;
     public inputString: string;
+    public isMinAmountForWaves: boolean;
 
-    constructor({ rs, inputMoney }: BaseInputFormStoreParams) {
+    constructor({ rs, inputMoney, isMinAmountForWaves = false }: BaseInputFormStoreParams) {
         super(rs);
         this.currentAmount = inputMoney;
+        this.isMinAmountForWaves = isMinAmountForWaves;
         makeObservable(this, {
             amountError: observable,
             updateAmountError: action,
@@ -30,6 +34,10 @@ export class BaseInputFormStore extends BaseFormStore {
 
     public get currentTokenBalance(): Money | undefined {
         return this.rs.balanceStore.balances[this.currentAmount?.asset.id]?.balance;
+    }
+
+    public get minAmount(): Money {
+        return new Money(0, this.rs.assetsStore.WAVES).cloneWithTokens(1);
     }
 
     public get maxAmount(): Money | undefined {
@@ -77,10 +85,18 @@ export class BaseInputFormStore extends BaseFormStore {
             this.updateAmountError({ error: 'notEnoughFunds' });
             return;
         }
-        // if (this.minAmount && this.minAmount.getTokens().gt(this.currentAmount.getTokens())) {
-        //     this.updateAmountError('minAmount');
-        //     return;
-        // }
+        if (
+            this.isMinAmountForWaves &&
+            this.minAmount &&
+            this.minAmount.getTokens().gt(this.currentAmount.getTokens())
+        ) {
+            this.updateAmountError({
+                error: 'minAmount',
+                minAmount: this.minAmount.getTokens(),
+                assetName: this.minAmount.asset.displayName,
+            });
+            return;
+        }
 
         this.updateAmountError(undefined);
     }

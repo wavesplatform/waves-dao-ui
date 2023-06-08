@@ -32,7 +32,7 @@ export class AppStore {
                     this.balanceStore = new BalanceStore(this);
                     this.nodeHeightStore = new NodeHeightStore(this);
                     this.ratesStore = new RatesStore(this);
-                    // this.contractDataStore = new ContractDataStore(this);
+                    this.contractDataStore = new ContractDataStore(this);
                 }
             }
         );

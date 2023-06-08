@@ -21,7 +21,7 @@ const GetWavesModalFC: React.FC<TGetWavesModalFC> = ({ ...props }) => {
         return new GetWavesStore(rootStore);
     }, []);
     const { sx = {}, ...restProps } = props;
-    const WAVES = rootStore.balanceStore.balances.WAVES?.asset;
+    const WAVES = rootStore.assetsStore.WAVES;
     const balance =
         rootStore.balanceStore.balances[WAVES?.id]?.balance?.toFormat();
 

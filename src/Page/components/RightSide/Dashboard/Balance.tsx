@@ -14,7 +14,7 @@ import { modalManager } from '../../../../services/modalManager';
 import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES';
 
 export const Balance: FC = observer(() => {
-    const { balanceStore } = useContext(AppStoreContext);
+    const { balanceStore, contractDataStore } = useContext(AppStoreContext);
 
     const handleDepositClick = () => {
         modalManager.openModal(MODAL_NAMES.depositWaves);
@@ -57,17 +57,12 @@ export const Balance: FC = observer(() => {
                         />
                     </Text>
                     <Flex>
-                        <Text
-                            as="div"
-                            variant="text1"
-                            color="wdtextsec"
-                            mr="4px"
-                        >
+                        <Text as="div" variant="text1" color="text" mr="4px">
                             {balanceStore.balances.WAVES?.balance
                                 ?.getTokens()
                                 .toFormat()}
                         </Text>
-                        <Text variant="text2" color="text">
+                        <Text variant="text1" color="wdtextsec">
                             {balanceStore.balances.WAVES?.asset.displayName}
                         </Text>
                     </Flex>
@@ -97,6 +92,7 @@ export const Balance: FC = observer(() => {
                     px={['32px !important', '50px !important']}
                     ml="8px"
                     onClick={handleDepositClick}
+                    disabled={contractDataStore.finalizingKPI <= 0}
                 >
                     <Trans i18key="deposit" />
                 </Button>

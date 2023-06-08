@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, useContext } from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Text } from 'uikit';
 import { Trans } from '@waves/ui-translator';
@@ -7,13 +7,16 @@ import wavesLpUrl from '/src/img/waveslp.svg';
 import { WithdrawItem } from './WithdrawItem/WithdrawItem';
 import BigNumber from '@waves/bignumber';
 import { wavesAsset } from '../../../../services/assets';
-import { Asset, Money } from '@waves/data-entities';
+import { Money } from '@waves/data-entities';
 import { InUsdText } from '../../../../components/utilComponents/inUsdText';
+import { observer } from 'mobx-react-lite';
+import { AppStoreContext } from '../../../../App';
 import { modalManager } from '../../../../services/modalManager';
 import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES';
 
-export const LpBalance: FC = memo(() => {
-    const wavesdlpAsset = { ...wavesAsset, displayName: 'WAVESDLP' };
+export const LpBalance: FC = observer(() => {
+    const { assetsStore, balanceStore, contractDataStore } =
+        useContext(AppStoreContext);
 
     const handleWithdrawClick = () => {
         modalManager.openModal(MODAL_NAMES.withdraw);
@@ -48,7 +51,10 @@ export const LpBalance: FC = memo(() => {
                         <Text as="div" variant="text2" color="wdtextsec">
                             <Trans
                                 i18key="assetBalance"
-                                i18Params={{ assetName: 'WAVESDLP' }}
+                                i18Params={{
+                                    assetName:
+                                        assetsStore.WAVESDAOLP.displayName,
+                                }}
                             />
                         </Text>
                         <Flex
@@ -61,10 +67,11 @@ export const LpBalance: FC = memo(() => {
                                 color="text"
                                 mr="4px"
                             >
-                                {'68.200351'}
+                                {balanceStore.getWavesLpBalance?.toFormat(2) ||
+                                    0}
                             </Text>
                             <Text variant="text2" color="wdtextsec">
-                                {'WAVESDLP'}
+                                {assetsStore.WAVESDAOLP.displayName}
                             </Text>
                         </Flex>
                         <Flex
@@ -80,7 +87,7 @@ export const LpBalance: FC = memo(() => {
                                 {'~179.4567'}
                             </Text>
                             <Text variant="text2" color="wdtextsec">
-                                {'WAVES'}
+                                {assetsStore.WAVES.displayName}
                             </Text>
                             <InUsdText
                                 usd={new BigNumber(250)}
@@ -92,23 +99,35 @@ export const LpBalance: FC = memo(() => {
                         </Flex>
                     </Box>
                 </Flex>
-                <Button variant="primary" onClick={handleWithdrawClick}>
+                <Button
+                    variant="primary"
+                    onClick={handleWithdrawClick}
+                    disabled={contractDataStore.finalizingKPI <= 0}
+                >
                     <Trans i18key="withdraw" />
                 </Button>
             </Flex>
-            <WithdrawItem
-                baseTokenAmount={new Money(0, wavesAsset).cloneWithTokens(250)}
-                lpAmount={new Money(0, wavesdlpAsset as Asset).cloneWithTokens(
-                    69
-                )}
-                equil={new BigNumber(250)}
-            />
-            <WithdrawItem
-                baseTokenAmount={undefined}
-                lpAmount={new Money(0, wavesdlpAsset as Asset).cloneWithTokens(
-                    69
-                )}
-            />
+            {contractDataStore.withdraws?.length &&
+                contractDataStore.withdraws.map((item, idx) => {
+                    return (
+                        <WithdrawItem
+                            key={idx}
+                            baseTokenAmount={
+                                item.status === 'FINISHED'
+                                    ? new Money(0, wavesAsset).cloneWithTokens(
+                                          250
+                                      )
+                                    : undefined
+                            }
+                            equil={
+                                item.status === 'PENDING'
+                                    ? undefined
+                                    : new BigNumber(100)
+                            }
+                            lpAmount={item.lpAssetAmount}
+                        />
+                    );
+                })}
         </Box>
     );
 });

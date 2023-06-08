@@ -5,9 +5,10 @@ import { IRatesResponse, TRatesHash } from './index';
 import { reaction } from 'mobx';
 import { createBaseAsset, getPair } from '../../utils/dataEntriesUtils';
 import { BigNumber } from '@waves/bignumber';
+import { getInUsd } from '../../utils/usdUtils';
+import { Money } from '@waves/data-entities';
 
 export class RatesStore extends ChildStore {
-
     rates: FetchTracker<TRatesHash, IRatesResponse>;
 
     constructor(rs: AppStore) {
@@ -23,7 +24,8 @@ export class RatesStore extends ChildStore {
                 body: this.getRatesBody(),
             },
             parser: this.ratesParser,
-            refreshInterval: 30_000
+            refreshInterval: 30_000,
+            autoFetch: true,
         });
 
         reaction(
@@ -44,6 +46,34 @@ export class RatesStore extends ChildStore {
         });
     }
 
+    public get getInvestedXtnInUsd(): BigNumber {
+        return getInUsd(
+            this.rs.contractDataStore.investedXtn,
+            this.rates.data
+        ).getTokens();
+    }
+
+    public get getInvestedWavesInUsd(): BigNumber {
+        return getInUsd(
+            this.rs.contractDataStore.investedWaves,
+            this.rates.data
+        ).getTokens();
+    }
+
+    public get getCurrentPriceLpInWavesUsd(): BigNumber {
+        return getInUsd(
+            this.rs.contractDataStore.getCurrentPriceLpInWaves,
+            this.rates.data
+        ).getTokens();
+    }
+
+    public get getCurrentPriceWavesInUsd(): BigNumber {
+        return getInUsd(
+            new Money(0, this.rs.assetsStore.WAVES).cloneWithTokens(1),
+            this.rates.data
+        ).getTokens();
+    }
+
     public off() {
         this.rates.off();
     }
@@ -59,7 +89,9 @@ export class RatesStore extends ChildStore {
     }
 
     private getRatesBody(): string {
-        const assetsIds = this.rs.configStore.config.assets.map((asset) => asset.id);
+        const assetsIds = this.rs.configStore.config.assets.map(
+            (asset) => asset.id
+        );
         const toAsset = 'USD';
         const pairs = assetsIds.map((assetId) => getPair(assetId, toAsset));
         return JSON.stringify({ pairs });

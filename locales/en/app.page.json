@@ -10,7 +10,8 @@
     "tokenPrice": "{{assetName}} Price",
     "lpPrice": "{{assetName}} Price",
     "rate": "Rate",
-    "kpiPeriod": "KPI period ends in",
+    "kpiPeriod": "KPI period ends in {span}[~ {{period}} ({{blocks}})]",
+    "kpiPeriodFinalizing": "Finalizing KPI period...",
     "connectDesc": "Connect Wallet to Deposit WAVES",
     "connectButton": "Connect Wallet",
     "error": {
@@ -112,8 +113,45 @@
     "iAgree": "I agree.",
     "depositSubmit": "Deposit {{assetName}}",
     "withdrawTitle": "Withdraw {{assetName}}",
-    "withdrawSubtitle":  "Available for Withdrawal {span.available}[{{amount}} {{assetName}}]",
+    "withdrawSubtitle": "Available for Withdrawal {span.available}[{{amount}} {{assetName}}]",
     "withdrawReceive": "The exact amount of WAVES that you will receive will be known only after the end of the settlement period.",
     "withdrawWarning": "By clicking on the Withdraw {{stakedAssetName}} button, your {{lpAssetName}} will be locked till the start of new KPI period. You will be able to get funds immediately after this time.\nAlso, you can cancel withdrawal until the end of current KPI period.",
-    "withdrawSubmit": "Withdraw {{assetName}}"
+    "withdrawSubmit": "Withdraw {{assetName}}",
+    "years": {
+        "some": "year",
+        "one": "years",
+        "any": "years"
+    },
+    "weeks": {
+        "some": "weeks",
+        "oneAccusativeCase": "weeks",
+        "one": "weeks",
+        "any": "weeks"
+    },
+    "months": {
+        "some": "months",
+        "one": "month",
+        "any": "months"
+    },
+    "minutes": {
+        "some": "minutes",
+        "oneAccusativeCase": "minutes",
+        "one": "minutes",
+        "any": "minutes"
+    },
+    "hours": {
+        "some": "hours",
+        "one": "hours",
+        "any": "hours"
+    },
+    "days": {
+        "some": "days",
+        "one": "days",
+        "any": "days"
+    },
+    "blocks": {
+        "some": "blocks",
+        "one": "blocks",
+        "any": "blocks"
+    }
 }

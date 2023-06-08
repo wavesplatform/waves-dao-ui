@@ -6,7 +6,7 @@ import { ChildStore } from '../ChildStore';
 
 
 export class AssetsStore extends ChildStore {
-
+    // ключами будут id & displayName токена
     public assetsData: FetchTracker<Record<string, AssetWithMeta>, IAssetsResponse>;
 
     constructor(rs: AppStore) {
@@ -20,12 +20,25 @@ export class AssetsStore extends ChildStore {
         });
     }
 
+    public get XTN(): AssetWithMeta {
+        return this.rs.assetsStore.assetsData.data['XTN'];
+    }
+
+    public get WAVES(): AssetWithMeta {
+        return this.rs.assetsStore.assetsData.data['WAVES'];
+    }
+
+    public get WAVESDAOLP(): AssetWithMeta {
+        return this.rs.assetsStore.assetsData.data['WAVESDAOLP'];
+    }
+
     private assetsParser = ({ data }: IAssetsResponse): Record<string, AssetWithMeta> => {
         return data
             .map(this.transformAsset)
             .filter(Boolean)
             .reduce((acc, asset) => {
                 acc[(asset as AssetWithMeta).id] = asset;
+                acc[(asset as AssetWithMeta).displayName] = asset;
                 return acc;
             }, Object.create(null));
     };

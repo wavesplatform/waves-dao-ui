@@ -34,7 +34,7 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
     const withdrawStore = React.useMemo(() => {
         return new WithdrawModalStore({
             rs,
-            inputMoney: wavesBalance.balance.cloneWithTokens(0), // todo LP ASSET
+            inputMoney: rs.balanceStore.getWavesLpBalance,
         });
     }, []);
 
@@ -53,20 +53,23 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                     return (
                         <>
                             <TxHeader
-                                icon={rs.assetsStore.assetsData.data.WAVES.icon}
+                                icon={rs.assetsStore.WAVES.icon}
                                 title={{
                                     i18key: 'withdrawTitle',
                                     i18Params: {
                                         assetName:
-                                            rs.assetsStore.assetsData.data.WAVES
-                                                .displayName,
+                                            rs.assetsStore.WAVES.displayName,
                                     },
                                 }}
                                 subtitle={{
                                     i18key: 'withdrawSubtitle',
                                     i18Params: {
-                                        amount: '100500', // todo LP ASSET
-                                        assetName: 'LP ASSET',
+                                        amount: rs.balanceStore.getWavesLpBalance
+                                            .getTokens()
+                                            .toFormat(),
+                                        assetName:
+                                            rs.balanceStore.getWavesLpBalance
+                                                .asset.displayName,
                                     },
                                 }}
                             />
@@ -81,7 +84,7 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                                     <SetAmountButtons
                                         presets={['max']}
                                         onClick={() =>
-                                            console.log('setMaxAmount')
+                                            withdrawStore.onClickMaxAmount()
                                         }
                                     />
                                 </Flex>
@@ -96,7 +99,10 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                                     <FormattedInput
                                         formatSeparator=","
                                         decimals={8}
-                                        tag={'LP ASSET'}
+                                        tag={
+                                            rs.balanceStore.getWavesLpBalance
+                                                .asset.displayName
+                                        }
                                         aria-invalid={
                                             withdrawStore.amountError
                                                 ? 'true'
@@ -146,7 +152,10 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                                         i18key="withdrawWarning"
                                         i18Params={{
                                             stakedAssetName: 'WAVES',
-                                            lpAssetName: 'LP ASSET',
+                                            lpAssetName:
+                                                rs.balanceStore
+                                                    .getWavesLpBalance.asset
+                                                    .displayName,
                                         }}
                                     />
                                 </Text>
