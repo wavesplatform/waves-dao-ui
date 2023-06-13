@@ -9,7 +9,8 @@ import { BlocksToTime } from '../../../../utils/BlocksToTime';
 import { InUsdText } from '../../../../components/utilComponents/inUsdText';
 
 export const InfoBlock: FC = observer(() => {
-    const { contractDataStore, ratesStore } = useContext(AppStoreContext);
+    const { contractDataStore, ratesStore, assetsStore } =
+        useContext(AppStoreContext);
 
     return (
         <Box sx={{ mb: '32px' }}>
@@ -47,7 +48,7 @@ export const InfoBlock: FC = observer(() => {
                     <Text as="div" color="wdtextsec" variant="text1" mr="4px">
                         <Trans
                             i18key="lpPrice"
-                            i18Params={{ assetName: 'WAVESDLP' }}
+                            i18Params={{ assetName: assetsStore.WAVESDAOLP?.displayName }}
                         />
                     </Text>
                     <Text as="div" color="text" variant="text1" mr="4px">
@@ -78,7 +79,9 @@ export const InfoBlock: FC = observer(() => {
                         <Trans i18key="rate" />
                     </Text>
                     <Text as="div" color="text" variant="text1" mr="4px">
-                        {`1 WAVES = ${contractDataStore.getCurrentPriceWavesLp.toFormat()} WAVESDLP`}
+                        {`1 WAVES = ${contractDataStore.getCurrentPriceWavesLp.toFormat()} ${
+                            assetsStore.WAVESDAOLP?.displayName
+                        }`}
                     </Text>
                 </Flex>
             </Flex>

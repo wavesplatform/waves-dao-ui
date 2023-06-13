@@ -19,7 +19,7 @@ export default<TConfig> {
     },
     assets: [
         { label: 'WAVES', id: 'WAVES' },
-        // { label: 'WAVESDLP', id: '' },
+        // { label: 'WAVESDAOLP', id: '' },
         { label: 'XTN', id: 'DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p' },
     ]
 };

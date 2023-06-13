@@ -24,10 +24,10 @@ const CancelWithdrawalModalFC: React.FC<TCancelWithdrawalModalFC> = ({
     const cancelWithdrawalStore = React.useMemo(() => {
         return new CancelWithdrawalStore(rootStore);
     }, []);
-    const WAVES = rootStore.assetsStore.WAVES;
+    const WAVESDAOLP = rootStore.assetsStore.WAVESDAOLP;
     const balance =
-        rootStore.balanceStore.balances[WAVES?.id]?.balance?.toFormat();
-    const wavesdlpAsset = { ...wavesAsset, displayName: 'WAVESDLP' };
+        rootStore.balanceStore.balances[WAVESDAOLP?.id]?.balance?.toFormat();
+
     const { sx = {}, ...restProps } = props;
 
     return (
@@ -76,7 +76,7 @@ const CancelWithdrawalModalFC: React.FC<TCancelWithdrawalModalFC> = ({
                                 i18key: 'amount',
                             }}
                             balance={balance}
-                            ticker={wavesdlpAsset?.ticker}
+                            ticker={WAVESDAOLP?.ticker}
                             iconUrl={wavesLpWithoutBg}
                             mb="28px"
                         />

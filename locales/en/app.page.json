@@ -96,7 +96,7 @@
     },
     "availableForGet": "Available for Get",
     "havenotfee": "You don't have enough funds to pay the Transaction Fee.",
-    "claimWAVESDLP": "Claim WAVESDLP",
+    "claim": "Claim {{ticker}}",
     "amount": "Amount",
     "tryAgain": "Try Again",
     "waitingConfirmation": "Waiting for confirmation from {{device}}.",

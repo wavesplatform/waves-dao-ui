@@ -12,6 +12,11 @@ const LegalDisclaimerModalFC: React.FC<ModalProps> = ({ ...props }) => {
             modalName={MODAL_NAMES.legalDisclaimer}
             width={['100%', '720px']}
             color="standard.$0"
+            sx={{
+                '& > div': {
+                    backgroundPosition: 'center -300px',
+                },
+            }}
             {...props}
         >
             <Box mt="30px" mb="16px">

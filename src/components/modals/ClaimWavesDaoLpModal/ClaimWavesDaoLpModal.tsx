@@ -59,7 +59,13 @@ const ClaimWavesDaoLpModalFC: React.FC<TClaimWavesDaoLpModalFC> = ({
                                 color="standard.$0"
                                 mb="24px"
                             >
-                                <Trans i18key="claimWAVESDLP" />
+                                <Trans
+                                    i18key="claim"
+                                    i18Params={{
+                                        ticker: rootStore.assetsStore.WAVESDAOLP
+                                            .displayName,
+                                    }}
+                                />
                             </Text>
                             <BalanceComponent
                                 sx={{
@@ -91,7 +97,13 @@ const ClaimWavesDaoLpModalFC: React.FC<TClaimWavesDaoLpModalFC> = ({
                                 <ButtonContent
                                     isPending={claimWavesDaoLpStore.isPending}
                                     isRetry={claimWavesDaoLpStore.isRetry}
-                                    transText={{ i18key: 'claimWAVESDLP' }}
+                                    transText={{
+                                        i18key: 'claim',
+                                        i18Params: {
+                                            ticker: rootStore.assetsStore
+                                                .WAVESDAOLP.displayName,
+                                        },
+                                    }}
                                 />
                             </Button>
                         </>
