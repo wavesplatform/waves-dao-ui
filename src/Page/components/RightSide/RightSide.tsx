@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC, useContext, useState } from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Treasury } from './common/Treasury';
 import { DiagramBlock } from './common/DiagramBlock';
@@ -11,22 +11,21 @@ import { observer } from 'mobx-react-lite';
 
 export const RightSide: FC = observer(() => {
     const { authStore } = useContext(AppStoreContext);
+    const [heightUserInfoBlock, setHeightUserInfoBlock] = useState(0);
 
     return (
         <Box width={['100%', '60%']}>
-            {
-                authStore.isAuthorized &&
-                <UserInfo />
-            }
+            {authStore.isAuthorized && <UserInfo setHeightUserInfoBlock={setHeightUserInfoBlock} />}
             <Flex
                 flexDirection="column"
+                minHeight={`calc(100% - ${heightUserInfoBlock + 24}px)`}
                 sx={{
                     mt: '24px',
                     py: ['16px', '32px'],
                     px: ['16px', '24px'],
                     borderRadius: '12px',
                     backgroundColor: 'rgba(0, 16, 56, 0.7)',
-                    backdropFilter: 'blur(8px)'
+                    backdropFilter: 'blur(8px)',
                 }}
             >
                 <Flex flexDirection={['column', 'row']} mb="16px">
@@ -34,10 +33,7 @@ export const RightSide: FC = observer(() => {
                     <DiagramBlock />
                 </Flex>
                 <InfoBlock />
-                {authStore.isAuthorized ?
-                    <Dashboard /> :
-                    <ConnectBlock />
-                }
+                {authStore.isAuthorized ? <Dashboard /> : <ConnectBlock />}
             </Flex>
         </Box>
     );

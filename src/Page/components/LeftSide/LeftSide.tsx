@@ -10,13 +10,12 @@ export const LeftSide: FC = memo(() => {
     return (
         <Flex
             width={['100%', '40%']}
-            minHeight={[null, 'calc(100vh - 48px)']}
             flexDirection="column"
             justifyContent="space-between"
             sx={{
                 pt: ['16px', '40px'],
                 pr: ['0', '40px'],
-                pb: ['16px', '0']
+                pb: ['16px', '40px']
             }}
         >
             <Box>

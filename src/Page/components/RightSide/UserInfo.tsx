@@ -1,4 +1,12 @@
-import { FC, memo, useContext, useMemo } from 'react';
+import {
+    Dispatch,
+    FC,
+    SetStateAction,
+    useContext,
+    useEffect,
+    useMemo,
+    useRef,
+} from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import metamask from '/src/img/metamask.svg';
 import keeper from '/src/img/keeper.svg';
@@ -9,15 +17,23 @@ import { Trans } from '@waves/ui-translator';
 import { AppStoreContext } from '../../../App';
 import { observer } from 'mobx-react-lite';
 
-export const UserInfo: FC = observer(() => {
+export const UserInfo: FC<{
+    setHeightUserInfoBlock: Dispatch<SetStateAction<number>>;
+}> = observer(({ setHeightUserInfoBlock }) => {
     const { authStore } = useContext(AppStoreContext);
     const userTypes = { metamask, keeper, wx };
     const shortAddress = useMemo(() => authStore.user.address, []);
+    const wrapper = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        setHeightUserInfoBlock(wrapper.current?.clientHeight);
+    }, []);
 
     return (
         <Flex
             justifyContent="space-between"
             alignItems="center"
+            ref={wrapper}
             sx={{
                 py: ['16px', '24px'],
                 px: ['16px', '24px'],
@@ -26,7 +42,7 @@ export const UserInfo: FC = observer(() => {
                 borderTopLeftRadius: ['12px', '0'],
                 borderTopRightRadius: ['12px', '0'],
                 backgroundColor: 'rgba(0, 16, 56, 0.7)',
-                backdropFilter: 'blur(8px)'
+                backdropFilter: 'blur(8px)',
             }}
         >
             <Flex minWidth={[null, '120px']} alignItems="center">
@@ -37,7 +53,12 @@ export const UserInfo: FC = observer(() => {
                     backgroundPosition="center"
                     backgroundRepeat="no-repeat"
                 />
-                <Text variant="text1" color="text" ml="8px" display={['block', 'none']}>
+                <Text
+                    variant="text1"
+                    color="text"
+                    ml="8px"
+                    display={['block', 'none']}
+                >
                     {shortAddress}
                 </Text>
             </Flex>
@@ -46,7 +67,7 @@ export const UserInfo: FC = observer(() => {
             </Text>
             <Button
                 variant="transparent"
-                px={['14px !important', '32px !important' ]}
+                px={['14px !important', '32px !important']}
                 sx={{ display: 'flex', alignItems: 'center' }}
                 onClick={authStore.logout.bind(authStore)}
             >

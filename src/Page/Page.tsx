@@ -8,16 +8,21 @@ import { ExternalLinksBlock } from './components/LeftSide/ExternalLinksBlock';
 
 const PageFC: FC = () => {
     return (
-        <Box minHeight="100vh" position="relative" sx={{ px: ['6px', '40px'], pb: '24px' }}>
+        <Box height="100%" position="relative" sx={{ px: ['6px', '40px'] }}>
             <MainBg />
-            <Flex position="relative" width="100%" flexDirection={['column', 'row']}>
+            <Flex
+                position="relative"
+                height="100%"
+                width="100%"
+                flexDirection={['column', 'row']}
+            >
                 <LeftSide />
                 <RightSide />
-                <ExternalLinksBlock display={['block', 'none']} ml="16px" />
+                <ExternalLinksBlock display={['block', 'none']} ml="16px" pb='40px' />
             </Flex>
         </Box>
     );
 };
 
 PageFC.displayName = 'Page';
-export const Page =  translate('app.page')(PageFC);
+export const Page = translate('app.page')(PageFC);

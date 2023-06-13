@@ -1,3 +1,7 @@
+html, body, #root {
+    height: 100%;
+}
+
 body {
     font-family: 'Nunito-Regular';
     background-color: #020915;
