@@ -42,7 +42,7 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
         <ModalStyled
             sx={{
                 '& > div': {
-                    backgroundPosition: 'center -50px',
+                    backgroundPosition: 'center -300px',
                     backgroundSize: 'cover',
                 },
             }}
