@@ -2,6 +2,8 @@ import { InvokeScriptCall, InvokeScriptPayment } from '@waves/ts-types';
 import { AppStore } from '../../../stores/AppStore';
 import { IUserData } from '../../../stores/AuthStore';
 import { BaseFormStore } from '../../../stores/utils/BaseFormStore';
+import { modalManager } from '../../../services/modalManager';
+import { MODAL_NAMES } from '../../ModalContainer/MODAL_NAMES';
 
 export class ClaimWavesDaoLpStore extends BaseFormStore {
     public user: IUserData;
@@ -18,13 +20,18 @@ export class ClaimWavesDaoLpStore extends BaseFormStore {
         return {
             call: {
                 function: 'claimLP',
-                args: [{ type: 'string', value: this.user?.address }],
+                args: [],
             },
             payment: [],
         };
     }
 
     public invoke = (): void => {
-        this.sendTransaction(() => this.rs.providerStore.sendInvoke(this.tx));
+        this.sendTransaction(() =>
+            this.rs.providerStore.sendInvoke(this.tx)
+        ).then(() => {
+            this.reset();
+            modalManager.closeModal(MODAL_NAMES.claimWavesDaoLp, 'close');
+        });
     };
 }

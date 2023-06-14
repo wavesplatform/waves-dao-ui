@@ -97,6 +97,7 @@ export class BalanceStore extends ChildStore {
                 }),
             },
             autoFetch: true,
+            refreshInterval: 60_000,
             parser: this.otherBalancesParser,
         });
     }

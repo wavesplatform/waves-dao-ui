@@ -5,6 +5,7 @@ export interface IWithdrawal {
     lpAssetAmount: Money;
     targetPeriod: number;
     claimTxId: string;
+    withdrawTxId: string;
 }
 
 export interface ICommonContractData {

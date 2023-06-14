@@ -11,24 +11,21 @@ import { MultiErrorComponent } from '../../../uikit/MultiErrorComponent/MultiErr
 import wavesLpWithoutBg from '/src/img/wavesLpWithoutBg.svg';
 import { AppStoreContext } from '../../../App';
 import { CancelWithdrawalStore } from './CancelWithdrawalStore';
-import { wavesAsset } from '../../../services/assets';
 import { ButtonContent } from '../../../uikit/Button/ButtonContent';
 import { Observer } from 'mobx-react-lite';
+import { Money } from '@waves/data-entities';
 
-type TCancelWithdrawalModalFC = ModalProps & BoxProps;
+type TCancelWithdrawalModalFC = ModalProps &
+    BoxProps & { withdrawTxId: string; lpAmount: Money };
 
 const CancelWithdrawalModalFC: React.FC<TCancelWithdrawalModalFC> = ({
     ...props
 }) => {
+    const { sx = {}, lpAmount, withdrawTxId, ...restProps } = props;
     const rootStore = React.useContext(AppStoreContext);
     const cancelWithdrawalStore = React.useMemo(() => {
-        return new CancelWithdrawalStore(rootStore);
+        return new CancelWithdrawalStore(rootStore, withdrawTxId);
     }, []);
-    const WAVESDAOLP = rootStore.assetsStore.WAVESDAOLP;
-    const balance =
-        rootStore.balanceStore.balances[WAVESDAOLP?.id]?.balance?.toFormat();
-
-    const { sx = {}, ...restProps } = props;
 
     return (
         <ModalStyled
@@ -75,8 +72,8 @@ const CancelWithdrawalModalFC: React.FC<TCancelWithdrawalModalFC> = ({
                             label={{
                                 i18key: 'amount',
                             }}
-                            balance={balance}
-                            ticker={WAVESDAOLP?.ticker}
+                            balance={lpAmount?.getTokens()?.toFormat()}
+                            ticker={lpAmount?.asset?.displayName}
                             iconUrl={wavesLpWithoutBg}
                             mb="28px"
                         />

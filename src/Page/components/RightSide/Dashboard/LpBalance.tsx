@@ -5,9 +5,6 @@ import { Trans } from '@waves/ui-translator';
 import { Button } from 'uikit';
 import wavesLpUrl from '/src/img/waveslp.svg';
 import { WithdrawItem } from './WithdrawItem/WithdrawItem';
-import BigNumber from '@waves/bignumber';
-import { wavesAsset } from '../../../../services/assets';
-import { Money } from '@waves/data-entities';
 import { InUsdText } from '../../../../components/utilComponents/inUsdText';
 import { observer } from 'mobx-react-lite';
 import { AppStoreContext } from '../../../../App';
@@ -109,24 +106,7 @@ export const LpBalance: FC = observer(() => {
             </Flex>
             {contractDataStore.withdraws?.length &&
                 contractDataStore.withdraws.map((item, idx) => {
-                    return (
-                        <WithdrawItem
-                            key={idx}
-                            baseTokenAmount={
-                                item.status === 'FINISHED'
-                                    ? new Money(0, wavesAsset).cloneWithTokens(
-                                          250
-                                      )
-                                    : undefined
-                            }
-                            equil={
-                                item.status === 'PENDING'
-                                    ? undefined
-                                    : new BigNumber(100)
-                            }
-                            lpAmount={item.lpAssetAmount}
-                        />
-                    );
+                    return <WithdrawItem key={idx} item={item} />;
                 })}
         </Box>
     );

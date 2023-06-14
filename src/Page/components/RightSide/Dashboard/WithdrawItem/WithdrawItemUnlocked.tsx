@@ -8,9 +8,9 @@ import { modalManager } from '../../../../../services/modalManager';
 import { InUsdText } from '../../../../../components/utilComponents/inUsdText';
 import { TWithdrawItem } from './WithdrawItem';
 
-export const WithdrawItemUnlocked: React.FC<TWithdrawItem> = ({ baseTokenAmount, lpAmount, equil }) => {
+export const WithdrawItemUnlocked: React.FC<TWithdrawItem> = ({ baseTokenAmount, lpAmount, equil, claimTxId }) => {
     const handleClickButton = useCallback(() => {
-        modalManager.openModal(MODAL_NAMES.getWaves);
+        modalManager.openModal(MODAL_NAMES.getWaves, { claimTxId });
     }, []);
 
     return (

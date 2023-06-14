@@ -112,15 +112,12 @@ export class BaseFormStore {
         return promise()
             .then((data) => {
                 this.reset();
-                // setTimeout(() => {
-                //     this.rs.balanceStore.loadBalances();
-                // }, 5000);
                 return data;
             })
             .catch((e) => {
                 this.updateSignError(parseError(e, this.isDevices, this.currentDevice));
                 this.updateFormState(FORM_STATE.error);
-                return null;
+                return new Error(e);
             });
     }
 }

@@ -227,6 +227,7 @@ export class ContractDataStore extends ChildStore {
 
             return {
                 ...parsedStr,
+                withdrawTxId: entry?.key.split('__')[3],
                 lpAssetAmount: new Money(
                     parsedStr.lpAssetAmount,
                     this.rs.assetsStore.WAVESDAOLP
