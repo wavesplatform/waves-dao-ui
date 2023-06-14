@@ -117,7 +117,7 @@ export class BaseFormStore {
             .catch((e) => {
                 this.updateSignError(parseError(e, this.isDevices, this.currentDevice));
                 this.updateFormState(FORM_STATE.error);
-                return new Error(e);
+                throw new Error(e);
             });
     }
 }
