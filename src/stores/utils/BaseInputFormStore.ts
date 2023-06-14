@@ -3,7 +3,6 @@ import { Money } from '@waves/data-entities';
 import { BaseFormStore } from './BaseFormStore';
 import { AppStore } from '../AppStore';
 import { InputErrorsProps } from 'uikit';
-import BigNumber from '@waves/bignumber';
 
 export type TInputErrorState = 'notEnoughFunds' | 'minAmount' | 'required';
 
@@ -30,6 +29,12 @@ export class BaseInputFormStore extends BaseFormStore {
             inputString: observable,
             currentTokenBalance: computed
         });
+    }
+
+    public reset(): void {
+       super.reset();
+       this.updateAmountError(undefined);
+       this.inputString = undefined;
     }
 
     public get currentTokenBalance(): Money | undefined {
@@ -59,7 +64,6 @@ export class BaseInputFormStore extends BaseFormStore {
         this.updateAmountError(undefined);
         this.inputString = value;
         this.currentAmount = this.currentAmount.cloneWithTokens(value);
-        // this.debounceReceive();
     }
 
     public onClickMaxAmount = (): void => {

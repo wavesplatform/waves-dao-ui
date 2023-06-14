@@ -112,6 +112,9 @@ export class BaseFormStore {
         return promise()
             .then((data) => {
                 this.reset();
+                // setTimeout(() => {
+                //     this.rs.balanceStore.loadBalances();
+                // }, 5000);
                 return data;
             })
             .catch((e) => {

@@ -131,14 +131,20 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
                                         height: '100%',
                                     },
                                 }}
-                                balance={rs.balanceStore.getWavesLpBalance?.toFormat()}
+                                balance={
+                                    depositWavesStore.getReceiveLp?.toFormat() ||
+                                    '0'
+                                }
                                 bottomContent={() => {
                                     return (
                                         <Flex color="wdtextsec" mt={4}>
                                             <Text variant="text2" mr="4px">
                                                 1{' '}
                                                 {wavesBalance.asset.displayName}{' '}
-                                                = 1{' '}
+                                                ={' '}
+                                                {`${depositWavesStore.rs.contractDataStore.getCurrentPriceWavesLp
+                                                    .getTokens()
+                                                    .toFormat()} `}
                                                 {
                                                     rs.balanceStore
                                                         .getWavesLpBalance.asset

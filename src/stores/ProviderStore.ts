@@ -17,7 +17,7 @@ export class ProviderStore extends ChildStore {
         this.signer = rs.authStore.signer;
 
         this.invokeTxCommonParams = {
-            dApp: '3N27HUMt4ddx2X7foQwZRmpFzg5PSzLrUgU',
+            dApp: rs.configStore.config.contracts.factory,
             fee: 500000,
             feeAssetId: null,
         };
@@ -30,36 +30,20 @@ export class ProviderStore extends ChildStore {
         call: InvokeScriptCall<string | number> | null;
         payment: Array<InvokeScriptPayment<string | number>> | null;
     }): Promise<any> {
-        console.log(call, payment)
         return this.signer.login().then((user) => {
             if (user.address !== this.rs.authStore.user?.address) {
                 throw new Error('Your address is not equal to login address.');
             }
-            // TODO: this code for test invoke
             return this.signer
-                .invoke({
-                    dApp: '3N27HUMt4ddx2X7foQwZRmpFzg5PSzLrUgU',
-                    call: {
-                        function: 'tellme',
-                        args: [
-                            {
-                                type: 'string',
-                                value: 'Will?',
-                            },
-                        ],
-                    },
-                })
+                .invoke(
+                    normalizeTxTimestamp({
+                        ...this.invokeTxCommonParams,
+                        call,
+                        payment,
+                        timestamp: Date.now(),
+                    })
+                )
                 .broadcast();
-            // return this.signer
-            // .invoke(
-            //     normalizeTxTimestamp({
-            //         ...this.invokeTxCommonParams,
-            //         call,
-            //         payment,
-            //         timestamp: Date.now(),
-            //     })
-            // )
-            // .broadcast();
         });
     }
 }

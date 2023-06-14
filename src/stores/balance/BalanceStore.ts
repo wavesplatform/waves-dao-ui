@@ -68,7 +68,7 @@ export class BalanceStore extends ChildStore {
         this.otherBalance = undefined;
     }
 
-    private loadBalances() {
+    public loadBalances() {
         this.wavesBalance = new FetchTracker<
             Record<string, IBalance>,
             IWavesBalanceResponse

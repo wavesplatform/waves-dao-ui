@@ -98,7 +98,6 @@ export const InfoBlock: FC = observer(() => {
                         },
                     }}
                 >
-                    {contractDataStore.finalizingKPI <= 0}
                     <Trans
                         i18key={
                             contractDataStore.finalizingKPI <= 0

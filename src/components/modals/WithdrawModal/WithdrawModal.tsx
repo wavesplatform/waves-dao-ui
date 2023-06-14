@@ -34,7 +34,7 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
     const withdrawStore = React.useMemo(() => {
         return new WithdrawModalStore({
             rs,
-            inputMoney: rs.balanceStore.getWavesLpBalance,
+            inputMoney: rs.balanceStore.getWavesLpBalance.cloneWithTokens(0),
         });
     }, []);
 
@@ -99,6 +99,11 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                                     <FormattedInput
                                         formatSeparator=","
                                         value={withdrawStore.inputString}
+                                        onChange={(e) => {
+                                            withdrawStore.onInputChange(
+                                                e.target.value
+                                            );
+                                        }}
                                         decimals={8}
                                         tag={
                                             rs.balanceStore.getWavesLpBalance

@@ -114,7 +114,7 @@ export class ContractDataStore extends ChildStore {
             .getCoins()
             .div(prices[currentPeriod]);
 
-        return new Money(price, this.rs.assetsStore.WAVESDAOLP);
+        return new Money(0, this.rs.assetsStore.WAVESDAOLP).cloneWithTokens(price);
     }
 
     public get finalizingKPI(): number {
