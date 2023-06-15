@@ -5,6 +5,7 @@ export type TAssetConfig = { label: string; id: string };
 export type TConfig = {
     apiUrl: {
         node: string,
+        signerNode: string,
         balance: string,
         wavesBalance: string,
         assets: string,
