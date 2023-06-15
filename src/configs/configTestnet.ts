@@ -2,7 +2,7 @@ import { TConfig } from '../stores/ConfigStore';
 
 export default<TConfig> {
     apiUrl: {
-        node: 'https://nodes-testnet.waves.exchange',
+        node: 'https://nodes-testnet.wavesnodes',
         balance: 'https://nodes-testnet.wavesnodes.com/addresses/balance',
         wavesBalance: 'https://nodes-testnet.wavesnodes.com/addresses/balance/details',
         assets: 'https://testnet.wx.network/api/v1/assets',
