@@ -1,4 +1,4 @@
-FROM node:current-alpine3.17 as build
+FROM node:16.7.0-alpine as build
 
 ARG VITE_NETWORK
 

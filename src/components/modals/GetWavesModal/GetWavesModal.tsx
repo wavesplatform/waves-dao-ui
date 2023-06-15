@@ -13,12 +13,12 @@ import { GetWavesStore } from './GetWavesStore';
 import { Observer } from 'mobx-react-lite';
 import { ButtonContent } from '../../../uikit/Button/ButtonContent';
 
-type TGetWavesModalFC = ModalProps & BoxProps;
+type TGetWavesModalFC = ModalProps & BoxProps & { claimTxId: string };
 
-const GetWavesModalFC: React.FC<TGetWavesModalFC> = ({ ...props }) => {
+const GetWavesModalFC: React.FC<TGetWavesModalFC> = ({ claimTxId,  ...props }) => {
     const rootStore = React.useContext(AppStoreContext);
     const getWavesStore = React.useMemo(() => {
-        return new GetWavesStore(rootStore);
+        return new GetWavesStore(rootStore, claimTxId);
     }, []);
     const { sx = {}, ...restProps } = props;
     const WAVES = rootStore.assetsStore.WAVES;
