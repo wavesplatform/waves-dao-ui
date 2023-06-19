@@ -1,6 +1,6 @@
 // https://vitejs.dev/config/
 import { defineConfig } from 'vite';
-import basicSsl from '@vitejs/plugin-basic-ssl'
+import basicSsl from '@vitejs/plugin-basic-ssl';
 import dns from 'dns';
 import react from '@vitejs/plugin-react';
 import htmlPlugin from 'vite-plugin-html-config';

@@ -10,7 +10,7 @@ i18n
         defaultNS: 'app.page',
         debug: false,
         backend: {
-            loadPath: '/public/locales/{{lng}}/{{ns}}.json'
+            loadPath: '/locales/{{lng}}/{{ns}}.json'
         },
         initImmediate: false,
         preload: false,
