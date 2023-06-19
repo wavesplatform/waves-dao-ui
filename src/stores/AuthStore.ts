@@ -55,7 +55,7 @@ export class AuthStore extends ChildStore  {
         });
 
         this.signer = new Signer({
-            NODE_URL: rs.configStore.config.apiUrl.signerNode,
+            NODE_URL: rs.configStore.config.apiUrl.node,
         });
         this.signerWebUrl = rs.configStore.config.apiUrl.signerWeb;
         this.signerCloudUrl = rs.configStore.config.apiUrl.signerCloud;
