@@ -6,16 +6,16 @@ import { ExternalLinkRow } from './ExternalLinkRow';
 export const ExternalLinksBlock: FC<TFlexProps> = memo((props) => {
     return (
         <Flex height="100%" flexDirection="column" justifyContent="flex-end" {...props}>
-            <ExternalLinkRow href="#">
+            <ExternalLinkRow href="https://forum.power.tech/t/wavesdao-initiation-proposal/15">
                 <Trans i18key="linkAbout" />
             </ExternalLinkRow>
-            <ExternalLinkRow href="#">
+            <ExternalLinkRow href="https://github.com/wavesplatform/waves-dao-ride">
                 <Trans i18key="linkSource" />
             </ExternalLinkRow>
-            <ExternalLinkRow href="#">
+            <ExternalLinkRow href="https://app.power.tech/">
                 <Trans i18key="linkGo" />
             </ExternalLinkRow>
-            <ExternalLinkRow href="#">
+            <ExternalLinkRow href="https://forum.power.tech/c/wavesdao/6">
                 <Trans i18key="linkLast" />
             </ExternalLinkRow>
         </Flex>

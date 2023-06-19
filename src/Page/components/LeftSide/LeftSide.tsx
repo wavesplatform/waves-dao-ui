@@ -1,5 +1,5 @@
 import { FC, memo } from 'react';
-import { Box, Flex } from '@waves.exchange/wx-react-uikit';
+import { Box, ExternalLink, Flex } from '@waves.exchange/wx-react-uikit';
 import { Trans } from '@waves/ui-translator';
 import { Text } from '../../../uikit/Text/Text';
 import { Button } from '../../../uikit/Button/Button';
@@ -44,9 +44,11 @@ export const LeftSide: FC = memo(() => {
                     <Text as="div" variant="text1" color="text" mr={['0', '8px']} mb={['16px', '0']}>
                         <Trans i18key="bannerText" />
                     </Text>
-                    <Button sx={{ whiteSpace: 'nowrap' }}>
-                        <Trans i18key="bannerBtn" />
-                    </Button>
+                    <ExternalLink rel="noopener noreferrer" href="https://wx.network/trading/spot/PWR_WAVES">
+                        <Button sx={{ whiteSpace: 'nowrap' }}>
+                            <Trans i18key="bannerBtn" />
+                        </Button>
+                    </ExternalLink>
                 </Flex>
             </Box>
             <ExternalLinksBlock display={['none', 'flex']} />

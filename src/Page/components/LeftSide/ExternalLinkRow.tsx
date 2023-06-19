@@ -21,7 +21,7 @@ export const ExternalLinkRow: FC<{ href: string; children: ReactNode }> = memo((
                 }
             }}
         >
-            <ExternalLink href={href}>
+            <ExternalLink href={href} rel="noopener noreferrer">
                 <Flex alignItems="center">
                     <Text as="div" variant="heading2" color="text"
                     >
