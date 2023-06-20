@@ -18,8 +18,8 @@ export const Dashboard: FC = observer(() => {
             <Balance />
             {contractDataStore?.availableToClaim &&
                 !contractDataStore?.availableToClaim?.getTokens().isZero() && (
-                    <AvailableClaim />
-                )}
+                <AvailableClaim />
+            )}
             <LpBalance />
         </Box>
     );

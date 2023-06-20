@@ -78,6 +78,7 @@ const GetWavesModalFC: React.FC<TGetWavesModalFC> = ({ claimTxId,  ...props }) =
                                 activeErrors={getWavesStore.activeErrors}
                             />
                             <Button
+                                variantSize='large'
                                 variant="primary"
                                 width="100%"
                                 disabled={getWavesStore.isPending}

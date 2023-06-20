@@ -82,6 +82,7 @@ const CancelWithdrawalModalFC: React.FC<TCancelWithdrawalModalFC> = ({
                             activeErrors={cancelWithdrawalStore.activeErrors}
                         />
                         <Button
+                            variantSize='large'
                             variant="primary"
                             width="100%"
                             onClick={cancelWithdrawalStore.invoke}

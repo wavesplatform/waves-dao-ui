@@ -9,6 +9,8 @@ import { AppStore } from '../AppStore';
 import { computed, makeObservable, reaction } from 'mobx';
 import { Money } from '@waves/data-entities';
 
+const POLLING_TIME = 10_000;
+
 export class BalanceStore extends ChildStore {
     private wavesBalance:
         | FetchTracker<Record<string, IBalance>, IWavesBalanceResponse>
@@ -76,7 +78,7 @@ export class BalanceStore extends ChildStore {
             fetchUrl: `${this.rs.configStore.config.apiUrl.node}/addresses/balance/details/${this.rs.authStore.user?.address}`,
             parser: this.wavesBalancesParser,
             autoFetch: true,
-            refreshInterval: 60_000,
+            refreshInterval: POLLING_TIME,
         });
 
         this.otherBalance = new FetchTracker<
@@ -97,7 +99,7 @@ export class BalanceStore extends ChildStore {
                 }),
             },
             autoFetch: true,
-            refreshInterval: 60_000,
+            refreshInterval: POLLING_TIME,
             parser: this.otherBalancesParser,
         });
     }

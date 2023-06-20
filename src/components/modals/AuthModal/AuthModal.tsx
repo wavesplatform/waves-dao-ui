@@ -106,6 +106,7 @@ const AuthModalFC: React.FC<ModalProps> = (props) => {
                     </Text>
                 </Checkbox>
                 <Button
+                    variantSize="large"
                     variant="primary"
                     width="100%"
                     onClick={handleContinue}

@@ -10,6 +10,9 @@ import { ICommonContractData, IUserContractData, IWithdrawal } from '.';
 import BigNumber from '@waves/bignumber';
 import { filterObjectCommonContract, filterObjectUserContract } from './utils';
 
+const COMMON_DATA_POLLING_TIME = 60_000;
+const POLLING_TIME = 10_000;
+
 export class ContractDataStore extends ChildStore {
     public commonContractData: FetchTracker<ICommonContractData, IState>;
     public userContractData: FetchTracker<IUserContractData, IState> =
@@ -29,7 +32,7 @@ export class ContractDataStore extends ChildStore {
                         xtnId: this.rs.assetsStore.XTN.id,
                     })
                 ),
-            refreshInterval: 60_000,
+            refreshInterval: COMMON_DATA_POLLING_TIME,
             parser: this.contractDataParser,
             autoFetch: true,
         });
@@ -49,7 +52,7 @@ export class ContractDataStore extends ChildStore {
                                     contractAddress,
                                 })
                             ),
-                        refreshInterval: 60_000,
+                        refreshInterval: POLLING_TIME,
                         parser: this.userContractDataParser,
                         autoFetch: true,
                     });

@@ -28,19 +28,22 @@ const LegalDisclaimerModalFC: React.FC<ModalProps> = ({ ...props }) => {
                 <Text as="div" variant="text2" sx={{ whiteSpace: 'pre-line' }}>
                     <Trans i18key="legalDisclaimer.desc1" />
                 </Text>
-                <Text as="ul" variant="text2">
+                <Text as="ul" variant="text2" sx={{ '> li': { marginBottom: '6px' } }}>
                     <Trans i18key="legalDisclaimer.desc2" />
                     <Text as="li">
                         <Trans i18key="legalDisclaimer.desc3" />
                         <Text
                             as="ul"
                             sx={{
-                                p: '0px',
-                                pl: '10px',
+                                'p': '0px',
+                                'pt': '2px',
+                                'pl': '10px',
                                 '&': {
                                     listStyle: 'none',
                                 },
-
+                                'li': {
+                                    marginBottom: '2px'
+                                },
                                 '& li::before': {
                                     content: "'-'",
                                     position: 'relative',

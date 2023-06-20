@@ -97,6 +97,8 @@ export const LpBalance: FC = observer(() => {
                     </Box>
                 </Flex>
                 <Button
+                    px={['32px !important', '10px !important']}
+                    minWidth='120px'
                     variant="primary"
                     onClick={handleWithdrawClick}
                     disabled={contractDataStore.finalizingKPI <= 0}
@@ -104,7 +106,7 @@ export const LpBalance: FC = observer(() => {
                     <Trans i18key="withdraw" />
                 </Button>
             </Flex>
-            {contractDataStore.withdraws?.length &&
+            {!!contractDataStore.withdraws?.length &&
                 contractDataStore.withdraws.map((item, idx) => {
                     return <WithdrawItem key={idx} item={item} />;
                 })}

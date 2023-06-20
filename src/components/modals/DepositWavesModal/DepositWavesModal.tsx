@@ -202,6 +202,7 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
                                 </Checkbox>
                             </PlateNote>
                             <Button
+                                variantSize='large'
                                 variant="primary"
                                 width="100%"
                                 onClick={depositWavesStore.invoke}

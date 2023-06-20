@@ -182,6 +182,7 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                                 </Checkbox>
                             </PlateNote>
                             <Button
+                                variantSize='large'
                                 variant="primary"
                                 width="100%"
                                 onClick={withdrawStore.invoke}

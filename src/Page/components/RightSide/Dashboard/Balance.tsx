@@ -75,10 +75,11 @@ export const Balance: FC = observer(() => {
                     target="_blank"
                 >
                     <Button
+                        minWidth='120px'
                         variant="transparent"
                         sx={{
                             whiteSpace: 'nowrap',
-                            px: ['32px !important', '50px !important'],
+                            px: ['32px !important', '10px !important'],
                         }}
                     >
                         <Trans
@@ -88,8 +89,9 @@ export const Balance: FC = observer(() => {
                     </Button>
                 </ExternalLink>
                 <Button
+                    minWidth='120px'
                     variant="primary"
-                    px={['32px !important', '50px !important']}
+                    px={['32px !important', '10px !important']}
                     ml="8px"
                     onClick={handleDepositClick}
                     disabled={contractDataStore.finalizingKPI <= 0}

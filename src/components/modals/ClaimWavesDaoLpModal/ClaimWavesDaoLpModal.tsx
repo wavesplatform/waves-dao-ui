@@ -89,6 +89,7 @@ const ClaimWavesDaoLpModalFC: React.FC<TClaimWavesDaoLpModalFC> = ({
                                 activeErrors={claimWavesDaoLpStore.activeErrors}
                             />
                             <Button
+                                variantSize='large'
                                 variant="primary"
                                 width="100%"
                                 onClick={claimWavesDaoLpStore.invoke}
