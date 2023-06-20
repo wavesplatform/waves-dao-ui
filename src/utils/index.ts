@@ -36,3 +36,5 @@ export const isEnoughMoney = (
         new Money(0, fee.asset);
     return balanceFeeAsset.gte(fee);
 };
+
+export const shortAddress = (address): string => `${address.slice(0, 8)}...${address.slice(-8)}`;

@@ -16,13 +16,14 @@ import { Button } from 'uikit';
 import { Trans } from '@waves/ui-translator';
 import { AppStoreContext } from '../../../App';
 import { observer } from 'mobx-react-lite';
+import { shortAddress } from '../../../utils';
 
 export const UserInfo: FC<{
     setHeightUserInfoBlock: Dispatch<SetStateAction<number>>;
 }> = observer(({ setHeightUserInfoBlock }) => {
     const { authStore } = useContext(AppStoreContext);
     const userTypes = { metamask, keeper, wx };
-    const shortAddress = useMemo(() => authStore.user.address, []);
+    const shortedAddress = useMemo(() => shortAddress(authStore.user.address), []);
     const wrapper = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -59,7 +60,7 @@ export const UserInfo: FC<{
                     ml="8px"
                     display={['block', 'none']}
                 >
-                    {shortAddress}
+                    {shortedAddress}
                 </Text>
             </Flex>
             <Text variant="text1" color="text" display={['none', 'block']}>
