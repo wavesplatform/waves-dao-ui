@@ -19,6 +19,7 @@ export const Treasury: FC = observer(() => {
                 decimals={2}
                 variant="heading1"
                 color="text"
+                hasBrackets={false}
             />
         </Box>
     );

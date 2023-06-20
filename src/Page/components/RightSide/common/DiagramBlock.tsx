@@ -14,6 +14,7 @@ export const DiagramBlock: FC = observer(() => {
             flex={1}
             alignItems={[null, 'center']}
             flexDirection={['column', 'row']}
+            justifyContent='flex-end'
         >
             <Diagram
                 dataProps={[

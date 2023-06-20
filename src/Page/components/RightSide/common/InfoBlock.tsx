@@ -32,6 +32,7 @@ export const InfoBlock: FC = observer(() => {
                         variant="text1"
                         color="text"
                         as="div"
+                        hasBrackets={false}
                     />
                 </Flex>
                 <Box
