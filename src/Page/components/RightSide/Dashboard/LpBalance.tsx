@@ -87,7 +87,7 @@ export const LpBalance: FC = observer(() => {
                                 {assetsStore.WAVES.displayName}
                             </Text>
                             <InUsdText
-                                usd={ratesStore.getBalanceLpInWavesUsd}
+                                usd={ratesStore.balanceLpInWavesUsd}
                                 decimals={2}
                                 variant="text2"
                                 color="wdtextsec"
@@ -107,8 +107,8 @@ export const LpBalance: FC = observer(() => {
                 </Button>
             </Flex>
             {!!contractDataStore.withdraws?.length &&
-                contractDataStore.withdraws.map((item, idx) => {
-                    return <WithdrawItem key={idx} item={item} />;
+                contractDataStore.withdraws.filter(withdraw => withdraw.status === 'PENDING').map((withdraw, idx) => {
+                    return <WithdrawItem key={idx} item={withdraw} />;
                 })}
         </Box>
     );

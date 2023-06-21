@@ -57,7 +57,7 @@ export const DiagramBlock: FC = observer(() => {
                             {assetsStore.WAVES.displayName}
                         </Text>
                         <Text color="wdtextsec">
-                            {`$${ratesStore.getInvestedWavesInUsd.toFormat(2)}`}
+                            {`$${ratesStore.investedWavesInUsd.toFormat(2)}`}
                         </Text>
                     </Text>
                 </Flex>
@@ -79,7 +79,7 @@ export const DiagramBlock: FC = observer(() => {
                             {assetsStore.assetsData.data?.XTN?.displayName}
                         </Text>
                         <Text color="wdtextsec">
-                            {`$${ratesStore.getInvestedXtnInUsd.toFormat(2)}`}
+                            {`$${ratesStore.investedXtnInUsd.toFormat(2)}`}
                         </Text>
                     </Text>
                 </Flex>

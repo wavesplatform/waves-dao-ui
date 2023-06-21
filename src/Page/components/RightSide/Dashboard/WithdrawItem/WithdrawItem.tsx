@@ -1,33 +1,31 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { Money } from '@waves/data-entities';
-import BigNumber from '@waves/bignumber';
 import { WithdrawItemUnlocked } from './WithdrawItemUnlocked';
 import { WithdrawItemLocked } from './WithdrawItemLocked';
 import { IWithdrawal } from '../../../../../stores/contractData';
 import { wavesAsset } from '../../../../../services/assets';
 import { observer } from 'mobx-react-lite';
-
-export type TWithdrawItem = {
-    lpAmount: Money;
-    withdrawTxId?: string;
-    claimTxId?: string;
-    baseTokenAmount?: Money;
-    equil?: BigNumber;
-};
+import { AppStoreContext } from '../../../../../App';
+import { getInUsd } from '../../../../../utils/usdUtils';
 
 export const WithdrawItem: FC<{ item: IWithdrawal }> = observer(({ item }) => {
-    const equil = item.status === 'PENDING' ? undefined : new BigNumber(100);
+    const { contractDataStore, ratesStore } = useContext(AppStoreContext);
+
+    const equil = item.status === 'PENDING' ?
+        undefined :
+        getInUsd(item.lpAssetAmount, ratesStore.rates.data).getTokens();
+
     const baseTokenAmount =
-        item.status === 'FINISHED'
-            ? new Money(0, wavesAsset).cloneWithTokens(250)
+        item.targetPeriod <= contractDataStore.commonContractData.data.currentPeriod
+            ? new Money(0, wavesAsset).cloneWithCoins(contractDataStore.commonContractData.data.prices[item.targetPeriod])
             : undefined;
 
-    return !!baseTokenAmount ? (
+    return baseTokenAmount ? (
         <WithdrawItemUnlocked
             lpAmount={item.lpAssetAmount}
             equil={equil}
             baseTokenAmount={baseTokenAmount}
-            claimTxId={item.claimTxId}
+            withdrawTxId={item.withdrawTxId}
         />
     ) : (
         <WithdrawItemLocked

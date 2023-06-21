@@ -7,12 +7,12 @@ import { MODAL_NAMES } from '../../ModalContainer/MODAL_NAMES';
 
 export class GetWavesStore extends BaseFormStore {
     public user: IUserData;
-    public claimTxId: string;
+    public withdrawTxId: string;
 
-    constructor(rs: AppStore, claimTxId: string) {
+    constructor(rs: AppStore, withdrawTxId: string) {
         super(rs);
         this.user = rs.authStore.user;
-        this.claimTxId = claimTxId;
+        this.withdrawTxId = withdrawTxId;
     }
 
     public get tx(): {
@@ -22,7 +22,7 @@ export class GetWavesStore extends BaseFormStore {
         return {
             call: {
                 function: 'claimWaves',
-                args: [{ type: 'string', value: this.claimTxId }],
+                args: [{ type: 'string', value: this.withdrawTxId }],
             },
             payment: [],
         };

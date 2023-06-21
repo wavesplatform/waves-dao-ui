@@ -6,7 +6,15 @@ import { Button } from 'uikit';
 import { MODAL_NAMES } from '../../../../../components/ModalContainer/MODAL_NAMES';
 import { modalManager } from '../../../../../services/modalManager';
 import { InUsdText } from '../../../../../components/utilComponents/inUsdText';
-import { TWithdrawItem } from './WithdrawItem';
+import { Money } from '@waves/data-entities';
+import BigNumber from '@waves/bignumber';
+
+export type TWithdrawItem = {
+    lpAmount: Money;
+    withdrawTxId?: string;
+    baseTokenAmount?: Money;
+    equil?: BigNumber;
+};
 
 export const WithdrawItemLocked: React.FC<TWithdrawItem> = ({
     lpAmount,

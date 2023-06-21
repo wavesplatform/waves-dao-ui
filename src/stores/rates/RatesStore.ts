@@ -46,35 +46,35 @@ export class RatesStore extends ChildStore {
         });
     }
 
-    public get getInvestedXtnInUsd(): BigNumber {
+    public get investedXtnInUsd(): BigNumber {
         return getInUsd(
             this.rs.contractDataStore.investedXtn,
             this.rates.data
         ).getTokens();
     }
 
-    public get getInvestedWavesInUsd(): BigNumber {
+    public get investedWavesInUsd(): BigNumber {
         return getInUsd(
             this.rs.contractDataStore.investedWaves,
             this.rates.data
         ).getTokens();
     }
 
-    public get getCurrentPriceLpInWavesUsd(): BigNumber {
+    public get currentPriceLpInWavesUsd(): BigNumber {
         return getInUsd(
             this.rs.contractDataStore.getCurrentPriceLpInWaves,
             this.rates.data
         ).getTokens();
     }
 
-    public get getBalanceLpInWavesUsd(): BigNumber {
+    public get balanceLpInWavesUsd(): BigNumber {
         return getInUsd(
             this.rs.balanceStore.getBalanceLpInWaves,
             this.rates.data
         ).getTokens();
     }
 
-    public get getCurrentPriceWavesInUsd(): BigNumber {
+    public get currentPriceWavesInUsd(): BigNumber {
         return getInUsd(
             new Money(0, this.rs.assetsStore.WAVES).cloneWithTokens(1),
             this.rates.data

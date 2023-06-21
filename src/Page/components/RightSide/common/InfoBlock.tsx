@@ -27,7 +27,7 @@ export const InfoBlock: FC = observer(() => {
                         />
                     </Text>
                     <InUsdText
-                        usd={ratesStore.getCurrentPriceWavesInUsd}
+                        usd={ratesStore.currentPriceWavesInUsd}
                         decimals={2}
                         variant="text1"
                         color="text"
@@ -53,12 +53,10 @@ export const InfoBlock: FC = observer(() => {
                         />
                     </Text>
                     <Text as="div" color="text" variant="text1" mr="4px">
-                        {`${contractDataStore.getCurrentPriceLpInWaves.toFormat(
-                            2
-                        )} WAVES`}
+                        {`${contractDataStore.getCurrentPriceLpInWaves.toFormat()} WAVES`}
                     </Text>
                     <InUsdText
-                        usd={ratesStore.getCurrentPriceLpInWavesUsd}
+                        usd={ratesStore.currentPriceLpInWavesUsd}
                         decimals={2}
                         variant="text1"
                         color="wdtextsec"

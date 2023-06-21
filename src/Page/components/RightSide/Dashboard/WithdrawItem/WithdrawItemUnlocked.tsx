@@ -6,11 +6,12 @@ import { Button } from 'uikit';
 import { MODAL_NAMES } from '../../../../../components/ModalContainer/MODAL_NAMES';
 import { modalManager } from '../../../../../services/modalManager';
 import { InUsdText } from '../../../../../components/utilComponents/inUsdText';
-import { TWithdrawItem } from './WithdrawItem';
+import { TGetWavesModal } from '../../../../../components/modals/GetWavesModal/GetWavesModal';
+import { TWithdrawItem } from './WithdrawItemLocked';
 
-export const WithdrawItemUnlocked: React.FC<TWithdrawItem> = ({ baseTokenAmount, lpAmount, equil, claimTxId }) => {
+export const WithdrawItemUnlocked: React.FC<TWithdrawItem> = ({ baseTokenAmount, lpAmount, equil, withdrawTxId }) => {
     const handleClickButton = useCallback(() => {
-        modalManager.openModal(MODAL_NAMES.getWaves, { claimTxId });
+        modalManager.openModal<TGetWavesModal>(MODAL_NAMES.getWaves, { withdrawTxId, availableToGet: baseTokenAmount });
     }, []);
 
     return (

@@ -12,18 +12,17 @@ import { AppStoreContext } from '../../../App';
 import { GetWavesStore } from './GetWavesStore';
 import { Observer } from 'mobx-react-lite';
 import { ButtonContent } from '../../../uikit/Button/ButtonContent';
+import { Money } from '@waves/data-entities';
 
-type TGetWavesModalFC = ModalProps & BoxProps & { claimTxId: string };
+export type TGetWavesModal = { withdrawTxId: string; availableToGet: Money };
 
-const GetWavesModalFC: React.FC<TGetWavesModalFC> = ({ claimTxId,  ...props }) => {
+const GetWavesModalFC: React.FC<ModalProps & BoxProps & TGetWavesModal> = ({ withdrawTxId, availableToGet, ...props }) => {
     const rootStore = React.useContext(AppStoreContext);
     const getWavesStore = React.useMemo(() => {
-        return new GetWavesStore(rootStore, claimTxId);
+        return new GetWavesStore(rootStore, withdrawTxId);
     }, []);
     const { sx = {}, ...restProps } = props;
     const WAVES = rootStore.assetsStore.WAVES;
-    const balance =
-        rootStore.balanceStore.balances[WAVES?.id]?.balance?.toFormat();
 
     return (
         <ModalStyled
@@ -68,7 +67,7 @@ const GetWavesModalFC: React.FC<TGetWavesModalFC> = ({ claimTxId,  ...props }) =
                                 label={{
                                     i18key: 'availableForGet',
                                 }}
-                                balance={balance}
+                                balance={availableToGet.getTokens().toFormat()}
                                 ticker={WAVES?.ticker}
                                 iconUrl={WAVES?.icon}
                                 mb="28px"

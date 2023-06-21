@@ -62,8 +62,8 @@ export class ContractDataStore extends ChildStore {
     }
 
     public get getTreasuryUsd(): BigNumber {
-        return this.rs.ratesStore.getInvestedWavesInUsd.add(
-            this.rs.ratesStore.getInvestedXtnInUsd
+        return this.rs.ratesStore.investedWavesInUsd.add(
+            this.rs.ratesStore.investedXtnInUsd
         );
     }
 
@@ -110,12 +110,12 @@ export class ContractDataStore extends ChildStore {
     }
 
     public get getCurrentPriceWavesLp(): Money {
-        const { prices = {}, currentPeriod = 0 } =
-            this.commonContractData?.data || {};
+        const { prices = {}, currentPeriod } = this.commonContractData?.data || {};
+
         const price = new Money(0, this.rs.assetsStore.WAVES)
             .cloneWithTokens(1)
             .getCoins()
-            .div(prices[currentPeriod]);
+            .div(prices[currentPeriod || 0]);
 
         return new Money(0, this.rs.assetsStore.WAVESDAOLP).cloneWithTokens(price);
     }
@@ -138,6 +138,7 @@ export class ContractDataStore extends ChildStore {
         const parseEntries = (key: string, value: string | number, acc) => {
             switch (true) {
                 case key.includes('startHeight'):
+                    // eslint-disable-next-line no-case-declarations
                     const startHeightPeriod = key.split('__')[2];
                     if (startHeightPeriod) {
                         acc.startHeights[startHeightPeriod] = value;
@@ -148,6 +149,7 @@ export class ContractDataStore extends ChildStore {
                 case key.includes('currentPeriod'):
                     return { currentPeriod: value };
                 case key.includes('price'):
+                    // eslint-disable-next-line no-case-declarations
                     const pricePeriod = key.split('__')[2];
                     if (pricePeriod) {
                         acc.prices[pricePeriod] = value;
@@ -215,6 +217,7 @@ export class ContractDataStore extends ChildStore {
         };
 
         const parseWithdrawal = (entry) => {
+            // key %s%s%s__withdrawal__<userAddress>__<txId>
             // %s%d%d%s__<status:"PENDING"|"FINISHED">__<lpAssetAmount>__<targetPeriod>__<claimTxId|"SOON">
             const parsedStr = parseSearchStr<{
                 status: string;
@@ -241,6 +244,7 @@ export class ContractDataStore extends ChildStore {
         return data.entries.reduce((acc, entry) => {
             if (entry.key.includes('withdrawal')) {
                 const parsedWithdrawal = parseWithdrawal(entry);
+
                 if (acc.withdraws) {
                     acc.withdraws = [...acc.withdraws, parsedWithdrawal];
                 } else {

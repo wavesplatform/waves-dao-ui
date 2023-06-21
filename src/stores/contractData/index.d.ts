@@ -1,7 +1,7 @@
 import { Money } from '@waves/data-entities';
 
 export interface IWithdrawal {
-    status: string;
+    status: 'FINISHED' | 'PENDING';
     lpAssetAmount: Money;
     targetPeriod: number;
     claimTxId: string;
