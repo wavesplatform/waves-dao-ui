@@ -17,6 +17,9 @@ export default<TConfig> {
         factory: '',
         calculator: '',
     },
+    network: {
+        code: 'W'
+    },
     assets: [
         { label: 'WAVES', id: 'WAVES' },
         // { label: 'WAVESDAOLP', id: '' },

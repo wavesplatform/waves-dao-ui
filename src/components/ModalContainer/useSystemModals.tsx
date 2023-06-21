@@ -9,10 +9,12 @@ import { ClaimWavesDaoLpModal } from '../modals/ClaimWavesDaoLpModal/ClaimWavesD
 import { CancelWithdrawalModal } from '../modals/CancelWithdrawalModal/CancelWithdrawalModal';
 import { DepositWavesModal } from '../modals/DepositWavesModal/DepositWavesModal';
 import { WithdrawModal } from '../modals/WithdrawModal/WithdrawModal';
+import { MetamaskAuthModal } from '../modals/MetamaskAuthModal/MetamaskAuthModal';
 
 const modals = {
     [MODAL_NAMES.authModal]: AuthModal,
     [MODAL_NAMES.keeperAuth]: KeeperAuthModal,
+    [MODAL_NAMES.metamaskAuth]: MetamaskAuthModal,
     [MODAL_NAMES.legalDisclaimer]: LegalDisclaimerModal,
     [MODAL_NAMES.getWaves]: GetWavesModal,
     [MODAL_NAMES.claimWavesDaoLp]: ClaimWavesDaoLpModal,

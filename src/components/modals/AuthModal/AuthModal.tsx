@@ -50,14 +50,14 @@ const AuthModalFC: React.FC<ModalProps> = (props) => {
                 </Text>
             </Box>
             <Flex flexDirection="column" alignItems="center" ref={wrapperRef}>
-                {/* <AuthItem
+                <AuthItem
                     icon={metaMask}
                     text={{ i18key: 'metaMask' }}
                     onSelect={() => setSelectedProvider(PROVIDER_TYPES.metamask)}
                     className={`${
                         selectedProvider === PROVIDER_TYPES.metamask ? 'selected' : ''
                     }`}
-                /> */}
+                />
                 <AuthItem
                     icon={keeper}
                     text={{ i18key: 'keeperWallet' }}

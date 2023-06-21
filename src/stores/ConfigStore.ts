@@ -19,6 +19,9 @@ export type TConfig = {
         factory: string;
         calculator: string;
     },
+    network: {
+        code: string;
+    }
     assets: Array<TAssetConfig>
 };
 
