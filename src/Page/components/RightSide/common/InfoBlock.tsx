@@ -53,7 +53,7 @@ export const InfoBlock: FC = observer(() => {
                         />
                     </Text>
                     <Text as="div" color="text" variant="text1" mr="4px">
-                        {`${contractDataStore.getCurrentPriceLpInWaves.toFormat()} WAVES`}
+                        {`${contractDataStore.currentPriceLpInWaves.toFormat()} WAVES`}
                     </Text>
                     <InUsdText
                         usd={ratesStore.currentPriceLpInWavesUsd}
@@ -78,7 +78,7 @@ export const InfoBlock: FC = observer(() => {
                         <Trans i18key="rate" />
                     </Text>
                     <Text as="div" color="text" variant="text1" mr="4px">
-                        {`1 WAVES = ${contractDataStore.getCurrentPriceWavesLp.toFormat()} ${
+                        {`1 WAVES = ${contractDataStore.currentPriceWavesLp.toFormat()} ${
                             assetsStore.WAVESDAOLP?.displayName
                         }`}
                     </Text>

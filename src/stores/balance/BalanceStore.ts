@@ -51,15 +51,16 @@ export class BalanceStore extends ChildStore {
         );
     }
 
-    public get getWavesLpBalance(): IBalance['balance'] {
+    public get wavesLpBalance(): IBalance['balance'] {
         return this.balances[this.rs.assetsStore.WAVESDAOLP.id]?.balance;
     }
 
-    public get getBalanceLpInWaves(): Money {
-        return new Money(
-            this.getWavesLpBalance?.getCoins() || 0,
-            this.rs.assetsStore.WAVES
-        );
+    public get balanceLpInWaves(): Money {
+        const { prices = {}, currentPeriod = 0 } =
+        this.rs.contractDataStore.commonContractData?.data || {};
+
+        return new Money(0, this.rs.assetsStore.WAVES)
+            .cloneWithCoins(this.wavesLpBalance?.getTokens().mul(prices[currentPeriod]));
     }
 
     public off() {

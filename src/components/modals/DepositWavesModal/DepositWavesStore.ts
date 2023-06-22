@@ -31,7 +31,7 @@ export class DepositWavesStore extends BaseInputFormStore {
     }
 
     public get getReceiveLp(): BigNumber {
-        return this.rs.contractDataStore.getCurrentPriceWavesLp
+        return this.rs.contractDataStore.currentPriceWavesLp
             .getTokens()
             .mul(this.inputString || 0);
     }

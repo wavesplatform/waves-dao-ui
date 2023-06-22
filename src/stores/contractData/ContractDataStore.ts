@@ -98,18 +98,18 @@ export class ContractDataStore extends ChildStore {
         );
     }
 
-    public get getCurrentPeriod(): number {
+    public get currentPeriod(): number {
         return this.commonContractData.data?.currentPeriod || 0;
     }
 
-    public get getCurrentPriceLpInWaves(): Money {
+    public get currentPriceLpInWaves(): Money {
         const { prices = {}, currentPeriod = 0 } =
             this.commonContractData?.data || {};
 
         return new Money(prices[currentPeriod] || 0, this.rs.assetsStore.WAVES);
     }
 
-    public get getCurrentPriceWavesLp(): Money {
+    public get currentPriceWavesLp(): Money {
         const { prices = {}, currentPeriod } = this.commonContractData?.data || {};
 
         const price = new Money(0, this.rs.assetsStore.WAVES)

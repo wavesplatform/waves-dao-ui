@@ -34,7 +34,7 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
     const withdrawStore = React.useMemo(() => {
         return new WithdrawModalStore({
             rs,
-            inputMoney: rs.balanceStore.getWavesLpBalance.cloneWithTokens(0),
+            inputMoney: rs.balanceStore.wavesLpBalance.cloneWithTokens(0),
         });
     }, []);
 
@@ -64,11 +64,11 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                                 subtitle={{
                                     i18key: 'withdrawSubtitle',
                                     i18Params: {
-                                        amount: rs.balanceStore.getWavesLpBalance
+                                        amount: rs.balanceStore.wavesLpBalance
                                             .getTokens()
                                             .toFormat(),
                                         assetName:
-                                            rs.balanceStore.getWavesLpBalance
+                                            rs.balanceStore.wavesLpBalance
                                                 .asset.displayName,
                                     },
                                 }}
@@ -106,7 +106,7 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                                         }}
                                         decimals={8}
                                         tag={
-                                            rs.balanceStore.getWavesLpBalance
+                                            rs.balanceStore.wavesLpBalance
                                                 .asset.displayName
                                         }
                                         aria-invalid={
@@ -160,7 +160,7 @@ const WithdrawModalFC: React.FC<ModalProps> = (props) => {
                                             stakedAssetName: 'WAVES',
                                             lpAssetName:
                                                 rs.balanceStore
-                                                    .getWavesLpBalance.asset
+                                                    .wavesLpBalance.asset
                                                     .displayName,
                                         }}
                                     />

@@ -64,7 +64,7 @@ export const LpBalance: FC = observer(() => {
                                 color="text"
                                 mr="4px"
                             >
-                                {balanceStore.getWavesLpBalance?.toFormat(2) ||
+                                {balanceStore.wavesLpBalance?.toFormat(2) ||
                                     0}
                             </Text>
                             <Text variant="text2" color="wdtextsec">
@@ -81,7 +81,7 @@ export const LpBalance: FC = observer(() => {
                                 color="text"
                                 mr="4px"
                             >
-                                {`~${balanceStore.getBalanceLpInWaves?.toFormat()}`}
+                                {`~${balanceStore.balanceLpInWaves?.toFormat()}`}
                             </Text>
                             <Text variant="text2" color="wdtextsec">
                                 {assetsStore.WAVES.displayName}

@@ -142,12 +142,12 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
                                                 1{' '}
                                                 {wavesBalance.asset.displayName}{' '}
                                                 ={' '}
-                                                {`${depositWavesStore.rs.contractDataStore.getCurrentPriceWavesLp
+                                                {`${depositWavesStore.rs.contractDataStore.currentPriceWavesLp
                                                     .getTokens()
                                                     .toFormat()} `}
                                                 {
                                                     rs.balanceStore
-                                                        .getWavesLpBalance.asset
+                                                        .wavesLpBalance.asset
                                                         .displayName
                                                 }
                                             </Text>
@@ -155,7 +155,7 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
                                     );
                                 }}
                                 ticker={
-                                    rs.balanceStore.getWavesLpBalance.asset
+                                    rs.balanceStore.wavesLpBalance.asset
                                         .displayName
                                 }
                                 iconUrl={wavesLpWithoutBg}
@@ -180,7 +180,7 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
                                         i18Params={{
                                             assetName:
                                                 rs.balanceStore
-                                                    .getWavesLpBalance.asset
+                                                    .wavesLpBalance.asset
                                                     .displayName,
                                         }}
                                     />
