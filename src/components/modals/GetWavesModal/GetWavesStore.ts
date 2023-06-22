@@ -18,7 +18,7 @@ export class GetWavesStore extends BaseFormStore {
     public get tx(): {
         call: InvokeScriptCall<string | number> | null;
         payment: Array<InvokeScriptPayment<string | number>> | null;
-    } {
+        } {
         return {
             call: {
                 function: 'claimWaves',

@@ -9,7 +9,7 @@ import { InUsdText } from '../../../../../components/utilComponents/inUsdText';
 import { TGetWavesModal } from '../../../../../components/modals/GetWavesModal/GetWavesModal';
 import { TWithdrawItem } from './WithdrawItemLocked';
 
-export const WithdrawItemUnlocked: React.FC<TWithdrawItem> = ({ baseTokenAmount, lpAmount, equil, withdrawTxId }) => {
+export const WithdrawItemUnlocked: React.FC<TWithdrawItem> = ({ baseTokenAmount, lpAmount, equal, withdrawTxId }) => {
     const handleClickButton = useCallback(() => {
         modalManager.openModal<TGetWavesModal>(MODAL_NAMES.getWaves, { withdrawTxId, availableToGet: baseTokenAmount });
     }, []);
@@ -54,9 +54,9 @@ export const WithdrawItemUnlocked: React.FC<TWithdrawItem> = ({ baseTokenAmount,
                     </Text>
                     <Text variant="text2" color="wdtextsec">
                         {baseTokenAmount.asset.displayName}
-                        {equil ? (
+                        {equal ? (
                             <InUsdText
-                                usd={equil}
+                                usd={equal}
                                 decimals={2}
                                 variant="text2"
                                 color="wdtextsec"

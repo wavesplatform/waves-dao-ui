@@ -13,12 +13,12 @@ export type TWithdrawItem = {
     lpAmount: Money;
     withdrawTxId?: string;
     baseTokenAmount?: Money;
-    equil?: BigNumber;
+    equal?: BigNumber;
 };
 
 export const WithdrawItemLocked: React.FC<TWithdrawItem> = ({
     lpAmount,
-    equil,
+    equal,
     withdrawTxId,
 }) => {
     const handleClickButton = useCallback(() => {
@@ -71,9 +71,9 @@ export const WithdrawItemLocked: React.FC<TWithdrawItem> = ({
                     </Text>
                     <Text variant="text2" color="wdtextsec">
                         {lpAmount.asset.displayName}
-                        {equil ? (
+                        {equal ? (
                             <InUsdText
-                                usd={equil}
+                                usd={equal}
                                 decimals={2}
                                 variant="text2"
                                 color="wdtextsec"
