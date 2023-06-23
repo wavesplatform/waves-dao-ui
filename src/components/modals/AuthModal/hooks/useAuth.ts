@@ -12,6 +12,7 @@ export enum AUTH_DEVICE_STATES {
     connectionRejected = 'connectionRejected',
     noAccounts = 'noAccounts',
     noLogin = 'noLogin',
+    approveConnection = 'approveConnection'
 }
 
 interface IUseAuth {
@@ -46,6 +47,9 @@ export const useAuth = (selectedProvider: PROVIDER_TYPES_VALUES): IUseAuth => {
             }
             if (e instanceof Error &&  e.message.includes('Invalid connect options.')) {
                 _deviceState = AUTH_DEVICE_STATES.switchNetwork;
+            }
+            if (typeof e === 'string' && e.includes('Error requestAccounts')) {
+                _deviceState = AUTH_DEVICE_STATES.approveConnection;
             }
             if (e && (e as TKeeperError).code === '13') {
                 _deviceState = AUTH_DEVICE_STATES.noLogin;

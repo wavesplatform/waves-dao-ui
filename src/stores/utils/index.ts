@@ -15,6 +15,9 @@ export const isWrongChain = makeErrorTest(
 export const isAnotherAccount = makeErrorTest(
     /your address is not equal to login address./im
 );
+export const isMetamaskRejection = makeErrorTest(
+    /MetaMask Tx Signature: User denied transaction signature./im
+);
 
 export const parseError = (e, isDevices, device): ITransProps => {
     let trans;
@@ -35,6 +38,12 @@ export const parseError = (e, isDevices, device): ITransProps => {
         case isAnotherAccount(e):
             trans = {
                 i18key: 'wrongUser',
+                i18Params: { device },
+            };
+            break;
+        case isMetamaskRejection(e):
+            trans = {
+                i18key: `rejectedByUser${isDevices ? 'Device' : ''}`,
                 i18Params: { device },
             };
             break;

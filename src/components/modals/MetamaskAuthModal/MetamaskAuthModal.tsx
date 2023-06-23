@@ -47,6 +47,21 @@ const MetamaskAuthModalFC: React.FC<MetamaskAuthModalProps & ModalProps> = ({
                                 i18Params: { device: getMetamaskDeviceName() },
                             }}
                             onRetry={onRetry}
+                            isShowRetry={false}
+                            device={getMetamaskDeviceName()}
+                        />;
+                    case AUTH_DEVICE_STATES.approveConnection:
+                        return <AuthTemplate
+                            icon={metamaskCalm}
+                            title={{
+                                i18key: 'approveConnection.title',
+                                i18Params: { device: getMetamaskDeviceName() },
+                            }}
+                            text={{
+                                i18key: 'approveConnection.desc',
+                                i18Params: { device: getMetamaskDeviceName() },
+                            }}
+                            onRetry={onRetry}
                         />;
                     case AUTH_DEVICE_STATES.signCustom:
                         return <AuthTemplate

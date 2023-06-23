@@ -20,7 +20,7 @@ export type TConfig = {
         calculator: string;
     },
     network: {
-        code: string;
+        code: 'W' | 'T';
     }
     assets: Array<TAssetConfig>
 };

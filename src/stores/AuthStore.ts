@@ -66,6 +66,9 @@ export class AuthStore extends ChildStore  {
         await this.checkDevice(providerId);
         return this.setProvider(providerId)
             .then(() => {
+                if (providerId === PROVIDER_TYPES.metamask) {
+                    return this.checkMetamaskNetwork();
+                }
                 return this.provider?.login();
             })
             .then((userData) => {
@@ -126,7 +129,7 @@ export class AuthStore extends ChildStore  {
 
     private checkDevice(providerId?: PROVIDER_TYPES_VALUES): Promise<void> {
         if (providerId === PROVIDER_TYPES.metamask) {
-            return this.checkMetamask();
+            return this.checkIsMetamaskExist();
         } else if (providerId === PROVIDER_TYPES.keeper) {
             return window.WavesKeeper
                 ? Promise.resolve()
@@ -140,17 +143,24 @@ export class AuthStore extends ChildStore  {
         }
     }
 
-    private checkMetamask(): Promise<void> {
+    private checkIsMetamaskExist(): Promise<void> {
         const hasMetamask = (window as any).ethereum && (window as any).ethereum.isMetaMask;
         if (!hasMetamask) {
             return Promise.reject(new Error(`${PROVIDER_TYPES.metamask} is not installed`));
         }
+        return Promise.resolve();
+    }
+
+    private checkMetamaskNetwork(): Promise<UserData> {
         const chainId = `0x${Number(this.rs.configStore.config.network.code.charCodeAt(0)).toString(16)}`;
         const isRightNetwork = (window as any).ethereum.chainId === chainId;
+        const promises = [this.provider?.login()];
         if (!isRightNetwork) {
-            return Promise.reject(new Error('Invalid connect options.'));
+            promises.push(Promise.reject(new Error('Invalid connect options.')));
         }
-        return Promise.resolve();
+        return promises.length > 1 ?
+            Promise.all(promises) as unknown as Promise<UserData> :
+            this.provider?.login();
     }
 
     private getUserType(providerId?: PROVIDER_TYPES_VALUES): USER_TYPES_VALUES {
