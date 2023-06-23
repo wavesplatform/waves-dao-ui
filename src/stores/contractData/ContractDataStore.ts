@@ -79,9 +79,9 @@ export class ContractDataStore extends ChildStore {
     }
 
     public get isUnlockedTokensMS(): boolean {
-        return Boolean(
-            this.withdraws.filter((item) => item.status === 'FINISHED').length
-        );
+        const pendingWithdrawals = this.withdraws.filter((item) => item.status === 'PENDING');
+        return pendingWithdrawals
+            .some(withdraw => withdraw.targetPeriod  <= this.commonContractData.data.currentPeriod);
     }
 
     public get investedWaves(): Money {
