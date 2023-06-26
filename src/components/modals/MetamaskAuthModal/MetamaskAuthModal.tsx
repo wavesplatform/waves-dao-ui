@@ -7,8 +7,7 @@ import { AuthTemplate, AuthTemplateProps } from '../components/AuthTemplate';
 import { AUTH_DEVICE_STATES } from '../AuthModal/hooks/useAuth';
 import { translate } from '@waves/ui-translator';
 import { metamaskCalm, metamaskRed } from './icons';
-import { getKeeperWalletDeviceName, getMetamaskDeviceName } from '../../../utils/helpersInformationDevices';
-import { keeperRed } from '../KeeperAuthModal/modalStates/icons';
+import { getMetamaskDeviceName } from '../../../utils/helpersInformationDevices';
 
 export interface MetamaskAuthModalProps {
     modalState: AUTH_DEVICE_STATES;
@@ -84,14 +83,14 @@ const MetamaskAuthModalFC: React.FC<MetamaskAuthModalProps & ModalProps> = ({
                                 i18key: 'switchNetwork.desc',
                                 i18Params: {
                                     network: 'Waves',
-                                    device: getKeeperWalletDeviceName(),
+                                    device: getMetamaskDeviceName(),
                                 },
                             }}
                             onRetry={onRetry}
                         />;
                     case AUTH_DEVICE_STATES.connectionRejected:
                         return <AuthTemplate
-                            icon={keeperRed}
+                            icon={metamaskRed}
                             title={{
                                 i18key: 'connectionRejected.title',
                                 i18Params: { device: getMetamaskDeviceName() },
