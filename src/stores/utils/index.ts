@@ -7,7 +7,7 @@ const makeErrorTest = (regex: RegExp) => (e: Error | string) => {
 };
 
 export const isUserRejection = makeErrorTest(
-    /user rejection|window was closed by user|user denied message/im
+    /user rejection|window was closed by user|user denied message|User rejected the request/im
 );
 export const isWrongChain = makeErrorTest(
     /not equals keeper connect|invalid connect options./im
