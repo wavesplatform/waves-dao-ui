@@ -155,6 +155,9 @@ export class AuthStore extends ChildStore  {
         const chainId = `0x${Number(this.rs.configStore.config.network.code.charCodeAt(0)).toString(16)}`;
         const isRightNetwork = (window as any).ethereum.chainId === chainId;
         const promises = [this.provider?.login()];
+        // промисы параллельно, чтобы изменить стейт модалки, пока промис метамаска не отработал.
+        // Метамаск сам инициализирует смену сети и прочие действия.
+        // И промис login отрабатывает только после действия юзера с метамаском.
         if (!isRightNetwork) {
             promises.push(Promise.reject(new Error('Invalid connect options.')));
         }
