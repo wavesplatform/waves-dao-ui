@@ -73,9 +73,10 @@ export class BaseInputFormStore extends BaseFormStore {
             tokenId && tokenId === feeId
                 ? this.currentTokenBalance.minus(this.fee)
                 : this.currentTokenBalance;
+
         this.onInputChange(
             max && !max?.getTokens()?.isNegative()
-                ? max?.getTokens()?.toFormat()
+                ? max?.getTokens()?.toString()
                 : '0'
         );
     };
