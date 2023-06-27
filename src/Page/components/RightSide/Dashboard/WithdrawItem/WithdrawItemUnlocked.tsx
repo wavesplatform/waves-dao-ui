@@ -12,7 +12,7 @@ import { TWithdrawItem } from './WithdrawItemLocked';
 export const WithdrawItemUnlocked: React.FC<TWithdrawItem> = ({ baseTokenAmount, lpAmount, equal, withdrawTxId }) => {
     const handleClickButton = useCallback(() => {
         modalManager.openModal<TGetWavesModal>(MODAL_NAMES.getWaves, { withdrawTxId, availableToGet: baseTokenAmount });
-    }, []);
+    }, [baseTokenAmount, withdrawTxId]);
 
     return (
         <Flex
