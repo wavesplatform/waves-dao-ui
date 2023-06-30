@@ -31,7 +31,7 @@
     "withdraw": "Withdraw",
     "availableClaim": "Available for Claiming",
     "claimButton": "Claim",
-    "wavesUnlocked": "Your Waves are unlocked.",
+    "wavesUnlocked": "Your WAVES are unlocked.",
     "cancelWithdrawal": "Cancel Withdrawal",
     "willBeUnlocked": "Your {{assetName}} will be unlocked after the start of new KPI period. The exact amount of {{assetName}} will be known immediately after this time.",
     "logout": "Log Out",
