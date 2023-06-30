@@ -71,7 +71,7 @@
     "install": "Install",
     "approveConnection": {
         "title": "Approve Connection",
-        "desc": "Approve the connection and grant access to Waves.Exchange on your {{device}} wallet to continue."
+        "desc": "Approve the connection and grant access to wavesdao.tech on your {{device}} wallet to continue."
     },
     "switchWithParameters": {
         "title": "Add {{network}} Network Parameters and Switch to it",

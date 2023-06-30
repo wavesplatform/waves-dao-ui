@@ -17,6 +17,9 @@ export default<TConfig> {
         factory: '3MuS6qVvhBR6wSynFRdcE3fVqmGBjoc7Hhx',
         calculator: '',
     },
+    network: {
+        code: 'T'
+    },
     assets: [
         { label: 'WAVES', id: 'WAVES' },
         { label: 'WAVESDAOLP', id: 'FLEJVe9MaJbmkHm5vJE6qmRAzRBnYR8YVTd1PwvZwh3U' },

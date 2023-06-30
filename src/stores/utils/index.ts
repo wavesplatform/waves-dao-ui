@@ -7,13 +7,16 @@ const makeErrorTest = (regex: RegExp) => (e: Error | string) => {
 };
 
 export const isUserRejection = makeErrorTest(
-    /user rejection|window was closed by user|user denied message/im
+    /user rejection|window was closed by user|user denied message|User rejected the request/im
 );
 export const isWrongChain = makeErrorTest(
     /not equals keeper connect|invalid connect options./im
 );
 export const isAnotherAccount = makeErrorTest(
     /your address is not equal to login address./im
+);
+export const isMetamaskRejection = makeErrorTest(
+    /MetaMask Tx Signature: User denied transaction signature./im
 );
 
 export const parseError = (e, isDevices, device): ITransProps => {
@@ -35,6 +38,12 @@ export const parseError = (e, isDevices, device): ITransProps => {
         case isAnotherAccount(e):
             trans = {
                 i18key: 'wrongUser',
+                i18Params: { device },
+            };
+            break;
+        case isMetamaskRejection(e):
+            trans = {
+                i18key: `rejectedByUser${isDevices ? 'Device' : ''}`,
                 i18Params: { device },
             };
             break;

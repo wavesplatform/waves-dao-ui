@@ -7,6 +7,7 @@ import { ProviderWeb } from '@waves.exchange/provider-web';
 import { AppStore } from './AppStore';
 import { ChildStore } from './ChildStore';
 import { computed, makeObservable, observable, runInAction } from 'mobx';
+import { ProviderMetamask } from '@waves/provider-metamask';
 
 export enum USER_TYPES {
     keeper = 'keeper',
@@ -61,9 +62,13 @@ export class AuthStore extends ChildStore  {
         this.signerCloudUrl = rs.configStore.config.apiUrl.signerCloud;
     }
 
-    public login = (providerId?: PROVIDER_TYPES_VALUES): Promise<void> => {
+    public login = async (providerId?: PROVIDER_TYPES_VALUES): Promise<void> => {
+        await this.checkDevice(providerId);
         return this.setProvider(providerId)
             .then(() => {
+                if (providerId === PROVIDER_TYPES.metamask) {
+                    return this.checkMetamaskNetwork();
+                }
                 return this.provider?.login();
             })
             .then((userData) => {
@@ -94,7 +99,6 @@ export class AuthStore extends ChildStore  {
     }
 
     private async setProvider(providerId?: PROVIDER_TYPES_VALUES): Promise<void> {
-        await this.checkDevice(providerId);
         switch (providerId) {
             case PROVIDER_TYPES.web:
                 this.provider = new ProviderWeb(this.signerWebUrl, true);
@@ -112,6 +116,10 @@ export class AuthStore extends ChildStore  {
                 this.provider = new ProviderKeeper();
                 break;
 
+            case PROVIDER_TYPES.metamask:
+                this.provider = new ProviderMetamask();
+                break;
+
             default:
                 this.provider = new ProviderWeb();
         }
@@ -121,9 +129,7 @@ export class AuthStore extends ChildStore  {
 
     private checkDevice(providerId?: PROVIDER_TYPES_VALUES): Promise<void> {
         if (providerId === PROVIDER_TYPES.metamask) {
-            return (window as any).Metamask // todo check
-                ? Promise.resolve()
-                : Promise.reject(new Error(`${providerId} is not installed`));
+            return this.checkIsMetamaskExist();
         } else if (providerId === PROVIDER_TYPES.keeper) {
             return window.WavesKeeper
                 ? Promise.resolve()
@@ -135,6 +141,29 @@ export class AuthStore extends ChildStore  {
         } else {
             return Promise.resolve();
         }
+    }
+
+    private checkIsMetamaskExist(): Promise<void> {
+        const hasMetamask = (window as any).ethereum && (window as any).ethereum.isMetaMask;
+        if (!hasMetamask) {
+            return Promise.reject(new Error(`${PROVIDER_TYPES.metamask} is not installed`));
+        }
+        return Promise.resolve();
+    }
+
+    private checkMetamaskNetwork(): Promise<UserData> {
+        const chainId = `0x${Number(this.rs.configStore.config.network.code.charCodeAt(0)).toString(16)}`;
+        const isRightNetwork = (window as any).ethereum.chainId === chainId;
+        if (!isRightNetwork) {
+            // промисы параллельно, чтобы изменить стейт модалки, пока промис метамаска не отработал.
+            // Метамаск сам инициализирует смену сети и прочие действия.
+            // И промис login отрабатывает только после действия юзера с метамаском.
+            return Promise.all([
+                this.provider?.login(),
+                Promise.reject(new Error('Invalid connect options.'))
+            ]) as unknown as Promise<UserData>;
+        }
+        return this.provider?.login();
     }
 
     private getUserType(providerId?: PROVIDER_TYPES_VALUES): USER_TYPES_VALUES {
