@@ -30,7 +30,8 @@ export class ContractDataStore extends ChildStore {
                     filterObjectCommonContract({
                         contractAddress,
                         xtnId: this.rs.assetsStore.XTN.id,
-                    })
+                    }),
+                    true
                 ),
             refreshInterval: COMMON_DATA_POLLING_TIME,
             parser: this.contractDataParser,
