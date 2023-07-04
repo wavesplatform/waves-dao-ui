@@ -27,10 +27,7 @@ export class ContractDataStore extends ChildStore {
             fetcher: (fetchUrl) =>
                 search(
                     fetchUrl,
-                    filterObjectCommonContract({
-                        contractAddress,
-                        xtnId: this.rs.assetsStore.XTN.id,
-                    }),
+                    filterObjectCommonContract({ contractAddress }),
                     true
                 ),
             refreshInterval: COMMON_DATA_POLLING_TIME,
@@ -64,7 +61,7 @@ export class ContractDataStore extends ChildStore {
 
     public get getTreasuryUsd(): BigNumber {
         return this.rs.ratesStore.investedWavesInUsd.add(
-            this.rs.ratesStore.investedXtnInUsd
+            this.rs.ratesStore.donatedWavesInUsd
         );
     }
 
@@ -92,10 +89,10 @@ export class ContractDataStore extends ChildStore {
         );
     }
 
-    public get investedXtn(): Money {
+    public get donatedWaves(): Money {
         return (
-            this.commonContractData.data?.investedXtn ||
-            new Money(0, this.rs.assetsStore.XTN)
+            this.commonContractData.data?.donatedWaves ||
+            new Money(0, this.rs.assetsStore.WAVES)
         );
     }
 
@@ -163,9 +160,9 @@ export class ContractDataStore extends ChildStore {
                             this.rs.assetsStore.WAVES
                         ),
                     };
-                case key.includes(`invested__${this.rs.assetsStore.XTN.id}`):
+                case key.includes('donated__WAVES'):
                     return {
-                        investedXtn: new Money(value, this.rs.assetsStore.XTN),
+                        donatedWaves: new Money(value, this.rs.assetsStore.WAVES),
                     };
                 default:
                     return {};
@@ -180,7 +177,7 @@ export class ContractDataStore extends ChildStore {
             {
                 currentPeriod: undefined,
                 investedWaves: undefined,
-                investedXtn: undefined,
+                donatedWaves: undefined,
                 periodLength: undefined,
                 startHeights: {},
                 prices: {},

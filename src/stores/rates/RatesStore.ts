@@ -46,9 +46,9 @@ export class RatesStore extends ChildStore {
         });
     }
 
-    public get investedXtnInUsd(): BigNumber {
+    public get donatedWavesInUsd(): BigNumber {
         return getInUsd(
-            this.rs.contractDataStore.investedXtn,
+            this.rs.contractDataStore.donatedWaves,
             this.rates.data
         ).getTokens();
     }

@@ -4,6 +4,7 @@ import { Text } from '../../../../uikit/Text/Text';
 import { Diagram } from '../../../../uikit/Diagram/Diagram';
 import { AppStoreContext } from '../../../../App';
 import { observer } from 'mobx-react-lite';
+import { Trans } from '@waves/ui-translator';
 
 export const DiagramBlock: FC = observer(() => {
     const { assetsStore, contractDataStore, ratesStore } =
@@ -28,27 +29,31 @@ export const DiagramBlock: FC = observer(() => {
                     {
                         color: '#2AC684',
                         value:
-                            contractDataStore.investedXtn
+                            contractDataStore.donatedWaves
                                 ?.getTokens()
                                 ?.toNumber() || 0,
                     },
                 ]}
-                widthChart={64}
-                heightChart={64}
-                height={64}
-                width={64}
+                widthChart={72}
+                heightChart={72}
+                height={72}
+                width={72}
+                lineWidth={24}
             />
             <Box sx={{ ml: [null, '16px'], mt: ['16px', '0'] }}>
-                <Flex alignItems="center" sx={{ mb: '8px' }}>
-                    <Box
-                        width="8px"
-                        height="8px"
-                        sx={{
-                            mr: '8px',
-                            borderRadius: '50%',
-                            backgroundColor: '#3C69FF',
-                        }}
-                    />
+                <Flex alignItems="center" mb='12px' flexWrap='wrap'>
+                    <Flex width="100%" alignItems="center">
+                        <Box
+                            width="8px"
+                            height="8px"
+                            mr='4px'
+                            borderRadius='50%'
+                            backgroundColor='#3C69FF'
+                        />
+                        <Text color="textsec" variant="text2" sx={{ textTransform: 'capitalize' }}>
+                            <Trans i18key='invested' />
+                        </Text>
+                    </Flex>
                     <Text as="div" variant="text1" display="flex" color="text">
                         <Text>
                             {contractDataStore.investedWaves?.toFormat(2)}
@@ -61,25 +66,28 @@ export const DiagramBlock: FC = observer(() => {
                         </Text>
                     </Text>
                 </Flex>
-                <Flex alignItems="center">
-                    <Box
-                        width="8px"
-                        height="8px"
-                        sx={{
-                            mr: '8px',
-                            borderRadius: '50%',
-                            backgroundColor: '#2AC684',
-                        }}
-                    />
+                <Flex alignItems="center" flexWrap='wrap'>
+                    <Flex width="100%" alignItems="center">
+                        <Box
+                            width="8px"
+                            height="8px"
+                            mr='4px'
+                            borderRadius='50%'
+                            backgroundColor='#2AC684'
+                        />
+                        <Text color="textsec" variant="text2" sx={{ textTransform: 'capitalize' }}>
+                            <Trans i18key='donated' />
+                        </Text>
+                    </Flex>
                     <Text as="div" variant="text1" display="flex" color="text">
                         <Text>
-                            {contractDataStore.investedXtn?.toFormat(2)}
+                            {contractDataStore.donatedWaves?.toFormat(2)}
                         </Text>
                         <Text as="div" mx="4px" color="#2AC684">
-                            {assetsStore.assetsData.data?.XTN?.displayName}
+                            {contractDataStore.donatedWaves.asset.displayName}
                         </Text>
                         <Text color="wdtextsec">
-                            {`$${ratesStore.investedXtnInUsd.toFormat(2)}`}
+                            {`$${ratesStore.donatedWavesInUsd.toFormat(2)}`}
                         </Text>
                     </Text>
                 </Flex>

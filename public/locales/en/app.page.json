@@ -153,5 +153,7 @@
         "some": "blocks",
         "one": "blocks",
         "any": "blocks"
-    }
+    },
+    "invested": "invested",
+    "donated": "donated"
 }

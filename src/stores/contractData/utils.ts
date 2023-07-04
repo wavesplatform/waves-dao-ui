@@ -54,7 +54,7 @@ export const filterObjectUserContract = ({ contractAddress, userAddress }) => {
     };
 };
 
-export const filterObjectCommonContract = ({ contractAddress, xtnId }) => {
+export const filterObjectCommonContract = ({ contractAddress }) => {
     return {
         filter: {
             or: [
@@ -89,7 +89,7 @@ export const filterObjectCommonContract = ({ contractAddress, xtnId }) => {
                                 {
                                     key: {
                                         operation: 'eq',
-                                        value: `%s%s__invested__${xtnId}`,
+                                        value: '%s%s__donated__WAVES',
                                     },
                                 },
                             ],
