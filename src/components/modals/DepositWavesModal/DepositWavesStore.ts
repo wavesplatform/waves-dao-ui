@@ -6,6 +6,7 @@ import {
 import BigNumber from '@waves/bignumber';
 import { modalManager } from '../../../services/modalManager';
 import { MODAL_NAMES } from '../../ModalContainer/MODAL_NAMES';
+import { Money } from '@waves/data-entities';
 
 export class DepositWavesStore extends BaseInputFormStore {
     constructor(params: BaseInputFormStoreParams) {
@@ -30,10 +31,10 @@ export class DepositWavesStore extends BaseInputFormStore {
         };
     }
 
-    public get getReceiveLp(): BigNumber {
-        return this.rs.contractDataStore.currentPriceWavesLp
+    public get getReceiveLp(): Money {
+        return this.rs.contractDataStore.currentPriceWavesLp.cloneWithTokens(this.rs.contractDataStore.currentPriceWavesLp
             .getTokens()
-            .mul(this.inputString || 0);
+            .mul(this.inputString || 0));
     }
 
     public invoke = () => {
