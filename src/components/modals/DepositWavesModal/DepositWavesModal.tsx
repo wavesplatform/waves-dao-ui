@@ -132,7 +132,7 @@ const DepositWavesModalFC: React.FC<ModalProps> = (props) => {
                                     },
                                 }}
                                 balance={
-                                    depositWavesStore.getReceiveLp?.getTokens().toFormat() ||
+                                    depositWavesStore.receiveLp?.getTokens().toFormat() ||
                                     '0'
                                 }
                                 bottomContent={() => {

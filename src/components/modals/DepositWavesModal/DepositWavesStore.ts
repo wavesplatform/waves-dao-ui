@@ -31,7 +31,7 @@ export class DepositWavesStore extends BaseInputFormStore {
         };
     }
 
-    public get getReceiveLp(): Money {
+    public get receiveLp(): Money {
         return this.rs.contractDataStore.currentPriceWavesLp.cloneWithTokens(this.rs.contractDataStore.currentPriceWavesLp
             .getTokens()
             .mul(this.inputString || 0));
