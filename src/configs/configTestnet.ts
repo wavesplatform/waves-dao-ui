@@ -22,7 +22,7 @@ export default<TConfig> {
     },
     assets: [
         { label: 'WAVES', id: 'WAVES' },
-        { label: 'WAVESDAOLP', id: 'FLEJVe9MaJbmkHm5vJE6qmRAzRBnYR8YVTd1PwvZwh3U' },
+        { label: 'WAVESDAOLP', id: 'mcGWqCMsSC1mw1xrQJVnH4o56o3FArJ9QoThfAudwqM' },
         { label: 'XTN', id: '25FEqEjRkqK6yCkiT7Lz6SAYz7gUFCtxfCChnrVFD5AT' },
     ]
 };
