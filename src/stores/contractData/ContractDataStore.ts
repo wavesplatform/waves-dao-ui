@@ -72,7 +72,7 @@ export class ContractDataStore extends ChildStore {
     public get availableToClaim(): Money {
         return (
             this.userContractData?.data?.availableToClaim ||
-            new Money(0, this.rs.assetsStore.WAVESDAOLP)
+            new Money(0, this.rs.assetsStore.LPToken)
         );
     }
 
@@ -115,7 +115,7 @@ export class ContractDataStore extends ChildStore {
             .getCoins()
             .div(prices[currentPeriod || 0]);
 
-        return new Money(0, this.rs.assetsStore.WAVESDAOLP).cloneWithTokens(price);
+        return new Money(0, this.rs.assetsStore.LPToken).cloneWithTokens(price);
     }
 
     public get finalizingKPI(): number {
@@ -192,21 +192,21 @@ export class ContractDataStore extends ChildStore {
                     return {
                         availableToClaim: new Money(
                             value,
-                            this.rs.assetsStore.WAVESDAOLP
+                            this.rs.assetsStore.LPToken
                         ),
                     };
                 case key.includes('claimed'):
                     return {
                         claimed: new Money(
                             value,
-                            this.rs.assetsStore.WAVESDAOLP
+                            this.rs.assetsStore.LPToken
                         ),
                     };
                 case key.includes('withdrawal'):
                     return {
                         withdrawal: new Money(
                             value,
-                            this.rs.assetsStore.WAVESDAOLP
+                            this.rs.assetsStore.LPToken
                         ),
                     };
                 default:
@@ -234,7 +234,7 @@ export class ContractDataStore extends ChildStore {
                 withdrawTxId: entry?.key.split('__')[3],
                 lpAssetAmount: new Money(
                     parsedStr.lpAssetAmount,
-                    this.rs.assetsStore.WAVESDAOLP
+                    this.rs.assetsStore.LPToken
                 ),
             };
         };

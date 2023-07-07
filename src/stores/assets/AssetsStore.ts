@@ -28,8 +28,8 @@ export class AssetsStore extends ChildStore {
         return this.rs.assetsStore.assetsData.data['WAVES'];
     }
 
-    public get WAVESDAOLP(): AssetWithMeta {
-        return this.rs.assetsStore.assetsData.data['WAVESDAOLP'];
+    public get LPToken(): AssetWithMeta {
+        return this.rs.assetsStore.assetsData.data[this.rs.configStore.config.contracts.lpToken];
     }
 
     private assetsParser = ({ data }: IAssetsResponse): Record<string, AssetWithMeta> => {

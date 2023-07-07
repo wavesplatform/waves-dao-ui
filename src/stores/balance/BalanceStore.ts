@@ -52,7 +52,7 @@ export class BalanceStore extends ChildStore {
     }
 
     public get wavesLpBalance(): IBalance['balance'] {
-        return this.balances[this.rs.assetsStore.WAVESDAOLP.id]?.balance;
+        return this.balances[this.rs.assetsStore.LPToken.id]?.balance;
     }
 
     public get balanceLpInWaves(): Money {

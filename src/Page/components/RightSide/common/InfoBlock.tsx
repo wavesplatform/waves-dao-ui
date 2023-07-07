@@ -49,7 +49,7 @@ export const InfoBlock: FC = observer(() => {
                     <Text as="div" color="wdtextsec" variant="text1" mr="4px">
                         <Trans
                             i18key="lpPrice"
-                            i18Params={{ assetName: assetsStore.WAVESDAOLP?.displayName }}
+                            i18Params={{ assetName: assetsStore.LPToken?.displayName }}
                         />
                     </Text>
                     <Text as="div" color="text" variant="text1" mr="4px">
@@ -79,7 +79,7 @@ export const InfoBlock: FC = observer(() => {
                     </Text>
                     <Text as="div" color="text" variant="text1" mr="4px">
                         {`1 WAVES = ${contractDataStore.currentPriceWavesLp.toFormat()} ${
-                            assetsStore.WAVESDAOLP?.displayName
+                            assetsStore.LPToken?.displayName
                         }`}
                     </Text>
                 </Flex>

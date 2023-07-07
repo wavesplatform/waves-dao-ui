@@ -62,7 +62,7 @@ const ClaimWavesDaoLpModalFC: React.FC<TClaimWavesDaoLpModalFC> = ({
                                 <Trans
                                     i18key="claim"
                                     i18Params={{
-                                        ticker: rootStore.assetsStore.WAVESDAOLP
+                                        ticker: rootStore.assetsStore.LPToken
                                             .displayName,
                                     }}
                                 />
@@ -79,7 +79,7 @@ const ClaimWavesDaoLpModalFC: React.FC<TClaimWavesDaoLpModalFC> = ({
                                 }}
                                 balance={rootStore.contractDataStore.availableToClaim?.toFormat()}
                                 ticker={
-                                    rootStore.assetsStore.WAVESDAOLP.displayName
+                                    rootStore.assetsStore.LPToken.displayName
                                 }
                                 iconUrl={wavesLpWithoutBg}
                                 mb="28px"
@@ -102,7 +102,7 @@ const ClaimWavesDaoLpModalFC: React.FC<TClaimWavesDaoLpModalFC> = ({
                                         i18key: 'claim',
                                         i18Params: {
                                             ticker: rootStore.assetsStore
-                                                .WAVESDAOLP.displayName,
+                                                .LPToken.displayName,
                                         },
                                     }}
                                 />

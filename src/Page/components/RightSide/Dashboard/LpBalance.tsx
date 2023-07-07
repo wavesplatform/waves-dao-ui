@@ -50,7 +50,7 @@ export const LpBalance: FC = observer(() => {
                                 i18key="assetBalance"
                                 i18Params={{
                                     assetName:
-                                        assetsStore.WAVESDAOLP.displayName,
+                                        assetsStore.LPToken.displayName,
                                 }}
                             />
                         </Text>
@@ -68,7 +68,7 @@ export const LpBalance: FC = observer(() => {
                                     0}
                             </Text>
                             <Text variant="text2" color="wdtextsec">
-                                {assetsStore.WAVESDAOLP.displayName}
+                                {assetsStore.LPToken.displayName}
                             </Text>
                         </Flex>
                         <Flex
