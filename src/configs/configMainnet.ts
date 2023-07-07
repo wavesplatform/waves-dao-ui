@@ -14,15 +14,15 @@ export default<TConfig> {
         stateSearch: 'https://wx.network/api/v1/state/search',
     },
     contracts: {
-        factory: '',
-        calculator: '',
+        factory: '3PJVm7xLPabmYohbnvdgGDYHMwnZxF2x18m',
+        calculator: '3PAFngdaQ9rmbX3bKLu94fvSTUe4vDn1T2F',
     },
     network: {
         code: 'W'
     },
     assets: [
         { label: 'WAVES', id: 'WAVES' },
-        // { label: 'WAVESDAOLP', id: '' },
+        { label: 'WAVESDAOLP', id: 'HYogWffUjS8Uw4bYA1Dn3qrGmJerMqkf139aJcHhk8yq' },
         { label: 'XTN', id: 'DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p' },
     ]
 };
