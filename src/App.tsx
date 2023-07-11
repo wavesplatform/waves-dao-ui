@@ -1,22 +1,47 @@
-import React from 'react';
-import { ConfigContextProvider } from './context/ConfigContext';
-import { Box } from '@waves.exchange/wx-react-uikit';
-import configs from './configs';
-import theme from './theme';
+import { createContext, ReactElement, useState } from 'react';
+import i18n from './i18next';
 import { ThemeProvider } from 'emotion-theming';
+import { TranslateProvider } from '@waves/ui-translator';
+import theme from './theme';
+import { Observer } from 'mobx-react-lite';
+import { DotLoader, Flex } from '@waves.exchange/wx-react-uikit';
+import { ModalContainer } from './components/ModalContainer/ModalContainer';
+import { Page } from './Page/Page';
+import { AppStore } from './stores/AppStore';
+// import { Stand } from './components/Stand';
 
+export const AppStoreContext = createContext<AppStore>(null);
+
+// eslint-disable-next-line react/display-name
 function App() {
-    const config = import.meta.env.VITE_NETWORK === 'testnet' ? configs.testnet : configs.mainnet;
+    const [appStore] = useState<AppStore>(() => new AppStore());
 
     return (
-        <ConfigContextProvider value={config}>
+        <AppStoreContext.Provider value={appStore}>
             <ThemeProvider theme={theme}>
-                <Box>
-                    Waves Dao
-                </Box>
+                <TranslateProvider i18n={i18n}>
+                    {/* <Stand /> */}
+                    <ModalContainer />
+                    <Observer>
+                        {(): ReactElement => {
+                            return appStore.assetsStore.assetsData.isLoading  ? (
+                                <Flex
+                                    height="100vh"
+                                    alignItems="center"
+                                    justifyContent="center"
+                                    bg="wdBg"
+                                >
+                                    <DotLoader />
+                                </Flex>
+                            ) : (
+                                <Page />
+                            );
+                        }}
+                    </Observer>
+                </TranslateProvider>
             </ThemeProvider>
-        </ConfigContextProvider>
-    )
+        </AppStoreContext.Provider>
+    );
 }
 
-export default App
+export default App;

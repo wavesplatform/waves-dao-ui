@@ -8,6 +8,8 @@ For dev:<br>
 
 For build :<br>
 ```npm run build```
+<br>
+```npm run build:testnet```
 
 By default selected network is 'mainnet'. You can pass env variable to change it before run or build app.
 ```VITE_NETWORK=testnet npm run dev``` for example

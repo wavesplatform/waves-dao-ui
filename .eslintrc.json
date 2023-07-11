@@ -26,9 +26,19 @@
     "plugin:react/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "prettier"
   ],
   "rules": {
+    "semi": [2, "always"],
+    "react/react-in-jsx-scope": "off",
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
     "quote-props": [
       "error",
       "consistent-as-needed"
@@ -52,7 +62,19 @@
     "react/jsx-uses-react": "warn",
     "react/jsx-uses-vars": "warn",
     "react/no-danger-with-children": "warn",
-    "indent": ["error", 4],
+    "indent": [
+      "error",
+      4,
+      {
+        "SwitchCase": 1,
+        "FunctionDeclaration": {
+          "parameters": "first"
+        },
+        "FunctionExpression": {
+          "parameters": "first"
+        }
+      }
+    ],
     "max-len": [
       "error",
       {
@@ -66,13 +88,6 @@
     "sort-imports": "off",
     "no-duplicate-imports": "off",
     "comma-dangle": ["error", "only-multiline"],
-    "no-nested-ternary": "off",
-    "no-restricted-imports": [
-      "error",
-      {
-        "paths": ["*/data-service/*", "*/data-service"],
-        "patterns": ["**/data-service/*", "!data-service/*"]
-      }
-    ]
+    "no-nested-ternary": "off"
   }
 }
