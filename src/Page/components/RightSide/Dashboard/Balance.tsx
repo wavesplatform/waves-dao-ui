@@ -70,7 +70,7 @@ export const Balance: FC = observer(() => {
             </Flex>
             <Flex>
                 <ExternalLink
-                    href="https://waves.exchange/trading/spot/WAVES_USDT"
+                    href="https://wx.network/trading/spot/WAVES_USDT-ERC20"
                     rel="noopener noreferrer"
                     target="_blank"
                 >
