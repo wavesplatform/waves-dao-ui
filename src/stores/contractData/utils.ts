@@ -92,6 +92,12 @@ export const filterObjectCommonContract = ({ contractAddress }) => {
                                         value: '%s%s__donated__WAVES',
                                     },
                                 },
+                                // {
+                                //     key: {
+                                //         operation: 'eq',
+                                //         value: '%s__heightForDeposit',
+                                //     },
+                                // },
                             ],
                         },
                     ],

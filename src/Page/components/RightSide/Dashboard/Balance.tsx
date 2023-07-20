@@ -3,7 +3,7 @@ import {
     AssetLogo,
     Box,
     ExternalLink,
-    Flex,
+    Flex, Tooltip,
 } from '@waves.exchange/wx-react-uikit';
 import { Text } from 'uikit';
 import { Trans } from '@waves/ui-translator';
@@ -13,11 +13,23 @@ import { AppStoreContext } from '../../../../App';
 import { modalManager } from '../../../../services/modalManager';
 import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES';
 
+const HEIGHT_FOR_DEPOSIT = 3_740_000; //todo get from contractDataStore
+
 export const Balance: FC = observer(() => {
-    const { balanceStore, contractDataStore } = useContext(AppStoreContext);
+    const { balanceStore, contractDataStore, nodeHeightStore } = useContext(AppStoreContext);
 
     const handleDepositClick = () => {
         modalManager.openModal(MODAL_NAMES.depositWaves);
+    };
+
+    const depositState = (): 'available' | 'finalizing' | 'unavailable' => {
+        if (contractDataStore.finalizingKPI <= 0) {
+            return 'finalizing';
+        }
+        if (nodeHeightStore.heightData.data >= HEIGHT_FOR_DEPOSIT) {
+            return 'unavailable';
+        }
+        return 'available';
     };
 
     return (
@@ -30,7 +42,6 @@ export const Balance: FC = observer(() => {
             flexDirection={['column', 'row']}
             alignItems="center"
             mb="12px"
-            overflow="hidden"
         >
             <Flex
                 sx={{ pr: '8px', mb: ['8px', '0'] }}
@@ -88,16 +99,41 @@ export const Balance: FC = observer(() => {
                         />
                     </Button>
                 </ExternalLink>
-                <Button
-                    minWidth='120px'
-                    variant="primary"
-                    px={['32px !important', '10px !important']}
-                    ml="8px"
-                    onClick={handleDepositClick}
-                    disabled={contractDataStore.finalizingKPI <= 0}
-                >
-                    <Trans i18key="deposit" />
-                </Button>
+                {
+                    depositState() === 'available' ?
+                        <Button
+                            minWidth='120px'
+                            variant="primary"
+                            px={['32px !important', '10px !important']}
+                            ml="8px"
+                            onClick={handleDepositClick}
+                        >
+                            <Trans i18key="deposit" />
+                        </Button> :
+                        <Tooltip variant="default" label={(): React.ReactNode => {
+                            return (
+                                <Text variant="text2" color="text" display="inline-block" minWidth={240}>
+                                    <Trans i18key={
+                                        depositState() === 'finalizing' ?
+                                            'depositTooltipFinalizing' :
+                                            'depositTooltipUnavailable'}
+                                    />
+                                </Text>
+                            );
+                        }}>
+                            <Button
+                                minWidth='120px'
+                                variant="primary"
+                                px={['32px !important', '10px !important']}
+                                ml="8px"
+                                onClick={handleDepositClick}
+                                disabled={true}
+                            >
+                                <Trans i18key="deposit" />
+                            </Button>
+                        </Tooltip>
+                }
+
             </Flex>
         </Flex>
     );
