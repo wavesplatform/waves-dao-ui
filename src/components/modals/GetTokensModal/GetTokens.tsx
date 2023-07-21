@@ -1,24 +1,23 @@
 import * as React from 'react';
+import { Money } from '@waves/data-entities';
+import { Observer } from 'mobx-react-lite';
+import { Button, FeeComponent, Text } from 'uikit';
 import { MODAL_NAMES } from '../../ModalContainer/MODAL_NAMES';
 import { ModalProps } from '../../Modal/Modal';
 import { Box, BoxProps } from '@waves.exchange/wx-react-uikit';
 import { ModalStyled } from '../../Modal/ModalStyled';
 import { Trans, translate } from '@waves/ui-translator';
 import waveslp from '/src/img/waveslp.svg';
-import { BalanceComponent } from '../../BalanceComponent/BalanceComponent';
-import { Button, FeeComponent, Text } from '../../../uikit';
 import { MultiErrorComponent } from '../../../uikit/MultiErrorComponent/MultiErrorComponent';
-import wavesLpWithoutBg from '/src/img/wavesLpWithoutBg.svg';
 import { AppStoreContext } from '../../../App';
 import { CancelWithdrawalStore } from './CancelWithdrawalStore';
 import { ButtonContent } from '../../../uikit/Button/ButtonContent';
-import { Observer } from 'mobx-react-lite';
-import { Money } from '@waves/data-entities';
+import { Tokens } from './components/Tokens';
 
 type TCancelWithdrawalModalFC = ModalProps &
     BoxProps & { withdrawTxId: string; lpAmount: Money };
 
-const CancelWithdrawalModalFC: React.FC<TCancelWithdrawalModalFC> = ({
+const GetTokensFC: React.FC<TCancelWithdrawalModalFC> = ({
     ...props
 }) => {
     const { sx = {}, lpAmount, withdrawTxId, ...restProps } = props;
@@ -27,11 +26,19 @@ const CancelWithdrawalModalFC: React.FC<TCancelWithdrawalModalFC> = ({
         return new CancelWithdrawalStore(rootStore, withdrawTxId);
     }, []);
 
+    const tokens = [
+        new Money(1000, rootStore.assetsStore.LPToken),
+        new Money(2000, rootStore.assetsStore.WAVES),
+        new Money(3000, rootStore.assetsStore.XTN)
+    ]; //todo change to real data
+
+    const wavesEq = new Money(200000, rootStore.assetsStore.WAVES); //todo change to real data
+
     return (
         <ModalStyled
-            modalName={MODAL_NAMES.cancelWithdrawal}
+            modalName={MODAL_NAMES.getTokens}
             sx={{
-                '& > div': {
+                '& >  div': {
                     backgroundPosition: 'center -50px',
                     backgroundSize: 'cover',
                 },
@@ -62,21 +69,7 @@ const CancelWithdrawalModalFC: React.FC<TCancelWithdrawalModalFC> = ({
                         >
                             <Trans i18key="cancelWithdrawal" />
                         </Text>
-                        <BalanceComponent
-                            sx={{
-                                img: {
-                                    width: '100%',
-                                    height: '100%',
-                                },
-                            }}
-                            label={{
-                                i18key: 'amount',
-                            }}
-                            balance={lpAmount?.getTokens()?.toFormat()}
-                            ticker={lpAmount?.asset?.displayName}
-                            iconUrl={wavesLpWithoutBg}
-                            mb="28px"
-                        />
+                        <Tokens tokens={tokens} wavesEq={wavesEq}/>
                         <FeeComponent mb="28px" />
                         <MultiErrorComponent
                             activeErrors={cancelWithdrawalStore.activeErrors}
@@ -101,8 +94,8 @@ const CancelWithdrawalModalFC: React.FC<TCancelWithdrawalModalFC> = ({
     );
 };
 
-CancelWithdrawalModalFC.displayName = 'CancelWithdrawalModal';
+GetTokensFC.displayName = 'CancelWithdrawalModal';
 
-export const CancelWithdrawalModal = translate('app.page')(
-    CancelWithdrawalModalFC
+export const GetTokens = translate('app.page')(
+    GetTokensFC
 );

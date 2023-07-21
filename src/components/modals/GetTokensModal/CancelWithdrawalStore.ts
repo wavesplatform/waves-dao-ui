@@ -33,7 +33,7 @@ export class CancelWithdrawalStore extends BaseFormStore {
             this.rs.providerStore.sendInvoke(this.tx)
         ).then(() => {
             this.reset();
-            modalManager.closeModal(MODAL_NAMES.cancelWithdrawal, 'close');
+            modalManager.closeModal(MODAL_NAMES.getTokens, 'close');
         });
     };
 }

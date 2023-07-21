@@ -32,7 +32,7 @@
     "availableClaim": "Available for Claiming",
     "claimButton": "Claim",
     "wavesUnlocked": "Your tokens are unlocked.",
-    "cancelWithdrawal": "Get",
+    "cancelWithdrawal": "Get Tokens",
     "willBeUnlocked": "Your tokens will be unlocked after the start of new KPI period. The exact amount of tokens will be known immediately after this time.",
     "logout": "Log Out",
     "MS-0110": "There are unlocked tokens on the smart contract. To get them on your balance click the 'Get' button",
@@ -157,5 +157,7 @@
     "invested": "invested",
     "donated": "donated",
     "depositTooltipFinalizing": "Deposit is temporarily unavailable. Finalizing KPI period.",
-    "depositTooltipUnavailable": "Deposit is temporarily unavailable. Ability to deposit will resume after finalizing the current KPI period."
+    "depositTooltipUnavailable": "Deposit is temporarily unavailable. Ability to deposit will resume after finalizing the current KPI period.",
+    "availableToGet": "Available for Get",
+    "equivalentTo": "Equivalent to"
 }

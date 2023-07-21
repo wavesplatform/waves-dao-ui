@@ -6,7 +6,7 @@ import { AuthModal } from '../modals/AuthModal/AuthModal';
 import { LegalDisclaimerModal } from '../modals/LegalDisclaimerModal/LegalDisclaimerModal';
 import { GetWavesModal } from '../modals/GetWavesModal/GetWavesModal';
 import { ClaimWavesDaoLpModal } from '../modals/ClaimWavesDaoLpModal/ClaimWavesDaoLpModal';
-import { CancelWithdrawalModal } from '../modals/CancelWithdrawalModal/CancelWithdrawalModal';
+import { GetTokens } from '../modals/GetTokensModal/GetTokens';
 import { DepositWavesModal } from '../modals/DepositWavesModal/DepositWavesModal';
 import { WithdrawModal } from '../modals/WithdrawModal/WithdrawModal';
 import { MetamaskAuthModal } from '../modals/MetamaskAuthModal/MetamaskAuthModal';
@@ -18,7 +18,7 @@ const modals = {
     [MODAL_NAMES.legalDisclaimer]: LegalDisclaimerModal,
     [MODAL_NAMES.getWaves]: GetWavesModal,
     [MODAL_NAMES.claimWavesDaoLp]: ClaimWavesDaoLpModal,
-    [MODAL_NAMES.cancelWithdrawal]: CancelWithdrawalModal,
+    [MODAL_NAMES.getTokens]: GetTokens,
     [MODAL_NAMES.depositWaves]: DepositWavesModal,
     [MODAL_NAMES.withdraw]: WithdrawModal,
 };

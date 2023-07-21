@@ -22,7 +22,7 @@ export const WithdrawItemLocked: React.FC<TWithdrawItem> = ({
     withdrawTxId,
 }) => {
     const handleClickButton = useCallback(() => {
-        modalManager.openModal(MODAL_NAMES.cancelWithdrawal, {
+        modalManager.openModal(MODAL_NAMES.getTokens, {
             withdrawTxId,
             lpAmount,
         });
