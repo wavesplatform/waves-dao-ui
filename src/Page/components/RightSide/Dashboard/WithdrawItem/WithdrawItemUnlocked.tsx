@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, FC } from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Text } from 'uikit';
 import { Trans } from '@waves/ui-translator';
@@ -9,7 +9,12 @@ import { InUsdText } from '../../../../../components/utilComponents/inUsdText';
 import { TGetWavesModal } from '../../../../../components/modals/GetWavesModal/GetWavesModal';
 import { TWithdrawItem } from './WithdrawItemLocked';
 
-export const WithdrawItemUnlocked: React.FC<TWithdrawItem> = ({ baseTokenAmount, lpAmount, equal, withdrawTxId }) => {
+export const WithdrawItemUnlocked: FC<TWithdrawItem> = ({
+    baseTokenAmount,
+    lpAmount,
+    equal,
+    withdrawTxId,
+}) => {
     const handleClickButton = useCallback(() => {
         modalManager.openModal<TGetWavesModal>(MODAL_NAMES.getWaves, { withdrawTxId, availableToGet: baseTokenAmount });
     }, [baseTokenAmount, withdrawTxId]);

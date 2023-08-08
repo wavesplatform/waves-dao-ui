@@ -1,10 +1,8 @@
-import React, { useCallback } from 'react';
-import { Box, Flex } from '@waves.exchange/wx-react-uikit';
+import React from 'react';
+import { Box, Flex, Tooltip } from '@waves.exchange/wx-react-uikit';
 import { Text } from 'uikit';
 import { Trans } from '@waves/ui-translator';
 import { Button } from 'uikit';
-import { MODAL_NAMES } from '../../../../../components/ModalContainer/MODAL_NAMES';
-import { modalManager } from '../../../../../services/modalManager';
 import { InUsdText } from '../../../../../components/utilComponents/inUsdText';
 import { Money } from '@waves/data-entities';
 import BigNumber from '@waves/bignumber';
@@ -19,15 +17,7 @@ export type TWithdrawItem = {
 export const WithdrawItemLocked: React.FC<TWithdrawItem> = ({
     lpAmount,
     equal,
-    withdrawTxId,
 }) => {
-    const handleClickButton = useCallback(() => {
-        modalManager.openModal(MODAL_NAMES.getTokens, {
-            withdrawTxId,
-            lpAmount,
-        });
-    }, []);
-
     return (
         <Flex
             px="20px"
@@ -84,16 +74,18 @@ export const WithdrawItemLocked: React.FC<TWithdrawItem> = ({
                 </Flex>
             </Box>
             <Button
-                variant={'transparent'}
+                variant='primary'
                 sx={{
                     whiteSpace: 'nowrap',
                     px: '18px !important',
                     display: 'flex',
                     alignItems: 'center',
+                    justifyContent: 'center',
+                    minWidth: [160, 120],
                 }}
-                onClick={handleClickButton}
+                disabled={true}
             >
-                <Trans i18key={'cancelWithdrawal'} />
+                <Trans i18key={'get'} />
             </Button>
         </Flex>
     );

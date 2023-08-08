@@ -34,6 +34,7 @@ export class FetchTracker<T, K> {
         makeObservable(this, {
             data: observable,
             isLoading: observable,
+            isFirstLoad: observable,
             error: observable,
             setOptions: action,
         });
@@ -111,7 +112,7 @@ export class FetchTracker<T, K> {
         }
     }
 
-    off(): void {
+    public off(): void {
         if (this.poll) {
             this.poll.destroy();
         }

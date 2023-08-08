@@ -1,5 +1,5 @@
-import { FC, useContext } from 'react';
-import { Box, Flex } from '@waves.exchange/wx-react-uikit';
+import React, { FC, useContext } from 'react';
+import { Box, Flex, Tooltip } from '@waves.exchange/wx-react-uikit';
 import { Text } from 'uikit';
 import { Trans } from '@waves/ui-translator';
 import { Button } from 'uikit';
@@ -64,8 +64,7 @@ export const LpBalance: FC = observer(() => {
                                 color="text"
                                 mr="4px"
                             >
-                                {balanceStore.wavesLpBalance?.toFormat(2) ||
-                                    0}
+                                {balanceStore.wavesLpBalance?.toFormat(2) || 0}
                             </Text>
                             <Text variant="text2" color="wdtextsec">
                                 {assetsStore.LPToken.displayName}
@@ -96,15 +95,36 @@ export const LpBalance: FC = observer(() => {
                         </Flex>
                     </Box>
                 </Flex>
-                <Button
-                    px={['32px !important', '10px !important']}
-                    minWidth='120px'
-                    variant="primary"
-                    onClick={handleWithdrawClick}
-                    disabled={contractDataStore.finalizingKPI <= 0}
-                >
-                    <Trans i18key="withdraw" />
-                </Button>
+                {contractDataStore.finalizingKPI <= 0 ?
+                    <Tooltip
+                        variant="default"
+                        label={(): React.ReactNode => {
+                            return (
+                                <Text variant="text2" color="text" display="inline-block" minWidth={240}>
+                                    <Trans i18key={'withdrawTooltipFinalizing'}
+                                    />
+                                </Text>
+                            );
+                        }}
+                    >
+                        <Button
+                            px={['32px !important', '10px !important']}
+                            minWidth='120px'
+                            variant="primary"
+                            disabled={true}
+                        >
+                            <Trans i18key="withdraw" />
+                        </Button>
+                    </Tooltip> :
+                    <Button
+                        px={['32px !important', '10px !important']}
+                        minWidth='120px'
+                        variant="primary"
+                        onClick={handleWithdrawClick}
+                    >
+                        <Trans i18key="withdraw" />
+                    </Button>
+                }
             </Flex>
             {!!contractDataStore.withdraws?.length &&
                 contractDataStore.withdraws.filter(withdraw => withdraw.status === 'PENDING').map((withdraw, idx) => {

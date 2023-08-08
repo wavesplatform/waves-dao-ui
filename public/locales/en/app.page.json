@@ -114,7 +114,7 @@
     "depositSubmit": "Deposit {{assetName}}",
     "withdrawTitle": "Withdraw {{assetName}}",
     "withdrawSubtitle": "Available for Withdrawal {span.available}[{{amount}} {{assetName}}]",
-    "withdrawReceive": "The exact amount of tokens that you will receive will be known only after the end of the settlement period.",
+    "withdrawReceive": "The exact amount of tokens that you will receive will be known only after the start of new KPI period.",
     "withdrawWarning": "By clicking on the Withdraw {{stakedAssetName}} button, your {{lpAssetName}} will be locked till the start of new KPI period. You will be able to get funds immediately after this time.",
     "withdrawSubmit": "Withdraw {{assetName}}",
     "years": {
@@ -159,5 +159,6 @@
     "depositTooltipFinalizing": "Deposit is temporarily unavailable. Finalizing KPI period.",
     "depositTooltipUnavailable": "Deposit is temporarily unavailable. Ability to deposit will resume after finalizing the current KPI period.",
     "availableToGet": "Available for Get",
-    "equivalentTo": "Equivalent to"
+    "equivalentTo": "Equivalent to",
+    "withdrawTooltipFinalizing": "Withdrawal is temporarily unavailable. Finalizing KPI period."
 }

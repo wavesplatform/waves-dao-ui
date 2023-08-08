@@ -24,3 +24,9 @@ export interface IUserContractData {
 }
 
 export type TPriceData = Record<string, Money>;
+
+export interface IWithdrawalData {
+
+}
+
+export type TWithdrawalsData = Record<string, IWithdrawalData>

@@ -3,7 +3,8 @@ import {
     AssetLogo,
     Box,
     ExternalLink,
-    Flex, Tooltip,
+    Flex,
+    Tooltip,
 } from '@waves.exchange/wx-react-uikit';
 import { Text } from 'uikit';
 import { Trans } from '@waves/ui-translator';

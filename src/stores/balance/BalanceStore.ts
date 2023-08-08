@@ -6,7 +6,7 @@ import {
 import { FetchTracker } from '../utils/FetchTracker';
 import { ChildStore } from '../ChildStore';
 import { AppStore } from '../AppStore';
-import { computed, makeObservable, reaction } from 'mobx';
+import { computed, makeObservable, reaction, when } from 'mobx';
 import { Money } from '@waves/data-entities';
 
 const POLLING_TIME = 10_000;
@@ -28,11 +28,11 @@ export class BalanceStore extends ChildStore {
 
         reaction(
             () => [
-                this.rs.assetsStore.assetsData.isLoading,
+                this.rs.assetsStore.assetsData.isFirstLoad,
                 this.rs.authStore.isAuthorized,
             ],
             () => {
-                if (this.rs.assetsStore.assetsData.isLoading) {
+                if (this.rs.assetsStore.assetsData.isFirstLoad) {
                     return;
                 }
                 if (this.rs.authStore.isAuthorized) {

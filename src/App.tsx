@@ -24,7 +24,7 @@ function App() {
                     <ModalContainer />
                     <Observer>
                         {(): ReactElement => {
-                            return appStore.assetsStore.assetsData.isLoading  ? (
+                            return appStore.assetsStore.assetsData.isFirstLoad  ? (
                                 <Flex
                                     height="100vh"
                                     alignItems="center"

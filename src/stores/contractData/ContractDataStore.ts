@@ -6,16 +6,20 @@ import { search } from '../../utils/search/searchRequest';
 import { IState } from '../../utils/search';
 import { parseSearchStr } from '../../utils/search/parseContractData';
 import { Money } from '@waves/data-entities';
-import { ICommonContractData, IUserContractData, IWithdrawal } from '.';
+import { ICommonContractData, IUserContractData, IWithdrawal, TWithdrawalsData } from '.';
 import BigNumber from '@waves/bignumber';
 import { filterObjectCommonContract, filterObjectUserContract } from './utils';
+import { evaluate } from '../../utils/evaluate/evaluateRequest.ts';
 
 const COMMON_DATA_POLLING_TIME = 60_000;
 const POLLING_TIME = 10_000;
+// const POLLING_TIME = 3_000;
 
 export class ContractDataStore extends ChildStore {
     public commonContractData: FetchTracker<ICommonContractData, IState>;
     public userContractData: FetchTracker<IUserContractData, IState> =
+        new FetchTracker();
+    public withdrawalsData: FetchTracker<TWithdrawalsData, IState> =
         new FetchTracker();
 
     constructor(rs: AppStore) {
@@ -57,6 +61,40 @@ export class ContractDataStore extends ChildStore {
                 }
             }
         );
+
+        // reaction(
+        //     () => this.userContractData?.data?.withdraws,
+        //     () => {
+        //         console.info('withdraws', this.userContractData?.data?.withdraws);
+        //         const evaluateUrl = this.rs.configStore.config.apiUrl.evaluate;
+        //         const ids = (this.userContractData?.data?.withdraws || [])
+        //             .reduce((acc, { withdrawTxId, targetPeriod }) => {
+        //                 if (targetPeriod < this.currentPeriod) {
+        //                     acc.push(withdrawTxId);
+        //                 }
+        //                 return acc;
+        //             }, []);
+        //         console.info('ids', ids);
+        //         if (!ids.length) {
+        //             return;
+        //         }
+        //         const userAddress = this.rs.authStore.user.address;
+        //         this.withdrawalsData.setOptions({
+        //             fetchUrl: evaluateUrl,
+        //             fetcher: (fetchUrl: string) => {
+        //                 return evaluate({
+        //                     url: fetchUrl,
+        //                     contractAddress,
+        //                     expr: `claimCollateralBulkREADONLY("${userAddress}", [${ids.toString()}])`,
+        //                 })
+        //             },
+        //             parser: (data) => {
+        //                 console.info(data);
+        //             },
+        //             autoFetch: true,
+        //         });
+        //     },
+        // )
     }
 
     public get getTreasuryUsd(): BigNumber {
