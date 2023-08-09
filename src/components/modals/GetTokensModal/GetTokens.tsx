@@ -4,35 +4,40 @@ import { Observer } from 'mobx-react-lite';
 import { Button, FeeComponent, Text } from 'uikit';
 import { MODAL_NAMES } from '../../ModalContainer/MODAL_NAMES';
 import { ModalProps } from '../../Modal/Modal';
-import { Box, BoxProps } from '@waves.exchange/wx-react-uikit';
+import { BoxProps } from '@waves.exchange/wx-react-uikit';
 import { ModalStyled } from '../../Modal/ModalStyled';
 import { Trans, translate } from '@waves/ui-translator';
-import waveslp from '/src/img/waveslp.svg';
 import { MultiErrorComponent } from '../../../uikit/MultiErrorComponent/MultiErrorComponent';
 import { AppStoreContext } from '../../../App';
-import { CancelWithdrawalStore } from './CancelWithdrawalStore';
+import { GetTokensStore } from './GetTokensStore.ts';
 import { ButtonContent } from '../../../uikit/Button/ButtonContent';
 import { Tokens } from './components/Tokens';
 
-type TCancelWithdrawalModalFC = ModalProps &
-    BoxProps & { withdrawTxId: string; lpAmount: Money };
+export type TGetModalData = {
+    withdrawTxId: string;
+    wavesEq: Money;
+    tokens: Array<Money>;
+};
 
-const GetTokensFC: React.FC<TCancelWithdrawalModalFC> = ({
+type TGetModalFC =
+    ModalProps &
+    BoxProps &
+    TGetModalData;
+
+const GetTokensFC: React.FC<TGetModalFC> = ({
     ...props
 }) => {
-    const { sx = {}, lpAmount, withdrawTxId, ...restProps } = props;
+    const {
+        sx = {},
+        wavesEq,
+        tokens,
+        withdrawTxId,
+        ...restProps
+    } = props;
     const rootStore = React.useContext(AppStoreContext);
-    const cancelWithdrawalStore = React.useMemo(() => {
-        return new CancelWithdrawalStore(rootStore, withdrawTxId);
+    const getTokensStore = React.useMemo(() => {
+        return new GetTokensStore(rootStore, withdrawTxId);
     }, []);
-
-    const tokens = [
-        new Money(1000, rootStore.assetsStore.LPToken),
-        new Money(2000, rootStore.assetsStore.WAVES),
-        new Money(3000, rootStore.assetsStore.XTN)
-    ]; //todo change to real data
-
-    const wavesEq = new Money(200000, rootStore.assetsStore.WAVES); //todo change to real data
 
     return (
         <ModalStyled
@@ -49,17 +54,6 @@ const GetTokensFC: React.FC<TCancelWithdrawalModalFC> = ({
             <Observer>
                 {(): React.ReactElement => (
                     <>
-                        <Box
-                            mt="10px"
-                            width="82px"
-                            height="82px"
-                            backgroundImage={`url(${waveslp})`}
-                            backgroundRepeat="no-repeat"
-                            backgroundSize="contain"
-                            marginLeft="auto"
-                            marginRight="auto"
-                            mb="24px"
-                        />
                         <Text
                             variant="heading2"
                             as="div"
@@ -67,24 +61,24 @@ const GetTokensFC: React.FC<TCancelWithdrawalModalFC> = ({
                             color="standard.$0"
                             mb="24px"
                         >
-                            <Trans i18key="cancelWithdrawal" />
+                            <Trans i18key="getTokens" />
                         </Text>
                         <Tokens tokens={tokens} wavesEq={wavesEq}/>
                         <FeeComponent mb="28px" />
                         <MultiErrorComponent
-                            activeErrors={cancelWithdrawalStore.activeErrors}
+                            activeErrors={getTokensStore.activeErrors}
                         />
                         <Button
                             variantSize='large'
                             variant="primary"
                             width="100%"
-                            onClick={cancelWithdrawalStore.invoke}
-                            disabled={cancelWithdrawalStore.isPending}
+                            onClick={getTokensStore.invoke}
+                            disabled={getTokensStore.isPending}
                         >
                             <ButtonContent
-                                isPending={cancelWithdrawalStore.isPending}
-                                isRetry={cancelWithdrawalStore.isRetry}
-                                transText={{ i18key: 'cancelWithdrawal' }}
+                                isPending={getTokensStore.isPending}
+                                isRetry={getTokensStore.isRetry}
+                                transText={{ i18key: 'getTokens' }}
                             />
                         </Button>
                     </>
@@ -94,7 +88,7 @@ const GetTokensFC: React.FC<TCancelWithdrawalModalFC> = ({
     );
 };
 
-GetTokensFC.displayName = 'CancelWithdrawalModal';
+GetTokensFC.displayName = 'GetTokensModal';
 
 export const GetTokens = translate('app.page')(
     GetTokensFC

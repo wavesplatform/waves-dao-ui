@@ -69,7 +69,10 @@ export class ContractDataStore extends ChildStore {
         //         const evaluateUrl = this.rs.configStore.config.apiUrl.evaluate;
         //         const ids = (this.userContractData?.data?.withdraws || [])
         //             .reduce((acc, { withdrawTxId, targetPeriod }) => {
-        //                 if (targetPeriod <= this.currentPeriod) {
+        //                 if (
+        //                     targetPeriod <= this.currentPeriod &&
+        //                     !this.withdrawalsData[withdrawTxId]
+        //                 ) {
         //                     acc.push(withdrawTxId);
         //                 }
         //                 return acc;

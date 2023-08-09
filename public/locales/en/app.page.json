@@ -32,7 +32,7 @@
     "availableClaim": "Available for Claiming",
     "claimButton": "Claim",
     "wavesUnlocked": "Your tokens are unlocked.",
-    "cancelWithdrawal": "Get Tokens",
+    "getTokens": "Get Tokens",
     "willBeUnlocked": "Your tokens will be unlocked after the start of new KPI period. The exact amount of tokens will be known immediately after this time.",
     "logout": "Log Out",
     "MS-0110": "There are unlocked tokens on the smart contract. To get them on your balance click the 'Get' button",
