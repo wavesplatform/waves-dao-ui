@@ -14,8 +14,6 @@ import { AppStoreContext } from '../../../../App';
 import { modalManager } from '../../../../services/modalManager';
 import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES';
 
-const HEIGHT_FOR_DEPOSIT = 3_740_000; //todo get from contractDataStore
-
 export const Balance: FC = observer(() => {
     const { balanceStore, contractDataStore, nodeHeightStore } = useContext(AppStoreContext);
 
@@ -27,7 +25,7 @@ export const Balance: FC = observer(() => {
         if (contractDataStore.finalizingKPI <= 0) {
             return 'finalizing';
         }
-        if (nodeHeightStore.heightData.data >= HEIGHT_FOR_DEPOSIT) {
+        if (nodeHeightStore.heightData.data >= contractDataStore.startHeight + contractDataStore.blocksForDeposit) {
             return 'unavailable';
         }
         return 'available';

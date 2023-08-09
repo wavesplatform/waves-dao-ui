@@ -69,7 +69,7 @@ export class ContractDataStore extends ChildStore {
         //         const evaluateUrl = this.rs.configStore.config.apiUrl.evaluate;
         //         const ids = (this.userContractData?.data?.withdraws || [])
         //             .reduce((acc, { withdrawTxId, targetPeriod }) => {
-        //                 if (targetPeriod < this.currentPeriod) {
+        //                 if (targetPeriod <= this.currentPeriod) {
         //                     acc.push(withdrawTxId);
         //                 }
         //                 return acc;
@@ -95,6 +95,8 @@ export class ContractDataStore extends ChildStore {
         //         });
         //     },
         // )
+        //
+        // window.store = this;
     }
 
     public get getTreasuryUsd(): BigNumber {
@@ -170,6 +172,15 @@ export class ContractDataStore extends ChildStore {
         );
     }
 
+    public get startHeight(): number {
+        const { startHeights = {}, currentPeriod } = this.commonContractData?.data || {};
+        return startHeights[currentPeriod] || 0;
+    }
+
+    public get blocksForDeposit(): number {
+        return this.commonContractData.data.heightForDeposit || 0;
+    }
+
     private contractDataParser = (data: IState): ICommonContractData => {
         const parseEntries = (key: string, value: string | number, acc) => {
             switch (true) {
@@ -204,7 +215,7 @@ export class ContractDataStore extends ChildStore {
                     };
                 case key.includes('heightForDeposit'):
                     return {
-                        heightForDeposit: value,
+                        heightForDeposit: Number(value),
                     };
                 default:
                     return {};
@@ -223,6 +234,7 @@ export class ContractDataStore extends ChildStore {
                 periodLength: undefined,
                 startHeights: {},
                 prices: {},
+                heightForDeposit: undefined,
             }
         );
     };

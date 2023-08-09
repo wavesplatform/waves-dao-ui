@@ -15,6 +15,7 @@ export interface ICommonContractData {
     currentPeriod: number;
     investedWaves: Money;
     donatedWaves: Money;
+    heightForDeposit: number;
 }
 
 export interface IUserContractData {

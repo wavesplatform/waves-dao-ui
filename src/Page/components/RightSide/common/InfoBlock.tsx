@@ -1,7 +1,7 @@
 import { FC, useContext } from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Trans } from '@waves/ui-translator';
-import { Text } from '../../../../uikit/Text/Text';
+import { Text } from 'uikit';
 import { observer } from 'mobx-react-lite';
 import { AppStoreContext } from '../../../../App';
 import { getTimeUnitStr } from '../../../../utils/BlocksToTime/helpers';
