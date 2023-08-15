@@ -20,7 +20,7 @@ export const LpBalance: FC = observer(() => {
     };
 
     return (
-        <Box sx={{ borderRadius: '12px', overflow: 'hidden' }}>
+        <Box sx={{ borderRadius: '12px' }}>
             <Flex
                 px="20px"
                 py="20px"

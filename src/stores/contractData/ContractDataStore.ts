@@ -4,12 +4,13 @@ import { AppStore } from '../AppStore';
 import { FetchTracker } from '../utils/FetchTracker';
 import { search } from '../../utils/search/searchRequest';
 import { IState } from '../../utils/search';
-import { parseSearchStr } from '../../utils/search/parseContractData';
+import { parseSearchStr, parseTupleData } from '../../utils/parseContractData/parseContractData.ts';
 import { Money } from '@waves/data-entities';
 import { ICommonContractData, IUserContractData, IWithdrawal, TWithdrawalsData } from '.';
 import BigNumber from '@waves/bignumber';
 import { filterObjectCommonContract, filterObjectUserContract } from './utils';
 import { evaluate } from '../../utils/evaluate/evaluateRequest.ts';
+import { ITuple } from '../../utils/parseContractData/interface';
 
 const COMMON_DATA_POLLING_TIME = 60_000;
 const POLLING_TIME = 10_000;
@@ -19,7 +20,7 @@ export class ContractDataStore extends ChildStore {
     public commonContractData: FetchTracker<ICommonContractData, IState>;
     public userContractData: FetchTracker<IUserContractData, IState> =
         new FetchTracker();
-    public withdrawalsData: FetchTracker<TWithdrawalsData, IState> =
+    public withdrawalsData: FetchTracker<TWithdrawalsData, ITuple> =
         new FetchTracker();
 
     constructor(rs: AppStore) {
@@ -58,47 +59,20 @@ export class ContractDataStore extends ChildStore {
                         parser: this.userContractDataParser,
                         autoFetch: true,
                     });
+                } else {
+                    this.userContractData.off();
+                    this.withdrawalsData.off();
                 }
             }
         );
 
-        // reaction(
-        //     () => this.userContractData?.data?.withdraws,
-        //     () => {
-        //         console.info('withdraws', this.userContractData?.data?.withdraws);
-        //         const evaluateUrl = this.rs.configStore.config.apiUrl.evaluate;
-        //         const ids = (this.userContractData?.data?.withdraws || [])
-        //             .reduce((acc, { withdrawTxId, targetPeriod }) => {
-        //                 if (
-        //                     targetPeriod <= this.currentPeriod &&
-        //                     !this.withdrawalsData[withdrawTxId]
-        //                 ) {
-        //                     acc.push(withdrawTxId);
-        //                 }
-        //                 return acc;
-        //             }, []);
-        //         console.info('ids', ids);
-        //         if (!ids.length) {
-        //             return;
-        //         }
-        //         const userAddress = this.rs.authStore.user.address;
-        //         this.withdrawalsData.setOptions({
-        //             fetchUrl: evaluateUrl,
-        //             fetcher: (fetchUrl: string) => {
-        //                 return evaluate({
-        //                     url: fetchUrl,
-        //                     contractAddress,
-        //                     expr: `claimCollateralBulkREADONLY("${userAddress}", [${ids.toString()}])`,
-        //                 })
-        //             },
-        //             parser: (data) => {
-        //                 console.info(data);
-        //             },
-        //             autoFetch: true,
-        //         });
-        //     },
-        // )
-        //
+        reaction(
+            () => this.userContractData?.data?.withdraws,
+            () => {
+                this.updateWithdrawalsData(contractAddress);
+            },
+        )
+
         // window.store = this;
     }
 
@@ -312,4 +286,43 @@ export class ContractDataStore extends ChildStore {
             }
         }, Object.create(null));
     };
+
+    private updateWithdrawalsData(contractAddress: string): void {
+        // console.info('withdraws', this.userContractData?.data?.withdraws, this.withdrawalsData);
+        // const evaluateUrl = this.rs.configStore.config.apiUrl.evaluate;
+        // const ids = (this.userContractData?.data?.withdraws || [])
+        //     .reduce((acc, { withdrawTxId, targetPeriod }) => {
+        //         if (
+        //             targetPeriod <= this.currentPeriod &&
+        //             (!this.withdrawalsData?.data || !this.withdrawalsData?.data[withdrawTxId])
+        //         ) {
+        //             acc.push(withdrawTxId);
+        //         }
+        //         return acc;
+        //     }, []);
+        // console.info('ids', ids);
+        // if (!ids.length) {
+        //     return;
+        // }
+        // const userAddress = this.rs.authStore.user.address;
+        // this.withdrawalsData.setOptions({
+        //     fetchUrl: evaluateUrl,
+        //     fetcher: (fetchUrl: string) => {
+        //         return evaluate({
+        //             url: fetchUrl,
+        //             contractAddress,
+        //             expr: `claimCollateralBulkREADONLY("${userAddress}", [${ids.toString()}])`,
+        //         })
+        //     },
+        //     parser: (data) => {
+        //         if (data.error) {
+        //             console.error(`Error: ${data.error}, ${data.message}`);
+        //         }
+        //         const result = parseTupleData(data, []);
+        //         console.info('parser', data, result);
+        //         return Object.create(null);
+        //     },
+        //     autoFetch: true,
+        // });
+    }
 }

@@ -1,7 +1,6 @@
 import { Asset } from '@waves/data-entities';
 import { AssetWithMeta } from '../stores/assets/interface';
 
-
 export function createBaseAsset(
     { name, id, precision }: { name: string; id: string; precision: number }
 ): AssetWithMeta {
