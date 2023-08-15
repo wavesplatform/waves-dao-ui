@@ -21,7 +21,6 @@ export class GetTokensStore extends BaseFormStore {
     } {
         return {
             call: {
-                // function: 'cancelWithdraw',
                 function: 'claimCollateral',
                 args: [{ type: 'string', value: this.withdrawTxId }],
             },

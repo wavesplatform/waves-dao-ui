@@ -4,23 +4,23 @@ import { AppStore } from '../AppStore';
 import { FetchTracker } from '../utils/FetchTracker';
 import { search } from '../../utils/search/searchRequest';
 import { IState } from '../../utils/search';
-import { parseSearchStr, parseTupleData } from '../../utils/parseContractData/parseContractData.ts';
+import { getTupleValue, parseSearchStr } from '../../utils/parseContractData/parseContractData.ts';
 import { Money } from '@waves/data-entities';
 import { ICommonContractData, IUserContractData, IWithdrawal, TWithdrawalsData } from '.';
 import BigNumber from '@waves/bignumber';
-import { filterObjectCommonContract, filterObjectUserContract } from './utils';
+import { filterObjectCommonContract, filterObjectUserContract, parseClaimCollateral } from './utils';
 import { evaluate } from '../../utils/evaluate/evaluateRequest.ts';
-import { ITuple } from '../../utils/parseContractData/interface';
+import { ITuple, TStringValue } from '../../utils/parseContractData/interface';
+import { uniq } from 'ramda';
 
 const COMMON_DATA_POLLING_TIME = 60_000;
 const POLLING_TIME = 10_000;
-// const POLLING_TIME = 3_000;
 
 export class ContractDataStore extends ChildStore {
     public commonContractData: FetchTracker<ICommonContractData, IState>;
     public userContractData: FetchTracker<IUserContractData, IState> =
         new FetchTracker();
-    public withdrawalsData: FetchTracker<TWithdrawalsData, ITuple> =
+    public withdrawalsData: FetchTracker<TWithdrawalsData, ITuple<Array<TStringValue>>> =
         new FetchTracker();
 
     constructor(rs: AppStore) {
@@ -72,8 +72,6 @@ export class ContractDataStore extends ChildStore {
                 this.updateWithdrawalsData(contractAddress);
             },
         )
-
-        // window.store = this;
     }
 
     public get getTreasuryUsd(): BigNumber {
@@ -288,41 +286,92 @@ export class ContractDataStore extends ChildStore {
     };
 
     private updateWithdrawalsData(contractAddress: string): void {
-        // console.info('withdraws', this.userContractData?.data?.withdraws, this.withdrawalsData);
-        // const evaluateUrl = this.rs.configStore.config.apiUrl.evaluate;
-        // const ids = (this.userContractData?.data?.withdraws || [])
-        //     .reduce((acc, { withdrawTxId, targetPeriod }) => {
-        //         if (
-        //             targetPeriod <= this.currentPeriod &&
-        //             (!this.withdrawalsData?.data || !this.withdrawalsData?.data[withdrawTxId])
-        //         ) {
-        //             acc.push(withdrawTxId);
-        //         }
-        //         return acc;
-        //     }, []);
-        // console.info('ids', ids);
-        // if (!ids.length) {
-        //     return;
-        // }
-        // const userAddress = this.rs.authStore.user.address;
-        // this.withdrawalsData.setOptions({
-        //     fetchUrl: evaluateUrl,
-        //     fetcher: (fetchUrl: string) => {
-        //         return evaluate({
-        //             url: fetchUrl,
-        //             contractAddress,
-        //             expr: `claimCollateralBulkREADONLY("${userAddress}", [${ids.toString()}])`,
-        //         })
-        //     },
-        //     parser: (data) => {
-        //         if (data.error) {
-        //             console.error(`Error: ${data.error}, ${data.message}`);
-        //         }
-        //         const result = parseTupleData(data, []);
-        //         console.info('parser', data, result);
-        //         return Object.create(null);
-        //     },
-        //     autoFetch: true,
-        // });
+        const evaluateUrl = this.rs.configStore.config.apiUrl.evaluate;
+        const ids = this.getUnlockedWithdrawIds();
+        if (!ids.length) {
+            return;
+        }
+        const userAddress = this.rs.authStore.user.address;
+        this.withdrawalsData.setOptions({
+            fetchUrl: evaluateUrl,
+            fetcher: (fetchUrl: string) => {
+                return evaluate({
+                    url: fetchUrl,
+                    contractAddress,
+                    expr: `claimCollateralBulkREADONLY("${userAddress}", [${ids.map((id) => `"${id}"`)}])`,
+                })
+                    .then((data) => {
+                        if (data.error) {
+                            return Promise.reject(`Error: ${data.error}, ${data.message}`);
+                        }
+
+                        return Promise.all([
+                            Promise.resolve(data),
+                            this.loadAssets(data)
+                        ]);
+                    })
+                    .then(([data]) => {
+                        return data;
+                    })
+            },
+            parser: (data) => {
+                return this.withdrawalDataParser(data, ids);
+            },
+            autoFetch: true,
+        });
+    }
+
+    private getUnlockedWithdrawIds(): Array<string> {
+        return (this.userContractData?.data?.withdraws || [])
+            .reduce((acc, { withdrawTxId, targetPeriod }) => {
+                if (
+                    targetPeriod <= this.currentPeriod &&
+                    (!this.withdrawalsData?.data || !this.withdrawalsData?.data[withdrawTxId])
+                ) {
+                    acc.push(withdrawTxId);
+                }
+                return acc;
+            }, []);
+    }
+
+    private withdrawalDataParser(data: ITuple<Array<TStringValue>>, withdrawIds: Array<string>): TWithdrawalsData {
+        if (data.error) {
+            console.error(`Error: ${data.error}, ${data.message}`);
+            return;
+        }
+        const parsedData = getTupleValue<Array<TStringValue>>(data);
+        return parsedData.reduce((acc, { value }, i) => {
+            const withdrawTxId = withdrawIds[i];
+            if (!withdrawTxId) {
+                return acc;
+            }
+            const { assetIds, values, wavesEq } = parseClaimCollateral(value);
+
+            acc[withdrawTxId] = {
+                wavesEq: new Money(wavesEq, this.rs.assetsStore.WAVES),
+                reward: assetIds.reduce((acc, id, i) => {
+                    const asset = this.rs.assetsStore.assetsData.data[id];
+                    if (!asset) {
+                        return acc;
+                    }
+
+                    return ([
+                        ...acc,
+                        new Money(values[i] || 0, asset)
+                    ]);
+                }, []),
+            }
+            return acc;
+        }, Object.create(null));
+    }
+
+    private loadAssets(data: ITuple<Array<TStringValue>>): Promise<void> {
+        const parsedData = getTupleValue<Array<TStringValue>>(data);
+        const assetIds = parsedData.reduce((acc, { value }) => {
+            const { assetIds } = parseClaimCollateral(value);
+            acc.push(...assetIds);
+            return acc;
+        }, []);
+        return this.rs.assetsStore.updateAssets(uniq(assetIds));
     }
 }

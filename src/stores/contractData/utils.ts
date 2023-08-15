@@ -1,3 +1,6 @@
+import { IWithdrawalDataPlain } from './index';
+import { parseSearchStr } from '../../utils/parseContractData/parseContractData.ts';
+
 export const filterObjectUserContract = ({ contractAddress, userAddress }) => {
     return {
         filter: {
@@ -134,3 +137,18 @@ export const filterObjectCommonContract = ({ contractAddress }) => {
         },
     };
 };
+
+export function parseClaimCollateral(value: string): IWithdrawalDataPlain {
+    // Example:
+    // '%d%s%s__23319139__EMAMLxDnv3xiz8RXg8Btj33jcEw3wLczL3JKYYmuubpc:25FEqEjRkqK6yCkiT7Lz6SAYz7gUFCtxfCChnrVFD5AT:A7Ksh7fXyqm1KhKAiK3bAB2aiPSitQQF6v1pyu9SS3FR__100000000000:1000000000:1000000000'
+    const parsedData =  parseSearchStr<{
+        wavesEq: string;
+        assetIds: string;
+        values: string;
+    }>(value, ['wavesEq', 'assetIds', 'values'])
+    return ({
+        wavesEq: parsedData.wavesEq,
+        assetIds: parsedData.assetIds.split(':'),
+        values: parsedData.values.split(':'),
+    });
+}

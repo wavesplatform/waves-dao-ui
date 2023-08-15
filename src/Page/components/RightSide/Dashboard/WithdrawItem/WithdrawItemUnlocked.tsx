@@ -7,7 +7,6 @@ import { MODAL_NAMES } from '../../../../../components/ModalContainer/MODAL_NAME
 import { modalManager } from '../../../../../services/modalManager';
 import { InUsdText } from '../../../../../components/utilComponents/inUsdText';
 import { TWithdrawItem } from './WithdrawItemLocked';
-import { Money } from '@waves/data-entities';
 import * as React from 'react';
 import { AppStoreContext } from '../../../../../App.tsx';
 import { TGetModalData } from '../../../../../components/modals/GetTokensModal/GetTokens.tsx';
@@ -20,17 +19,13 @@ export const WithdrawItemUnlocked: FC<TWithdrawItem> = ({
 }) => {
     const rootStore = React.useContext(AppStoreContext);
     const handleClickButton = useCallback(() => {
-        // modalManager.openModal<TGetWavesModal>(MODAL_NAMES.getWaves, { withdrawTxId, availableToGet: baseTokenAmount });
+        const { reward = [] } = rootStore.contractDataStore.withdrawalsData.data[withdrawTxId] || {};
         modalManager.openModal<TGetModalData>(
             MODAL_NAMES.getTokens,
             {
                 withdrawTxId,
-                tokens: [
-                    new Money(1000, rootStore.assetsStore.LPToken),
-                    new Money(2000, rootStore.assetsStore.WAVES),
-                    new Money(3000, rootStore.assetsStore.XTN)
-                ], //todo change to real data
-                wavesEq: new Money(200000, rootStore.assetsStore.WAVES), //todo change to real data
+                tokens: reward,
+                wavesEq: baseTokenAmount,
             }
         );
     }, [baseTokenAmount, withdrawTxId]);

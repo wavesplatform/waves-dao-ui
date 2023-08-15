@@ -26,8 +26,14 @@ export interface IUserContractData {
 
 export type TPriceData = Record<string, Money>;
 
-export interface IWithdrawalData {
-
+export interface IWithdrawalDataPlain {
+    wavesEq: string;
+    assetIds: Array<string>;
+    values: Array<string>;
 }
 
+export interface IWithdrawalData {
+    wavesEq: Money;
+    reward: Array<Money>;
+}
 export type TWithdrawalsData = Record<string, IWithdrawalData>

@@ -44,7 +44,7 @@ export class FetchTracker<T, K> {
         }
     }
 
-    public setOptions(args: FetchTrackerProps<T, K>) {
+    public setOptions(args: FetchTrackerProps<T, K>): Promise<void> {
         const {
             fetchUrl,
             fetcher,
@@ -68,8 +68,10 @@ export class FetchTracker<T, K> {
 
         if (autoFetch) {
             this.isLoading = true;
-            this.load();
+            return this.load();
         }
+
+        return Promise.resolve();
     }
 
     public load(): Promise<void> {

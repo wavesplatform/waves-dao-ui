@@ -34,12 +34,12 @@ export class AssetsStore extends ChildStore {
         return this.rs.assetsStore.assetsData.data[this.rs.configStore.config.contracts.lpToken];
     }
 
-    public updateAssets(ids: Array<string>): void {
+    public updateAssets(ids: Array<string>): Promise<void> {
         const _ids = ids.filter((id) => !this.assetsData?.data[id])
         if (!_ids.length) {
             return;
         }
-        this.assetsData.setOptions({
+        return this.assetsData.setOptions({
             fetchUrl: `${this.fetchUrl}?ids=${_ids.join('&ids=')}`,
             parser: this.assetsParser,
             autoFetch: true
