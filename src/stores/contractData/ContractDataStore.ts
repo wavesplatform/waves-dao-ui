@@ -188,7 +188,7 @@ export class ContractDataStore extends ChildStore {
                     return {
                         donatedWaves: new Money(value, this.rs.assetsStore.WAVES),
                     };
-                case key.includes('heightForDeposit'):
+                case key.includes('investPeriodLength'):
                     return {
                         heightForDeposit: Number(value),
                     };

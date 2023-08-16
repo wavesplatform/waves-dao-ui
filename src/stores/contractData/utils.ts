@@ -98,7 +98,7 @@ export const filterObjectCommonContract = ({ contractAddress }) => {
                                 {
                                     key: {
                                         operation: 'eq',
-                                        value: '%s__heightForDeposit',
+                                        value: '%s__investPeriodLength',
                                     },
                                 },
                             ],
