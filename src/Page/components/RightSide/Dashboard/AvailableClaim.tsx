@@ -1,8 +1,8 @@
 import { FC, useContext } from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
-import { Text } from '../../../../uikit/Text/Text';
+import { Text } from 'uikit';
 import { Trans } from '@waves/ui-translator';
-import { Button } from '../../../../uikit/Button/Button';
+import { Button } from 'uikit';
 import { modalManager } from '../../../../services/modalManager';
 import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES';
 import { observer } from 'mobx-react-lite';

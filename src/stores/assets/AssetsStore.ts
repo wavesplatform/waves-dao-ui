@@ -4,17 +4,19 @@ import { AssetWithMeta, IAssetsResponse, IExpandedAssetJson } from './interface'
 import { AppStore } from '../AppStore';
 import { ChildStore } from '../ChildStore';
 
-
 export class AssetsStore extends ChildStore {
     // ключами будут id & displayName токена
     public assetsData: FetchTracker<Record<string, AssetWithMeta>, IAssetsResponse>;
+
+    protected readonly fetchUrl: string;
 
     constructor(rs: AppStore) {
         super(rs);
         const config = this.rs.configStore.config;
         const assetsIds = config.assets.map(a => a.id);
+        this.fetchUrl = config.apiUrl.assets;
         this.assetsData = new FetchTracker<Record<string, AssetWithMeta>, IAssetsResponse>({
-            fetchUrl: `${config.apiUrl.assets}?ids=${assetsIds.join('&ids=')}`,
+            fetchUrl: `${this.fetchUrl}?ids=${assetsIds.join('&ids=')}`,
             parser: this.assetsParser,
             autoFetch: true
         });
@@ -32,8 +34,21 @@ export class AssetsStore extends ChildStore {
         return this.rs.assetsStore.assetsData.data[this.rs.configStore.config.contracts.lpToken];
     }
 
+    public updateAssets(ids: Array<string>): Promise<void> {
+        const _ids = ids.filter((id) => !this.assetsData?.data[id])
+        if (!_ids.length) {
+            return;
+        }
+        return this.assetsData.setOptions({
+            fetchUrl: `${this.fetchUrl}?ids=${_ids.join('&ids=')}`,
+            parser: this.assetsParser,
+            autoFetch: true
+        })
+    }
+
     private assetsParser = ({ data }: IAssetsResponse): Record<string, AssetWithMeta> => {
-        return data
+        const savedData = this.assetsData.data || {};
+        const newData = data
             .map(this.transformAsset)
             .filter(Boolean)
             .reduce((acc, asset) => {
@@ -41,6 +56,8 @@ export class AssetsStore extends ChildStore {
                 acc[(asset as AssetWithMeta).displayName] = asset;
                 return acc;
             }, Object.create(null));
+
+        return Object.assign(savedData, newData);
     };
 
     private transformAsset = (data: IExpandedAssetJson): AssetWithMeta | null | undefined => {

@@ -1,4 +1,4 @@
-import { USER_TYPES } from "../stores/AuthStore";
+import { USER_TYPES } from '../stores/AuthStore';
 
 export enum DEVICES_FULL_NAMES {
     MetaMask = 'MetaMask',

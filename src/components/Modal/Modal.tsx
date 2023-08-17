@@ -65,7 +65,7 @@ export const Modal: React.FC<ModalProps> = ({
     fadeLength = 200,
     ...rest
 }) => {
-    const isMobile = useMediaQuery('screen and (max-width: 1280px)');
+    const isMobile = useMediaQuery('screen and (max-width: 1279px)');
     const [overlayColor, setOverlayColor] = React.useState('rgb(67, 73, 95, 0.3)');
     const [isVisible, setIsVisible] = React.useState(false);
     const modalRef = React.useRef<HTMLElement>();

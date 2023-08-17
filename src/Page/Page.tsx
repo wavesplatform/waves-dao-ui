@@ -18,7 +18,12 @@ const PageFC: FC = () => {
             >
                 <LeftSide />
                 <RightSide />
-                <ExternalLinksBlock display={['block', 'none']} ml="16px" pb='40px' />
+                <ExternalLinksBlock
+                    display={['block', 'none']}
+                    ml='16px'
+                    mt='20px'
+                    pb='40px'
+                />
             </Flex>
         </Box>
     );

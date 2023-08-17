@@ -5,7 +5,7 @@ import { BaseFormStore } from '../../../stores/utils/BaseFormStore';
 import { modalManager } from '../../../services/modalManager';
 import { MODAL_NAMES } from '../../ModalContainer/MODAL_NAMES';
 
-export class CancelWithdrawalStore extends BaseFormStore {
+export class GetTokensStore extends BaseFormStore {
     public user: IUserData;
     public withdrawTxId: string;
 
@@ -21,7 +21,7 @@ export class CancelWithdrawalStore extends BaseFormStore {
     } {
         return {
             call: {
-                function: 'cancelWithdraw',
+                function: 'claimCollateral',
                 args: [{ type: 'string', value: this.withdrawTxId }],
             },
             payment: [],
@@ -33,7 +33,7 @@ export class CancelWithdrawalStore extends BaseFormStore {
             this.rs.providerStore.sendInvoke(this.tx)
         ).then(() => {
             this.reset();
-            modalManager.closeModal(MODAL_NAMES.cancelWithdrawal, 'close');
+            modalManager.closeModal(MODAL_NAMES.getTokens, 'close');
         });
     };
 }

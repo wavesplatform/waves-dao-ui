@@ -2,7 +2,7 @@ import { ChildStore } from '../ChildStore';
 import { AppStore } from '../AppStore';
 import { FetchTracker } from '../utils/FetchTracker';
 import { IRatesResponse, TRatesHash } from './index';
-import { reaction } from 'mobx';
+import { when } from 'mobx';
 import { createBaseAsset, getPair } from '../../utils/dataEntriesUtils';
 import { BigNumber } from '@waves/bignumber';
 import { getInUsd } from '../../utils/usdUtils';
@@ -28,12 +28,10 @@ export class RatesStore extends ChildStore {
             autoFetch: true,
         });
 
-        reaction(
-            () => this.rs.assetsStore.assetsData.isLoading,
+        when(
+            () => !this.rs.assetsStore.assetsData.isFirstLoad,
             () => {
-                if (!this.rs.assetsStore.assetsData.isLoading) {
-                    this.rates.load();
-                }
+                this.rates.load();
             }
         );
     }

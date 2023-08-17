@@ -38,3 +38,7 @@ export const isEnoughMoney = (
 };
 
 export const shortAddress = (address): string => `${address.slice(0, 8)}...${address.slice(-8)}`;
+
+export function isPromise(some: any): some is Promise<any> {
+    return typeof some.then === 'function' && typeof some.catch === 'function';
+}

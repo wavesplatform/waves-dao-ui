@@ -62,3 +62,4 @@ export const parseError = (e, isDevices, device): ITransProps => {
 
     return trans;
 };
+

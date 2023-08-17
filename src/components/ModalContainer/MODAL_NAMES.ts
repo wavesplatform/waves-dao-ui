@@ -5,7 +5,7 @@ export enum MODAL_NAMES {
     legalDisclaimer = 'legalDisclaimer',
     getWaves = 'getWaves',
     claimWavesDaoLp = 'claimWavesDaoLp',
-    cancelWithdrawal = 'cancelWithdrawal',
+    getTokens = 'getTokens',
     depositWaves = 'depositWaves',
     withdraw = 'withdraw',
 }

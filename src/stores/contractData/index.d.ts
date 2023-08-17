@@ -15,6 +15,7 @@ export interface ICommonContractData {
     currentPeriod: number;
     investedWaves: Money;
     donatedWaves: Money;
+    heightForDeposit: number;
 }
 
 export interface IUserContractData {
@@ -24,3 +25,15 @@ export interface IUserContractData {
 }
 
 export type TPriceData = Record<string, Money>;
+
+export interface IWithdrawalDataPlain {
+    wavesEq: string;
+    assetIds: Array<string>;
+    values: Array<string>;
+}
+
+export interface IWithdrawalData {
+    wavesEq: Money;
+    reward: Array<Money>;
+}
+export type TWithdrawalsData = Record<string, IWithdrawalData>

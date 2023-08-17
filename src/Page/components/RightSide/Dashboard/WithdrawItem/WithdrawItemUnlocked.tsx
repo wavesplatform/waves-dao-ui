@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, FC } from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Text } from 'uikit';
 import { Trans } from '@waves/ui-translator';
@@ -6,12 +6,28 @@ import { Button } from 'uikit';
 import { MODAL_NAMES } from '../../../../../components/ModalContainer/MODAL_NAMES';
 import { modalManager } from '../../../../../services/modalManager';
 import { InUsdText } from '../../../../../components/utilComponents/inUsdText';
-import { TGetWavesModal } from '../../../../../components/modals/GetWavesModal/GetWavesModal';
 import { TWithdrawItem } from './WithdrawItemLocked';
+import * as React from 'react';
+import { AppStoreContext } from '../../../../../App.tsx';
+import { TGetModalData } from '../../../../../components/modals/GetTokensModal/GetTokens.tsx';
 
-export const WithdrawItemUnlocked: React.FC<TWithdrawItem> = ({ baseTokenAmount, lpAmount, equal, withdrawTxId }) => {
+export const WithdrawItemUnlocked: FC<TWithdrawItem> = ({
+    baseTokenAmount,
+    lpAmount,
+    equal,
+    withdrawTxId,
+}) => {
+    const rootStore = React.useContext(AppStoreContext);
     const handleClickButton = useCallback(() => {
-        modalManager.openModal<TGetWavesModal>(MODAL_NAMES.getWaves, { withdrawTxId, availableToGet: baseTokenAmount });
+        const { reward = [] } = rootStore.contractDataStore.withdrawalsData.data[withdrawTxId] || {};
+        modalManager.openModal<TGetModalData>(
+            MODAL_NAMES.getTokens,
+            {
+                withdrawTxId,
+                tokens: reward,
+                wavesEq: baseTokenAmount,
+            }
+        );
     }, [baseTokenAmount, withdrawTxId]);
 
     return (
