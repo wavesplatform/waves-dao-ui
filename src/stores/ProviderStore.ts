@@ -3,6 +3,7 @@ import { AppStore } from './AppStore';
 import { ChildStore } from './ChildStore';
 import { InvokeScriptCall, InvokeScriptPayment } from '@waves/ts-types';
 import { normalizeTxTimestamp } from '../utils';
+import { USER_TYPES } from './AuthStore.ts';
 
 export class ProviderStore extends ChildStore {
     public signer: Signer;
@@ -36,12 +37,18 @@ export class ProviderStore extends ChildStore {
             }
             return this.signer
                 .invoke(
-                    normalizeTxTimestamp({
-                        ...this.invokeTxCommonParams,
-                        call,
-                        payment,
-                        timestamp: Date.now(),
-                    })
+                    this.rs.authStore.user?.type === USER_TYPES.ledger ?
+                        {
+                            ...this.invokeTxCommonParams,
+                            call,
+                            payment,
+                        } :
+                        normalizeTxTimestamp({
+                            ...this.invokeTxCommonParams,
+                            call,
+                            payment,
+                            timestamp: Date.now(),
+                        })
                 )
                 .broadcast();
         });

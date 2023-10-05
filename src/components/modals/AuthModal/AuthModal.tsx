@@ -4,7 +4,7 @@ import { ModalStyled } from '../../Modal/ModalStyled';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Text } from 'uikit';
 import { AuthItem } from './components/AuthItem';
-import { keeper, metaMask, wxIcon } from './icons';
+import { keeper, metaMask, wxIcon, ledger } from './icons';
 import { Checkbox } from 'uikit';
 import { useState } from 'react';
 import { Button } from 'uikit';
@@ -50,6 +50,14 @@ const AuthModalFC: React.FC<ModalProps> = (props) => {
                 </Text>
             </Box>
             <Flex flexDirection="column" alignItems="center" ref={wrapperRef}>
+                <AuthItem
+                    icon={ledger}
+                    text={{ i18key: 'Ledger' }}
+                    onSelect={() => setSelectedProvider(PROVIDER_TYPES.ledger)}
+                    className={`${
+                        selectedProvider === PROVIDER_TYPES.ledger ? 'selected' : ''
+                    }`}
+                />
                 <AuthItem
                     icon={metaMask}
                     text={{ i18key: 'metaMask' }}

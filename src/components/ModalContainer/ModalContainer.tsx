@@ -41,7 +41,7 @@ const showContainer = (el: HTMLElement): void => {
     el.style.width = '100%';
     el.style.height = '100%';
     el.style.position = 'fixed';
-    el.style.zIndex = '9999';
+    el.style.zIndex = '999';
 };
 
 const hideContainer = (el: HTMLElement): void => {

@@ -1,8 +1,7 @@
 import { FC, memo } from 'react';
 import { Flex } from '@waves.exchange/wx-react-uikit';
 import { Trans } from '@waves/ui-translator';
-import { Text } from '../../../../uikit/Text/Text';
-import { Button } from '../../../../uikit/Button/Button';
+import { Text, Button } from 'uikit';
 import { ConnectTypes } from './ConnectTypes';
 import { modalManager } from '../../../../services/modalManager';
 import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES';
