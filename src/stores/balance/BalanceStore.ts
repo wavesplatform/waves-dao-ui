@@ -55,14 +55,6 @@ export class BalanceStore extends ChildStore {
         return this.balances[this.rs.assetsStore.LPToken.id]?.balance;
     }
 
-    public get balanceLpInWaves(): Money {
-        const { prices = {}, currentPeriod = 0 } =
-        this.rs.contractDataStore.commonContractData?.data || {};
-
-        return new Money(0, this.rs.assetsStore.WAVES)
-            .cloneWithCoins(this.wavesLpBalance?.getTokens().mul(prices[currentPeriod]));
-    }
-
     public off() {
         this.wavesBalance?.off();
         this.otherBalance?.off();

@@ -5,7 +5,6 @@ import { Trans } from '@waves/ui-translator';
 import { Button } from 'uikit';
 import wavesLpUrl from '/src/img/waveslp.svg';
 import { WithdrawItem } from './WithdrawItem/WithdrawItem';
-import { InUsdText } from '../../../../components/utilComponents/inUsdText';
 import { observer } from 'mobx-react-lite';
 import { AppStoreContext } from '../../../../App';
 import { modalManager } from '../../../../services/modalManager';
@@ -69,29 +68,6 @@ export const LpBalance: FC = observer(() => {
                             <Text variant="text2" color="wdtextsec">
                                 {assetsStore.LPToken.displayName}
                             </Text>
-                        </Flex>
-                        <Flex
-                            alignItems="center"
-                            justifyContent={['center', 'initial']}
-                        >
-                            <Text
-                                as="div"
-                                variant="text2"
-                                color="text"
-                                mr="4px"
-                            >
-                                {`~${balanceStore.balanceLpInWaves?.toFormat()}`}
-                            </Text>
-                            <Text variant="text2" color="wdtextsec">
-                                {assetsStore.WAVES.displayName}
-                            </Text>
-                            <InUsdText
-                                usd={ratesStore.balanceLpInWavesUsd}
-                                decimals={2}
-                                variant="text2"
-                                color="wdtextsec"
-                                ml="4px"
-                            />
                         </Flex>
                     </Box>
                 </Flex>

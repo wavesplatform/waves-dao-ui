@@ -7,10 +7,9 @@ import { Text } from 'uikit';
 
 interface TokensProps {
     tokens: Money[];
-    wavesEq: Money;
 }
 
-export const Tokens: React.FC<TokensProps> = ({ tokens, wavesEq }) => {
+export const Tokens: React.FC<TokensProps> = ({ tokens }) => {
     return (
         <Box backgroundColor="rgba(0, 6, 22, 0.5)" py="16px" borderRadius="8px">
             <Text
@@ -27,16 +26,6 @@ export const Tokens: React.FC<TokensProps> = ({ tokens, wavesEq }) => {
                     {tokens.map((token) => {
                         return <TokenRow token={token} key={token.asset.id} />;
                     })}
-                    <Text
-                        textAlign="center"
-                        mb="4px"
-                        variant="text1"
-                        display="block"
-                        color="wdtextsec"
-                    >
-                        <Trans i18key={'equivalentTo'} />
-                    </Text>
-                    <TokenRow token={wavesEq} />
                 </Box>
             </Flex>
 

@@ -65,13 +65,6 @@ export class RatesStore extends ChildStore {
         ).getTokens();
     }
 
-    public get balanceLpInWavesUsd(): BigNumber {
-        return getInUsd(
-            this.rs.balanceStore.balanceLpInWaves,
-            this.rates.data
-        ).getTokens();
-    }
-
     public get currentPriceWavesInUsd(): BigNumber {
         return getInUsd(
             new Money(0, this.rs.assetsStore.WAVES).cloneWithTokens(1),
