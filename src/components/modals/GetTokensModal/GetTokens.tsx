@@ -63,7 +63,7 @@ const GetTokensFC: React.FC<TGetModalFC> = ({
                         >
                             <Trans i18key="getTokens" />
                         </Text>
-                        <Tokens tokens={tokens} wavesEq={wavesEq}/>
+                        <Tokens tokens={tokens} />
                         <FeeComponent mb="28px" />
                         <MultiErrorComponent
                             activeErrors={getTokensStore.activeErrors}

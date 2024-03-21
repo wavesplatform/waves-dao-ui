@@ -5,7 +5,6 @@ import { Trans } from '@waves/ui-translator';
 import { Button } from 'uikit';
 import { MODAL_NAMES } from '../../../../../components/ModalContainer/MODAL_NAMES';
 import { modalManager } from '../../../../../services/modalManager';
-import { InUsdText } from '../../../../../components/utilComponents/inUsdText';
 import { TWithdrawItem } from './WithdrawItemLocked';
 import * as React from 'react';
 import { AppStoreContext } from '../../../../../App.tsx';
@@ -14,7 +13,6 @@ import { TGetModalData } from '../../../../../components/modals/GetTokensModal/G
 export const WithdrawItemUnlocked: FC<TWithdrawItem> = ({
     baseTokenAmount,
     lpAmount,
-    equal,
     withdrawTxId,
 }) => {
     const rootStore = React.useContext(AppStoreContext);
@@ -29,6 +27,10 @@ export const WithdrawItemUnlocked: FC<TWithdrawItem> = ({
             }
         );
     }, [baseTokenAmount, withdrawTxId]);
+
+    if (!rootStore.contractDataStore.withdrawalsData.data[withdrawTxId]?.reward?.length) {
+        return null;
+    }
 
     return (
         <Flex
@@ -66,27 +68,7 @@ export const WithdrawItemUnlocked: FC<TWithdrawItem> = ({
                     justifyContent={['center', 'initial']}
                 >
                     <Text as="div" variant="text1" color="text" mr="4px">
-                        {baseTokenAmount.getTokens().toFormat()}
-                    </Text>
-                    <Text variant="text2" color="wdtextsec">
-                        {baseTokenAmount.asset.displayName}
-                        {equal ? (
-                            <InUsdText
-                                usd={equal}
-                                decimals={2}
-                                variant="text2"
-                                color="wdtextsec"
-                                ml="4px"
-                            />
-                        ) : null}
-                    </Text>
-                </Flex>
-                <Flex
-                    alignItems="center"
-                    justifyContent={['center', 'initial']}
-                >
-                    <Text as="div" variant="text2" color="text" mr="4px">
-                        {`=${lpAmount.getTokens().toFormat()}`}
+                        {lpAmount.getTokens().toFormat()}
                     </Text>
                     <Text variant="text2" color="wdtextsec">
                         {lpAmount.asset.displayName}

@@ -37,7 +37,6 @@ export const WithdrawItem: FC<{ item: IWithdrawal }> = observer(({ item }) => {
     return isWithdrawUnlocked ? (
         <WithdrawItemUnlocked
             lpAmount={item.lpAssetAmount}
-            equal={equal}
             baseTokenAmount={baseTokenAmount}
             withdrawTxId={item.withdrawTxId}
         />
