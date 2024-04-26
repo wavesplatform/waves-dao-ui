@@ -1,7 +1,6 @@
 import { FC, useContext, useState } from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Treasury } from './common/Treasury';
-import { DiagramBlock } from './common/DiagramBlock';
 import { InfoBlock } from './common/InfoBlock';
 import { ConnectBlock } from './ConnectBlock/ConnectBlock';
 import { Dashboard } from './Dashboard/Dashboard';
@@ -30,7 +29,6 @@ export const RightSide: FC = observer(() => {
             >
                 <Flex flexDirection={['column', 'row']} mb="16px">
                     <Treasury />
-                    <DiagramBlock />
                 </Flex>
                 <InfoBlock />
                 {authStore.isAuthorized ? <Dashboard /> : <ConnectBlock />}

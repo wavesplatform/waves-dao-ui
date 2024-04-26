@@ -46,14 +46,14 @@ export class RatesStore extends ChildStore {
 
     public get donatedWavesInUsd(): BigNumber {
         return getInUsd(
-            this.rs.contractDataStore.donatedWaves,
+            this.rs.contractDataStore.commonContractData.data?.donatedWaves || new Money(0, this.rs.assetsStore.WAVES),
             this.rates.data
         ).getTokens();
     }
 
     public get investedWavesInUsd(): BigNumber {
         return getInUsd(
-            this.rs.contractDataStore.investedWaves,
+            this.rs.contractDataStore.commonContractData.data?.investedWaves || new Money(0, this.rs.assetsStore.WAVES),
             this.rates.data
         ).getTokens();
     }

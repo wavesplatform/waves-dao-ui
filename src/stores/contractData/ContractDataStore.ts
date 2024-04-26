@@ -71,7 +71,7 @@ export class ContractDataStore extends ChildStore {
             () => {
                 this.updateWithdrawalsData(contractAddress);
             },
-        )
+        );
     }
 
     public get getTreasuryUsd(): BigNumber {
@@ -95,20 +95,6 @@ export class ContractDataStore extends ChildStore {
         const pendingWithdrawals = this.withdraws.filter((item) => item.status === 'PENDING');
         return pendingWithdrawals
             .some(withdraw => withdraw.targetPeriod  <= this.commonContractData.data.currentPeriod);
-    }
-
-    public get investedWaves(): Money {
-        return (
-            this.commonContractData.data?.investedWaves ||
-            new Money(0, this.rs.assetsStore.WAVES)
-        );
-    }
-
-    public get donatedWaves(): Money {
-        return (
-            this.commonContractData.data?.donatedWaves ||
-            new Money(0, this.rs.assetsStore.WAVES)
-        );
     }
 
     public get currentPeriod(): number {
@@ -312,7 +298,7 @@ export class ContractDataStore extends ChildStore {
                     })
                     .then(([data]) => {
                         return data;
-                    })
+                    });
             },
             parser: (data) => {
                 return this.withdrawalDataParser(data, ids);
@@ -360,7 +346,7 @@ export class ContractDataStore extends ChildStore {
                         new Money(values[i] || 0, asset)
                     ]);
                 }, []),
-            }
+            };
             return acc;
         }, Object.create(null));
     }

@@ -63,26 +63,6 @@ export const InfoBlock: FC = observer(() => {
                         as="div"
                     />
                 </Flex>
-                <Box
-                    width="6px"
-                    height="6px"
-                    sx={{
-                        borderRadius: '50%',
-                        mx: '16px',
-                        backgroundColor: 'wdmain',
-                        display: ['none', 'block'],
-                    }}
-                />
-                <Flex mb="4px">
-                    <Text as="div" color="wdtextsec" variant="text1" mr="4px">
-                        <Trans i18key="rate" />
-                    </Text>
-                    <Text as="div" color="text" variant="text1" mr="4px">
-                        {`1 WAVES = ${contractDataStore.currentPriceWavesLp.toFormat()} ${
-                            assetsStore.LPToken?.displayName
-                        }`}
-                    </Text>
-                </Flex>
             </Flex>
             <Flex flexWrap="wrap">
                 <Text
