@@ -2,11 +2,12 @@ import { ChildStore } from '../ChildStore';
 import { AppStore } from '../AppStore';
 import { FetchTracker } from '../utils/FetchTracker';
 import { IRatesResponse, TRatesHash } from './index';
-import { when } from 'mobx';
+import { reaction, when } from 'mobx';
 import { createBaseAsset, getPair } from '../../utils/dataEntriesUtils';
 import { BigNumber } from '@waves/bignumber';
 import { getInUsd } from '../../utils/usdUtils';
 import { Money } from '@waves/data-entities';
+import { uniq } from 'ramda';
 
 export class RatesStore extends ChildStore {
     rates: FetchTracker<TRatesHash, IRatesResponse>;
@@ -25,15 +26,22 @@ export class RatesStore extends ChildStore {
             },
             parser: this.ratesParser,
             refreshInterval: 30_000,
-            autoFetch: true,
         });
 
         when(
-            () => !this.rs.assetsStore.assetsData.isFirstLoad,
+            () => (
+                !this.rs.assetsStore.assetsData.isFirstLoad &&
+                !this.rs.contractBalanceStore.balanceTracker.isFirstLoad
+            ),
             () => {
                 this.rates.load();
             }
         );
+
+        reaction(
+            () => this.rates.data,
+            () => this.rs.contractBalanceStore.updateTotals(),
+        )
     }
 
     public static get baseAsset() {
@@ -42,27 +50,6 @@ export class RatesStore extends ChildStore {
             id: 'USD',
             precision: 2,
         });
-    }
-
-    public get donatedWavesInUsd(): BigNumber {
-        return getInUsd(
-            this.rs.contractDataStore.commonContractData.data?.donatedWaves || new Money(0, this.rs.assetsStore.WAVES),
-            this.rates.data
-        ).getTokens();
-    }
-
-    public get investedWavesInUsd(): BigNumber {
-        return getInUsd(
-            this.rs.contractDataStore.commonContractData.data?.investedWaves || new Money(0, this.rs.assetsStore.WAVES),
-            this.rates.data
-        ).getTokens();
-    }
-
-    public get currentPriceLpInWavesUsd(): BigNumber {
-        return getInUsd(
-            this.rs.contractDataStore.currentPriceLpInWaves,
-            this.rates.data
-        ).getTokens();
     }
 
     public get currentPriceWavesInUsd(): BigNumber {
@@ -76,6 +63,22 @@ export class RatesStore extends ChildStore {
         this.rates.off();
     }
 
+    public updateOptions(): void {
+        // update ids in body
+        this.rates.setOptions({
+            fetchUrl: `${this.rs.configStore.config.apiUrl.rates}`,
+            options: {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: this.getRatesBody(),
+            },
+            parser: this.ratesParser,
+            refreshInterval: 30_000,
+        })
+    }
+
     private ratesParser({ data }: IRatesResponse): TRatesHash {
         return data.reduce<TRatesHash>((acc, item) => {
             acc[item.pair] = {
@@ -87,9 +90,11 @@ export class RatesStore extends ChildStore {
     }
 
     private getRatesBody(): string {
-        const assetsIds = this.rs.configStore.config.assets.map(
-            (asset) => asset.id
-        );
+        const contractBalanceAssetsIds = Object.keys(this.rs.contractBalanceStore.balances);
+        const assetStoreIds = this.rs.configStore.config.assets.map((asset) => {
+            return asset.id;
+        });
+        const assetsIds = uniq([...contractBalanceAssetsIds, ...assetStoreIds]);
         const toAsset = 'USD';
         const pairs = assetsIds.map((assetId) => getPair(assetId, toAsset));
         return JSON.stringify({ pairs });

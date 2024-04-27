@@ -24,7 +24,10 @@ function App() {
                     <ModalContainer />
                     <Observer>
                         {(): ReactElement => {
-                            return appStore.assetsStore.assetsData.isFirstLoad  ? (
+                            return (
+                                appStore.assetsStore.assetsData.isFirstLoad ||
+                                appStore.contractBalanceStore.balanceTracker.isFirstLoad
+                            ) ? (
                                 <Flex
                                     height="100vh"
                                     alignItems="center"

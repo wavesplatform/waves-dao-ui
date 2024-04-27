@@ -7,7 +7,6 @@ import { IState } from '../../utils/search';
 import { getTupleValue, parseSearchStr } from '../../utils/parseContractData/parseContractData.ts';
 import { Money } from '@waves/data-entities';
 import { ICommonContractData, IUserContractData, IWithdrawal, TWithdrawalsData } from '.';
-import BigNumber from '@waves/bignumber';
 import { filterObjectCommonContract, filterObjectUserContract, parseClaimCollateral } from './utils';
 import { evaluate } from '../../utils/evaluate/evaluateRequest.ts';
 import { ITuple, TStringValue } from '../../utils/parseContractData/interface';
@@ -74,12 +73,6 @@ export class ContractDataStore extends ChildStore {
         );
     }
 
-    public get getTreasuryUsd(): BigNumber {
-        return this.rs.ratesStore.investedWavesInUsd.add(
-            this.rs.ratesStore.donatedWavesInUsd
-        );
-    }
-
     public get withdraws(): IWithdrawal[] {
         return this.userContractData.data?.withdraws || [];
     }
@@ -101,24 +94,6 @@ export class ContractDataStore extends ChildStore {
         return this.commonContractData.data?.currentPeriod || 0;
     }
 
-    public get currentPriceLpInWaves(): Money {
-        const { prices = {}, currentPeriod = 0 } =
-            this.commonContractData?.data || {};
-
-        return new Money(prices[currentPeriod] || 0, this.rs.assetsStore.WAVES);
-    }
-
-    public get currentPriceWavesLp(): Money {
-        const { prices = {}, currentPeriod } = this.commonContractData?.data || {};
-
-        const price = new Money(0, this.rs.assetsStore.WAVES)
-            .cloneWithTokens(1)
-            .getCoins()
-            .div(prices[currentPeriod || 0]);
-
-        return new Money(0, this.rs.assetsStore.LPToken).cloneWithTokens(price);
-    }
-
     public get finalizingKPI(): number {
         const {
             periodLength = 0,
@@ -136,10 +111,6 @@ export class ContractDataStore extends ChildStore {
     public get startHeight(): number {
         const { startHeights = {}, currentPeriod } = this.commonContractData?.data || {};
         return startHeights[currentPeriod] || 0;
-    }
-
-    public get blocksForDeposit(): number {
-        return this.commonContractData.data.heightForDeposit || 0;
     }
 
     private contractDataParser = (data: IState): ICommonContractData => {
@@ -163,17 +134,17 @@ export class ContractDataStore extends ChildStore {
                         acc.prices[pricePeriod] = value;
                     }
                     return;
-                case key.includes('invested__WAVES'):
-                    return {
-                        investedWaves: new Money(
-                            value,
-                            this.rs.assetsStore.WAVES
-                        ),
-                    };
-                case key.includes('donated__WAVES'):
-                    return {
-                        donatedWaves: new Money(value, this.rs.assetsStore.WAVES),
-                    };
+                // case key.includes('invested__WAVES'):
+                //     return {
+                //         investedWaves: new Money(
+                //             value,
+                //             this.rs.assetsStore.WAVES
+                //         ),
+                //     };
+                // case key.includes('donated__WAVES'):
+                //     return {
+                //         donatedWaves: new Money(value, this.rs.assetsStore.WAVES),
+                //     };
                 case key.includes('investPeriodLength'):
                     return {
                         heightForDeposit: Number(value),
@@ -190,8 +161,8 @@ export class ContractDataStore extends ChildStore {
             },
             {
                 currentPeriod: undefined,
-                investedWaves: undefined,
-                donatedWaves: undefined,
+                // investedWaves: undefined,
+                // donatedWaves: undefined,
                 periodLength: undefined,
                 startHeights: {},
                 prices: {},
