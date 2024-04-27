@@ -9,7 +9,12 @@ import { BlocksToTime } from '../../../../utils/BlocksToTime';
 import { InUsdText } from '../../../../components/utilComponents/inUsdText';
 
 export const InfoBlock: FC = observer(() => {
-    const { contractDataStore, ratesStore, assetsStore } =
+    const {
+        contractDataStore,
+        ratesStore,
+        assetsStore,
+        contractBalanceStore,
+    } =
         useContext(AppStoreContext);
 
     return (
@@ -52,15 +57,13 @@ export const InfoBlock: FC = observer(() => {
                             i18Params={{ assetName: assetsStore.LPToken?.displayName }}
                         />
                     </Text>
-                    <Text as="div" color="text" variant="text1" mr="4px">
-                        {`${contractDataStore.currentPriceLpInWaves.toFormat()} WAVES`}
-                    </Text>
                     <InUsdText
-                        usd={ratesStore.currentPriceLpInWavesUsd}
+                        usd={contractBalanceStore.currentPriceLpInUsd}
                         decimals={2}
                         variant="text1"
-                        color="wdtextsec"
+                        color="text"
                         as="div"
+                        hasBrackets={false}
                     />
                 </Flex>
             </Flex>

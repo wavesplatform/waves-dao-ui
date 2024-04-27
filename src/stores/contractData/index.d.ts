@@ -13,8 +13,8 @@ export interface ICommonContractData {
     startHeights: Record<string, number>;
     periodLength: number;
     currentPeriod: number;
-    investedWaves: Money;
-    donatedWaves: Money;
+    // investedWaves: Money;
+    // donatedWaves: Money;
     heightForDeposit: number;
 }
 
