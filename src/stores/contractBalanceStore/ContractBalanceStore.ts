@@ -62,7 +62,6 @@ export class ContractBalanceStore extends ChildStore {
                 const nextIds = Object.keys(this.balances);
 
                 if (prevIds.length && !equals(prevIds.sort(), nextIds.sort())) {
-                    debugger
                     this.rs.ratesStore.updateOptions();
                 }
 
