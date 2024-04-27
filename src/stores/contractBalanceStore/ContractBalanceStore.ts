@@ -76,7 +76,7 @@ export class ContractBalanceStore extends ChildStore {
             Record<string, ISimpleBalance>,
             TNodeBalanceResponse
         >({
-            fetchUrl: `${config.apiUrl.node}/assets/balance/${config.contracts.factory}`,
+            fetchUrl: `${config.apiUrl.node}/assets/balance/${config.contracts.treasury}`,
             options: {
                 method: 'GET',
                 headers: {

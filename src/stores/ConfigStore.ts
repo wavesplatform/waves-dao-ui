@@ -19,7 +19,8 @@ export type TConfig = {
     contracts: {
         factory: string;
         calculator: string;
-        lpToken: string
+        lpToken: string;
+        treasury: string;
     },
     network: {
         code: 'W' | 'T';

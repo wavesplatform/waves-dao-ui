@@ -17,7 +17,8 @@ export default<TConfig> {
     contracts: {
         factory: '3PJVm7xLPabmYohbnvdgGDYHMwnZxF2x18m',
         calculator: '3PAFngdaQ9rmbX3bKLu94fvSTUe4vDn1T2F',
-        lpToken: 'HYogWffUjS8Uw4bYA1Dn3qrGmJerMqkf139aJcHhk8yq'
+        lpToken: 'HYogWffUjS8Uw4bYA1Dn3qrGmJerMqkf139aJcHhk8yq',
+        treasury: '3PEwRcYNAUtoFvKpBhKoiwajnZfdoDR6h4h',
     },
     network: {
         code: 'W'
