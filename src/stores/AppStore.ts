@@ -7,6 +7,7 @@ import { RatesStore } from './rates/RatesStore';
 import { ContractDataStore } from './contractData/ContractDataStore';
 import { when } from 'mobx';
 import { ProviderStore } from './ProviderStore';
+import { ContractBalanceStore } from './contractBalanceStore/ContractBalanceStore.ts';
 
 export class AppStore {
 
@@ -18,14 +19,16 @@ export class AppStore {
     public ratesStore: RatesStore;
     public contractDataStore: ContractDataStore;
     public providerStore: ProviderStore;
+    public contractBalanceStore: ContractBalanceStore;
 
     constructor() {
         this.configStore = new ConfigStore();
         this.assetsStore = new AssetsStore(this);
         this.authStore = new AuthStore(this);
+        this.contractBalanceStore = new ContractBalanceStore(this);
 
         when(
-            () => !this.assetsStore.assetsData.isFirstLoad,
+            () => !this.assetsStore.assetsData.isFirstLoad && !this.contractBalanceStore.balanceTracker.isFirstLoad,
             () => {
                 this.providerStore = new ProviderStore(this);
                 this.balanceStore = new BalanceStore(this);

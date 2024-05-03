@@ -9,7 +9,12 @@ import { BlocksToTime } from '../../../../utils/BlocksToTime';
 import { InUsdText } from '../../../../components/utilComponents/inUsdText';
 
 export const InfoBlock: FC = observer(() => {
-    const { contractDataStore, ratesStore, assetsStore } =
+    const {
+        contractDataStore,
+        ratesStore,
+        assetsStore,
+        contractBalanceStore,
+    } =
         useContext(AppStoreContext);
 
     return (
@@ -52,36 +57,14 @@ export const InfoBlock: FC = observer(() => {
                             i18Params={{ assetName: assetsStore.LPToken?.displayName }}
                         />
                     </Text>
-                    <Text as="div" color="text" variant="text1" mr="4px">
-                        {`${contractDataStore.currentPriceLpInWaves.toFormat()} WAVES`}
-                    </Text>
                     <InUsdText
-                        usd={ratesStore.currentPriceLpInWavesUsd}
+                        usd={contractBalanceStore.currentPriceLpInUsd}
                         decimals={2}
                         variant="text1"
-                        color="wdtextsec"
+                        color="text"
                         as="div"
+                        hasBrackets={false}
                     />
-                </Flex>
-                <Box
-                    width="6px"
-                    height="6px"
-                    sx={{
-                        borderRadius: '50%',
-                        mx: '16px',
-                        backgroundColor: 'wdmain',
-                        display: ['none', 'block'],
-                    }}
-                />
-                <Flex mb="4px">
-                    <Text as="div" color="wdtextsec" variant="text1" mr="4px">
-                        <Trans i18key="rate" />
-                    </Text>
-                    <Text as="div" color="text" variant="text1" mr="4px">
-                        {`1 WAVES = ${contractDataStore.currentPriceWavesLp.toFormat()} ${
-                            assetsStore.LPToken?.displayName
-                        }`}
-                    </Text>
                 </Flex>
             </Flex>
             <Flex flexWrap="wrap">

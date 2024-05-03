@@ -83,18 +83,18 @@ export const filterObjectCommonContract = ({ contractAddress }) => {
                                         value: '%s__currentPeriod',
                                     },
                                 },
-                                {
-                                    key: {
-                                        operation: 'eq',
-                                        value: '%s%s__invested__WAVES',
-                                    },
-                                },
-                                {
-                                    key: {
-                                        operation: 'eq',
-                                        value: '%s%s__donated__WAVES',
-                                    },
-                                },
+                                // {
+                                //     key: {
+                                //         operation: 'eq',
+                                //         value: '%s%s__invested__WAVES',
+                                //     },
+                                // },
+                                // {
+                                //     key: {
+                                //         operation: 'eq',
+                                //         value: '%s%s__donated__WAVES',
+                                //     },
+                                // },
                                 {
                                     key: {
                                         operation: 'eq',

@@ -9,7 +9,6 @@
     "treasuty": "Treasury",
     "tokenPrice": "{{assetName}} Price",
     "lpPrice": "{{assetName}} Price",
-    "rate": "Rate",
     "kpiPeriod": "KPI period ends in {span}[~ {{period}} ({{blocks}})]",
     "kpiPeriodFinalizing": "Finalizing KPI period...",
     "connectDesc": "Connect Wallet to Deposit WAVES",
@@ -154,8 +153,6 @@
         "one": "blocks",
         "any": "blocks"
     },
-    "invested": "invested",
-    "donated": "donated",
     "depositTooltipFinalizing": "Deposit is temporarily unavailable. Finalizing KPI period.",
     "depositTooltipUnavailable": "Deposit is temporarily unavailable. Ability to deposit will resume after finalizing the current KPI period.",
     "availableToGet": "Available for Get",
