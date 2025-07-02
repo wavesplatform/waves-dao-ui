@@ -87,7 +87,7 @@ export class ContractDataStore extends ChildStore {
     public get isUnlockedTokensMS(): boolean {
         const pendingWithdrawals = this.withdraws.filter((item) => item.status === 'PENDING');
         return pendingWithdrawals
-            .some(withdraw => withdraw.targetPeriod  <= this.commonContractData.data.currentPeriod);
+            .some(withdraw => withdraw.targetPeriod <= this.commonContractData.data.currentPeriod);
     }
 
     public get currentPeriod(): number {
@@ -134,17 +134,6 @@ export class ContractDataStore extends ChildStore {
                         acc.prices[pricePeriod] = value;
                     }
                     return;
-                // case key.includes('invested__WAVES'):
-                //     return {
-                //         investedWaves: new Money(
-                //             value,
-                //             this.rs.assetsStore.WAVES
-                //         ),
-                //     };
-                // case key.includes('donated__WAVES'):
-                //     return {
-                //         donatedWaves: new Money(value, this.rs.assetsStore.WAVES),
-                //     };
                 case key.includes('investPeriodLength'):
                     return {
                         heightForDeposit: Number(value),
@@ -161,8 +150,6 @@ export class ContractDataStore extends ChildStore {
             },
             {
                 currentPeriod: undefined,
-                // investedWaves: undefined,
-                // donatedWaves: undefined,
                 periodLength: undefined,
                 startHeights: {},
                 prices: {},
